@@ -1,8 +1,8 @@
-# Welcome to your Jupyter Book
+# Welcome 
 
-Nama        : Vania Wrenda Adelavisa 
-NIM         : 220411100092
-Mata Kuliah : Proyek Sains Data IF-5D
+Nama        : Vania Wrenda Adelavisa  
+NIM         : 220411100092  
+Mata Kuliah : Proyek Sains Data IF-5D  
 
 
 This is a small sample book to give you a feel for how book content is
