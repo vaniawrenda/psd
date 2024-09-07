@@ -1,5 +1,10 @@
 # Welcome to your Jupyter Book
 
+Nama        : Vania Wrenda Adelavisa 
+NIM         : 220411100092
+Mata Kuliah : Proyek Sains Data IF-5D
+
+
 This is a small sample book to give you a feel for how book content is
 structured.
 It shows off a few of the major file types, as well as some sample content.
