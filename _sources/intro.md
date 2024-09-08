@@ -5,6 +5,7 @@ Nama        : Vania Wrenda Adelavisa
 NIM         : 220411100092  
 Mata Kuliah : Proyek Sains Data IF-5D  
 
+Website ini dibuat sebagai bagian dari tugas perkuliahan untuk mata kuliah Proyek Sains Data.
 
 <!-- This is a small sample book to give you a feel for how book content is
 structured.
