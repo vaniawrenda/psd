@@ -22,5 +22,4 @@ Dalam proses mencapai visi dan misi serta target bisnisnya, Hypermart menghadapi
 Tujuan utama dari analisis data ini adalah untuk mendukung pencapaian visi dan misi Hypermart sebagai jaringan ritel terkemuka di Indonesia. Analisis ini bertujuan untuk meningkatkan akurasi peramalan penjualan, sehingga dapat meminimalkan risiko kekurangan dan kelebihan stok yang sering terjadi akibat ketidakpastian permintaan. Dengan peramalan yang lebih tepat, Hypermart dapat mengoptimalkan rantai pasokan, memastikan ketersediaan produk yang tepat di rak, serta meningkatkan efisiensi operasional serta kepuasan pelanggan. 
 
 
-
 ## Metodologi
