@@ -181,6 +181,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="laporan.html">Laporan Proyek Sains Data</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Laporan Proyek Sains Data Baru</a></li>
+
 </ul>
 
     </div>
@@ -376,6 +377,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Laporan Proyek Sains Data Baru</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan">Tujuan</a></li>
@@ -391,6 +393,10 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca data</a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -440,9 +446,21 @@ document.write(`
 <li><p>Beras Kualitas Super I: Berisi harga beras dengan kualitas tinggi tingkat I, dinyatakan dalam satuan rupiah per kilogram.</p></li>
 <li><p>Beras Kualitas Super II: Berisi harga beras dengan kualitas tinggi tingkat II, dinyatakan dalam satuan rupiah per kilogram.</p></li>
 </ol>
+<p>import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import plotly.graph_objects as go</p>
 </section>
 </section>
 </section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="membaca-data">
+<h1>Membaca data<a class="headerlink" href="#membaca-data" title="Link to this heading">#</a></h1>
+<p>df = pd.read_csv(’<a class="reference external" href="https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/data_harga_beras.csv">https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/data_harga_beras.csv</a>’)
+df</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -500,6 +518,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Laporan Proyek Sains Data Baru</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pendahuluan">Pendahuluan</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan">Tujuan</a></li>
@@ -515,6 +534,10 @@ document.write(`
 </ul>
 </li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#membaca-data">Membaca data</a></li>
+</ul>
+
   </nav></div>
 
 </div></div>

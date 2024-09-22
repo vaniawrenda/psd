@@ -39,3 +39,16 @@ Dataset ini terdiri dari 8 fitur atau kolom dan 56 record atau baris. Atribut-at
 6.	Beras Kualitas Medium II: Berisi harga beras dengan kualitas menengah tingkat II, dinyatakan dalam satuan rupiah per kilogram.
 7.	Beras Kualitas Super I: Berisi harga beras dengan kualitas tinggi tingkat I, dinyatakan dalam satuan rupiah per kilogram.
 8.	Beras Kualitas Super II: Berisi harga beras dengan kualitas tinggi tingkat II, dinyatakan dalam satuan rupiah per kilogram.
+
+
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+import plotly.graph_objects as go
+
+# Membaca data
+df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/data_harga_beras.csv')
+df
