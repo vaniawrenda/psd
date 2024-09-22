@@ -24,3 +24,7 @@ Dalam proses mencapai visi dan misi serta target bisnisnya, Hypermart menghadapi
 
 
 ## Metodologi
+
+### Data Understanding 
+
+#### Sumber Data  
