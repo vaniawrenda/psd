@@ -26,5 +26,16 @@ Dalam upaya menjaga stabilitas harga dan memenuhi permintaan pasar, para produse
 ### Data Understanding 
 
 #### Sumber Data 
-Data yang digunakan dalam penelitian ini merupakan data sekunder yang diperoleh dari website PHIPS Nasional (Pusat Informasi Harga Pangan Strategis Nasional) www.bi.go.id/hargapangan. PHIPS Nasional merupakan sebuah platform online yang dikelola oleh Bank Indonesia dimana website ini memberikan informasi historis harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Di dalam proyek ini, digunakan data histori harga beras pada tahun 2020-2024 dengan periode bulanan pada semua pasar modern di Jawa Timur dalam bentuk dokumen xlsx. 
+Data yang digunakan dalam penelitian ini merupakan data sekunder yang diperoleh dari website PHIPS Nasional (Pusat Informasi Harga Pangan Strategis Nasional) di www.bi.go.id/hargapangan. PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2020 hingga 2024, dengan periode bulanan, yang diambil dari seluruh pasar modern di Jawa Timur. 
 
+#### Deskripsi Dataset
+
+Dataset ini terdiri dari 8 fitur atau kolom dan 56 record atau baris. Atribut-atirbut dalam dataset ini antara lain:
+1.	Bulan: Periode bulan ketika data harga beras dikumpulkan.
+2.	Tahun: Berisi informasi mengenai tahun pengumpulan data harga beras. 
+3.	Beras Kualitas Bawah I: Berisi harga beras dengan kualitas rendah tingkat I, dinyatakan dalam satuan rupiah per kilogram.
+4.	Beras Kualitas Bawah II: Berisi harga beras dengan kualitas rendah tingkat II, dinyatakan dalam satuan rupiah per kilogram.
+5.	Beras Kualitas Medium I: Berisi harga beras dengan kualitas menengah tingkat I, dinyatakan dalam satuan rupiah per kilogram.
+6.	Beras Kualitas Medium II: Berisi harga beras dengan kualitas menengah tingkat II, dinyatakan dalam satuan rupiah per kilogram.
+7.	Beras Kualitas Super I: Berisi harga beras dengan kualitas tinggi tingkat I, dinyatakan dalam satuan rupiah per kilogram.
+8.	Beras Kualitas Super II: Berisi harga beras dengan kualitas tinggi tingkat II, dinyatakan dalam satuan rupiah per kilogram.
