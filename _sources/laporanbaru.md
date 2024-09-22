@@ -22,3 +22,9 @@ Dalam upaya menjaga stabilitas harga dan memenuhi permintaan pasar, para produse
 
 
 ## Metodologi
+
+### Data Understanding 
+
+#### Sumber Data 
+Data yang digunakan dalam penelitian ini merupakan data sekunder yang diperoleh dari website PHIPS Nasional (Pusat Informasi Harga Pangan Strategis Nasional) bi.go.id/hargapangan. PHIPS Nasional merupakan sebuah platform online yang dikelola oleh Bank Indonesia dimana website ini memberikan informasi historis harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Di dalam proyek ini, digunakan data histori harga beras pada tahun 2020-2023 dengan periode bulanan pada semua pasar modern di Jawa Timur dalam bentuk dokumen xlsx. 
+
