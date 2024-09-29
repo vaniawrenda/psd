@@ -388,6 +388,7 @@ document.write(`
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#jenis-data">Jenis Data</a></li>
 </ul>
 </li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
 </ul>
 </li>
 </ul>
@@ -536,7 +537,42 @@ max          15750
 </div>
 </div>
 </div>
+<p>Memberikan informasi statistik dekskriptif dari kolom numerik.</p>
+<ol class="arabic simple">
+<li><p>count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.</p></li>
+<li><p>mean: Menghitung rata-rata dari semua nilai dalam kolom.</p></li>
+<li><p>std: Menghitung standar deviasi, yang mengukur seberapa tersebar nilai-nilai dalam kolom dari rata-rata.</p></li>
+<li><p>min: Menunjukkan nilai minimum atau terkecil dalam kolom.</p></li>
+<li><p>25%: Kuartil pertama, yang berarti 25% dari data memiliki nilai lebih rendah dari atau sama dengan nilai ini.</p></li>
+<li><p>50% (Median): Kuartil kedua, yang berarti nilai tengah dari data—50% dari data berada di bawah atau di atas nilai ini.</p></li>
+<li><p>75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.</p></li>
+<li><p>max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.</p></li>
+</ol>
 </section>
+</section>
+<section id="eksplorasi-data">
+<h4>Eksplorasi Data<a class="headerlink" href="#eksplorasi-data" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Harga Beras
+Date                   
+2019-01-01        12950
+2019-01-02        12950
+2019-01-03        13000
+2019-01-04        13000
+2019-01-07        13000
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
@@ -610,6 +646,7 @@ max          15750
 <li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#jenis-data">Jenis Data</a></li>
 </ul>
 </li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
 </ul>
 </li>
 </ul>

@@ -78,7 +78,27 @@ df.dtypes
 ##### Jenis Data
 1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
 2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
+
 ```{code-cell} python
 print(df.describe())
 ```
+Memberikan informasi statistik dekskriptif dari kolom numerik. 
+1. count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.
+2. mean: Menghitung rata-rata dari semua nilai dalam kolom.
+3. std: Menghitung standar deviasi, yang mengukur seberapa tersebar nilai-nilai dalam kolom dari rata-rata.
+4. min: Menunjukkan nilai minimum atau terkecil dalam kolom.
+5. 25%: Kuartil pertama, yang berarti 25% dari data memiliki nilai lebih rendah dari atau sama dengan nilai ini.
+6. 50% (Median): Kuartil kedua, yang berarti nilai tengah dari data—50% dari data berada di bawah atau di atas nilai ini.
+7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
+8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
+#### Eksplorasi Data
+
+<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
+
+```{code-cell} python
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
+df.set_index('Date', inplace=True)
+df.index = pd.to_datetime(df.index)
+print(df.head())
+```
