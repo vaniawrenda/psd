@@ -54,7 +54,7 @@ pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
 
-#### Deskripsi Dataset
+#### Deskripsi Data
 
 Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:
 1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
@@ -75,7 +75,7 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yan
 ```{code-cell} python
 df.dtypes
 ```
-##### Jenis Data
+<b>Jenis Data
 1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
 2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 
