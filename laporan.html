@@ -384,7 +384,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologi">Metodologi</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#jenis-data">Jenis Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -462,21 +465,38 @@ Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa member
 <li><p>Date: Tanggal harga beras dengan format yyyy-mm-dd</p></li>
 <li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.</p></li>
 </ol>
-<p>Melihat tipe data dari masing-masing kolom.</p>
+<p>Melihat ringkasan Data Frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ukuran data &#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+          <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax. Perhaps you forgot a comma?
+</pre></div>
+</div>
+</div>
+</div>
+<p>Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0 hingga 1478.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date           object
-Harga Beras    object
-dtype: object
-</pre></div>
 </div>
-</div>
-</div>
+<section id="jenis-data">
+<h5>Jenis Data<a class="headerlink" href="#jenis-data" title="Link to this heading">#</a></h5>
+<ol class="arabic simple">
+<li><p>Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime</p></li>
+<li><p>Harga Beras (kg): Numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.</p></li>
+</ol>
+</section>
 </section>
 </section>
 </section>
@@ -546,7 +566,10 @@ dtype: object
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologi">Metodologi</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-dataset">Deskripsi Dataset</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#jenis-data">Jenis Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

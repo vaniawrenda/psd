@@ -62,14 +62,20 @@ Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut 
 1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
 2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 
-Melihat tipe data dari masing-masing kolom.
+Melihat ringkasan Data Frame.
+
+```{code-cell} python
+print(df.info()
+print('Ukuran data ', df.shape))
+```
+Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0 hingga 1478. 
 
 ```{code-cell} python
 print(df.dtypes)
 ```
-
-
-
+###### Jenis Data
+1. Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime
+2. Harga Beras (kg): Numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 
 
 
