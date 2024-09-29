@@ -53,19 +53,20 @@ import pandas as pd
 ```{code-cell} python
 # Baca data CSV
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv')
-pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
 
 #### Deskripsi Dataset
 
-Dataset ini terdiri dari 2 fitur atau kolom dan 68 record atau baris. Atribut dalam dataset ini antara lain:
-1.  Bulan: Tanggal harga beras dalam 1 bulan dengan format yyyy-mm-dd
+Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:
+1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
 2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
-Melihat tipe data dari masing masing kolom.
 
-Jenis Dataset
+Melihat tipe data dari masing-masing kolom.
 
+```{code-cell} python
+print(df.dtypes)
+```
 
 
 

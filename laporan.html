@@ -439,7 +439,6 @@ Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa member
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Baca data CSV</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv&#39;</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.0f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -458,13 +457,26 @@ Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa member
 </section>
 <section id="deskripsi-dataset">
 <h4>Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h4>
-<p>Dataset ini terdiri dari 2 fitur atau kolom dan 68 record atau baris. Atribut dalam dataset ini antara lain:</p>
+<p>Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:</p>
 <ol class="arabic simple">
-<li><p>Bulan: Tanggal harga beras dalam 1 bulan dengan format yyyy-mm-dd</p></li>
-<li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
-Melihat tipe data dari masing masing kolom.</p></li>
+<li><p>Date: Tanggal harga beras dengan format yyyy-mm-dd</p></li>
+<li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.</p></li>
 </ol>
-<p>Jenis Dataset</p>
+<p>Melihat tipe data dari masing-masing kolom.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date           object
+Harga Beras    object
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
