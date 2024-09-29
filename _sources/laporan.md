@@ -73,7 +73,7 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yan
 ```{code-cell} python
 df.dtypes
 ```
-###### Jenis Data
+##### Jenis Data
 1. Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime
 2. Harga Beras (kg): Numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 
