@@ -91,10 +91,10 @@ Selanjutnya, kita memastikan bahwa kolom Harga Beras memiliki format yang tepat 
 ```{code-cell} python
 #Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
 df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
-print(df)
+print(df.head())
 ```
 ```{code-cell} python
-print(df.describe(head))
+print(df.describe())
 ```
 Memberikan informasi statistik dekskriptif dari kolom numerik. 
 1. count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.
@@ -105,3 +105,18 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 6. 50% (Median): Kuartil kedua, yang berarti nilai tengah dari data—50% dari data berada di bawah atau di atas nilai ini.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
+
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya kita akan melakukan rekayasa fitur, dimana kita akan membuat variabel baru yang merepresentasikan harga beras pada lima langkah waktu sebelumnya. Dengan menggunakan metode shift(), kita dapat menghasilkan kolom-kolom baru yang menyimpan nilai harga beras yang telah bergeser ke depan dalam waktu, sehingga model dapat menganalisis pola dan tren harga dari waktu ke waktu.</p>
+
+```{code-cell} python
+df['xt-5'] = df['Harga Beras'].shift(-5)
+df['xt-4'] = df['Harga Beras'].shift(-4)
+df['xt-3'] = df['Harga Beras'].shift(-3)
+df['xt-2'] = df['Harga Beras'].shift(-2)
+df['xt-1'] = df['Harga Beras'].shift(-1)
+df['xt'] = df['Harga Beras']
+
+df = df.dropna()
+df = df.drop(columns=['Harga Beras'])
+df.head()
+```
