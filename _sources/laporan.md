@@ -94,7 +94,7 @@ df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors
 print(df)
 ```
 ```{code-cell} python
-print(df.describe())
+print(df.describe(head))
 ```
 Memberikan informasi statistik dekskriptif dari kolom numerik. 
 1. count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.
