@@ -439,7 +439,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca data CSV</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv&#39;</span><span class="p">)</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.0f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -484,11 +484,11 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
 RangeIndex: 1479 entries, 0 to 1478
 Data columns (total 2 columns):
- #   Column       Non-Null Count  Dtype  
----  ------       --------------  -----  
- 0   Date         1479 non-null   object 
- 1   Harga Beras  1478 non-null   float64
-dtypes: float64(1), object(1)
+ #   Column       Non-Null Count  Dtype 
+---  ------       --------------  ----- 
+ 0   Date         1479 non-null   object
+ 1   Harga Beras  1479 non-null   int64 
+dtypes: int64(1), object(1)
 memory usage: 23.2+ KB
 Ukuran data  (1479, 2)
 </pre></div>
@@ -503,8 +503,8 @@ Ukuran data  (1479, 2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date            object
-Harga Beras    float64
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Date           object
+Harga Beras     int64
 dtype: object
 </pre></div>
 </div>
@@ -524,8 +524,8 @@ dtype: object
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Harga Beras
-count         1478
-mean         13004
+count         1479
+mean         13003
 std            854
 min          12350
 25%          12550

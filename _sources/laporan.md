@@ -49,7 +49,7 @@ import pandas as pd
 
 ```{code-cell} python
 # Membaca data CSV
-df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv')
+df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
 pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
