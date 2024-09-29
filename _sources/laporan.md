@@ -51,7 +51,7 @@ import pandas as pd
 ```
 
 ```{code-cell} python
-# Baca data CSV
+# Membaca data CSV
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv')
 print(df.head())
 ```
@@ -68,14 +68,16 @@ Melihat ringkasan Data Frame.
 df.info()
 print('Ukuran data ', df.shape)
 ```
-Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0 hingga 1478. 
+Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0. 
 
 ```{code-cell} python
 df.dtypes
 ```
 ##### Jenis Data
-1. Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime
-2. Harga Beras (kg): Numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
+1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
+2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi. Kolom harga beras akan diubah menjadi tipe data float selama eksplorasi data agar memudahkan perhitungan.
 
-
+```{code-cell} python
+print(df.describe())
+```
 

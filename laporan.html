@@ -440,7 +440,7 @@ Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa member
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Baca data CSV</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca data CSV</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -488,7 +488,7 @@ Ukuran data  (1479, 2)
 </div>
 </div>
 </div>
-<p>Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0 hingga 1478.</p>
+<p>Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
@@ -506,9 +506,25 @@ dtype: object
 <section id="jenis-data">
 <h5>Jenis Data<a class="headerlink" href="#jenis-data" title="Link to this heading">#</a></h5>
 <ol class="arabic simple">
-<li><p>Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime</p></li>
-<li><p>Harga Beras (kg): Numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.</p></li>
+<li><p>Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu.</p></li>
+<li><p>Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi. Kolom harga beras akan diubah menjadi tipe data float selama eksplorasi data agar memudahkan perhitungan.</p></li>
 </ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Date Harga Beras
+count           1479        1479
+unique          1479          48
+top     01/ 01/ 2019      12,550
+freq               1         297
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
