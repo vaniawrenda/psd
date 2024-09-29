@@ -63,6 +63,10 @@ Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut 
 2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 
 Melihat ringkasan Data Frame.
+```{code-cell} python
+#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
+df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
+```
 
 ```{code-cell} python
 df.info()
