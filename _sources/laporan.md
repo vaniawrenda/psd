@@ -48,9 +48,12 @@ Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari
 ```{code-cell} python
 # import library
 import pandas as pd
+```
 
+```{code-cell} python
 # Baca data CSV
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv')
+pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
 
