@@ -65,13 +65,13 @@ Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut 
 Melihat ringkasan Data Frame.
 
 ```{code-cell} python
-print(df.info()
-print('Ukuran data ', df.shape))
+df.info()
+print('Ukuran data ', df.shape)
 ```
 Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0 hingga 1478. 
 
 ```{code-cell} python
-print(df.dtypes)
+df.dtypes
 ```
 ###### Jenis Data
 1. Date: Data kolom ini disajikan dalam bentuk string, namun pada eksplorasi data akan dirubah menjadi datetime
