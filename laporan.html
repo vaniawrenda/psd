@@ -440,6 +440,7 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membaca data CSV</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv&#39;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">float_format</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.0f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -513,7 +514,7 @@ dtype: object
 <h5>Jenis Data<a class="headerlink" href="#jenis-data" title="Link to this heading">#</a></h5>
 <ol class="arabic simple">
 <li><p>Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu.</p></li>
-<li><p>Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi. Kolom harga beras akan diubah menjadi tipe data float selama eksplorasi data agar memudahkan perhitungan.</p></li>
+<li><p>Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -522,15 +523,15 @@ dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Harga Beras
-count   1478.000000
-mean   13003.721245
-std      854.071270
-min    12350.000000
-25%    12550.000000
-50%    12600.000000
-75%    13000.000000
-max    15750.000000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Harga Beras
+count         1478
+mean         13004
+std            854
+min          12350
+25%          12550
+50%          12600
+75%          13000
+max          15750
 </pre></div>
 </div>
 </div>

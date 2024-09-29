@@ -50,6 +50,7 @@ import pandas as pd
 ```{code-cell} python
 # Membaca data CSV
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/main/dataset.csv')
+pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
 
@@ -76,8 +77,7 @@ df.dtypes
 ```
 ##### Jenis Data
 1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
-2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi. Kolom harga beras akan diubah menjadi tipe data float selama eksplorasi data agar memudahkan perhitungan.
-
+2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 ```{code-cell} python
 print(df.describe())
 ```
