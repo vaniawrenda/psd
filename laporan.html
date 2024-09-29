@@ -427,19 +427,22 @@ Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa member
 <section id="sumber-data">
 <h4>Sumber Data<a class="headerlink" href="#sumber-data" title="Link to this heading">#</a></h4>
 <p>Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari website <a class="reference external" href="https://www.bi.go.id/hargapangan">PHIPS Nasional</a> (Pusat Informasi Harga Pangan Strategis Nasional) . PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2019 hingga 2024, dengan periode mingguan, yang diambil dari seluruh pasar modern di Jawa Timur.</p>
+<p>{code-cell} python
+#import library
+import pandas as pd</p>
+<p>#Baca data CSV
+df = pd.read_csv(’<a class="reference external" href="https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv">https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv</a>’)
+df.head()</p>
 </section>
 <section id="deskripsi-dataset">
 <h4>Deskripsi Dataset<a class="headerlink" href="#deskripsi-dataset" title="Link to this heading">#</a></h4>
-<p>Dataset ini terdiri dari 2 fitur atau kolom dan 300 record atau baris. Atribut dalam dataset ini antara lain:</p>
+<p>Dataset ini terdiri dari 2 fitur atau kolom dan 68 record atau baris. Atribut dalam dataset ini antara lain:</p>
 <ol class="arabic simple">
-<li><p>Minggu: Fitur ini berisi nomor minggu dalam satu tahun, dengan nilai berkisar dari 1 hingga 52. Setelah minggu ke-52, akan kembali ke minggu ke-1 di tahun berikutnya.</p></li>
-<li><p>Harga Beras Rojolele: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
+<li><p>Bulan: Tanggal harga beras dalam 1 bulan dengan format yyyy-mm-dd</p></li>
+<li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 Melihat tipe data dari masing masing kolom.</p></li>
 </ol>
 <p>Jenis Dataset</p>
-<ol class="arabic simple">
-<li><p>Minggu:</p></li>
-</ol>
 </section>
 </section>
 </section>

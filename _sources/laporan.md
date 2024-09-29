@@ -1,3 +1,17 @@
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.13'
+    jupytext_version: '1.11.5'
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # Laporan Proyek Sains Data Baru
 
 
@@ -31,16 +45,26 @@ Dalam upaya menjaga stabilitas harga dan memenuhi permintaan pasar, para produse
 #### Sumber Data 
 Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari website [PHIPS Nasional](https://www.bi.go.id/hargapangan) (Pusat Informasi Harga Pangan Strategis Nasional) . PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2019 hingga 2024, dengan periode mingguan, yang diambil dari seluruh pasar modern di Jawa Timur. 
 
+{code-cell} python
+#import library
+import pandas as pd
+
+#Baca data CSV
+df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
+df.head()
+
+
+
 #### Deskripsi Dataset
 
-Dataset ini terdiri dari 2 fitur atau kolom dan 300 record atau baris. Atribut dalam dataset ini antara lain:
-1.  Minggu: Fitur ini berisi nomor minggu dalam satu tahun, dengan nilai berkisar dari 1 hingga 52. Setelah minggu ke-52, akan kembali ke minggu ke-1 di tahun berikutnya. 
-2.	Harga Beras Rojolele: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
+Dataset ini terdiri dari 2 fitur atau kolom dan 68 record atau baris. Atribut dalam dataset ini antara lain:
+1.  Bulan: Tanggal harga beras dalam 1 bulan dengan format yyyy-mm-dd
+2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 Melihat tipe data dari masing masing kolom.
 
 Jenis Dataset
 
-1. Minggu: 
+
 
 
 
