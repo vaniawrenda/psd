@@ -18,14 +18,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-print(df.describe(head))
+# Menghitung korelasi Pearson antara fitur dan target
+correlations = {}
+for col in df.columns[:-1]:
+    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
+    correlations[col] = correlation
+
+# Menampilkan hasil korelasi
+for fitur, bobot_korelasi in correlations.items():
+    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mNameError[0m                                 Traceback (most recent call last)
-Cell [1;32mIn[7], line 1[0m
-[1;32m----> 1[0m [38;5;28mprint[39m(df[38;5;241m.[39mdescribe([43mhead[49m))
+Cell [1;32mIn[10], line 4[0m
+[0;32m      2[0m correlations [38;5;241m=[39m {}
+[0;32m      3[0m [38;5;28;01mfor[39;00m col [38;5;129;01min[39;00m df[38;5;241m.[39mcolumns[:[38;5;241m-[39m[38;5;241m1[39m]:
+[1;32m----> 4[0m     correlation [38;5;241m=[39m [43mnp[49m[38;5;241m.[39mcorrcoef(df[col], df[[38;5;124m'[39m[38;5;124mxt[39m[38;5;124m'[39m])[[38;5;241m0[39m, [38;5;241m1[39m]
+[0;32m      5[0m     correlations[col] [38;5;241m=[39m correlation
+[0;32m      7[0m [38;5;66;03m# Menampilkan hasil korelasi[39;00m
 
-[1;31mNameError[0m: name 'head' is not defined
+[1;31mNameError[0m: name 'np' is not defined
 
