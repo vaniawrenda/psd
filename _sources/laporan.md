@@ -60,11 +60,7 @@ Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut 
 1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
 2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 
-Melihat ringkasan Data Frame.
-```{code-cell} python
-#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
-df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
-```
+Melihat ringkasan DataFrame.
 
 ```{code-cell} python
 df.info()
@@ -75,10 +71,28 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yan
 ```{code-cell} python
 df.dtypes
 ```
-<b>Jenis Data
+<b>Jenis Data</b>
 1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
 2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 
+#### Eksplorasi Data
+
+<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
+
+```{code-cell} python
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
+df.set_index('Date', inplace=True)
+df.index = pd.to_datetime(df.index)
+print(df.head())
+```
+
+Selanjutnya, kita memastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, kita menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan kita melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, kita juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.
+
+```{code-cell} python
+#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
+df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
+print(df)
+```
 ```{code-cell} python
 print(df.describe())
 ```
@@ -91,14 +105,3 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 6. 50% (Median): Kuartil kedua, yang berarti nilai tengah dari data—50% dari data berada di bawah atau di atas nilai ini.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
-
-#### Eksplorasi Data
-
-<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
-
-```{code-cell} python
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
-df.set_index('Date', inplace=True)
-df.index = pd.to_datetime(df.index)
-print(df.head())
-```
