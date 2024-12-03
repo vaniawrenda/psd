@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Laporan Proyek Sains Data Baru
+# Projek 1
 
 
 ## Pendahuluan 
