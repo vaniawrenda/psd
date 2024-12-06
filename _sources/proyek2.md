@@ -31,8 +31,7 @@ kernelspec:
 
 ### Tujuan 
 
-<p style="text-indent: 50px; text-align: justify;">Tujuan utama dari analisis ini membantu produsen dan distributor untuk mengetahui kenaikan harga beras berdasarkan data historis sehingga harga beras dapat dikendalikan di pasaran.  Dengan menggunakan peramalan harga yang akurat berdasarkan data historis, diharapkan dapat meminimalkan risiko kerugian akibat fluktuasi harga yang tidak terduga.</p>
-
+<p style="text-indent: 50px; text-align: justify;">Tujuan utama dari analisis ini adalah untuk memprediksi harga beras pada hari berikutnya berdasarkan data historis, sehingga dapat meminimalkan risiko kerugian akibat fluktuasi harga yang tidak terduga.</p>
 
 
 ## Metodologi
