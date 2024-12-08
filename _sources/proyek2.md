@@ -45,10 +45,6 @@ kernelspec:
 
 ```{code-cell} python
 # import library
-import pandas as pd
-```
-
-```{code-cell} python
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -61,7 +57,10 @@ import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+import pandas as pd
+```
 
+```{code-cell} python
 #Mengambil dan menampilkan data
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
 pd.options.display.float_format = '{:.0f}'.format
