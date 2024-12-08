@@ -113,7 +113,7 @@ print(df.plot())
 ```
 
 ```{code-cell} python
-print(df.shape())
+print(df.shape)
 ```
 
 ```{code-cell} python
