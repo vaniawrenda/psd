@@ -397,6 +397,10 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-normalisasi-data">b. Normalisasi Data</a></li>
 </ul>
 </li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pembagian-data">a. Pembagian Data</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -783,6 +787,92 @@ Data yang dihasilkan siap digunakan untuk analisis atau pengembangan model predi
 </div>
 </section>
 </section>
+<section id="modelling">
+<h3>Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h3>
+<section id="a-pembagian-data">
+<h4>a. Pembagian Data<a class="headerlink" href="#a-pembagian-data" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">
+Langkah berikutnya adalah membagi data menjadi data training dan data testing menggunakan train_test_split, 
+dengan proporsi 80% untuk training dan 20% untuk testing. 
+Setelah pembagian, data training (X_train dan y_train) akan digunakan untuk melatih model, 
+sedangkan data testing (X_test dan y_test) akan digunakan untuk mengevaluasi kinerja model yang telah dilatih.</P><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengatur fitur (X) dan target (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[[</span> <span class="s1">&#39;harga-3&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-2&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-1&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span>
+
+<span class="c1"># Membagi data menjadi training dan testing (80% training, 20% testing)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===== Data Train =====&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;===== Data Testing ====&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Mengambil nilai tanggal dari indeks X_train dan X_test</span>
+<span class="n">dates_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">index</span>
+<span class="n">dates_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1"># Plot data training</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">[</span><span class="s1">&#39;harga-1&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data Training&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot data testing</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dates_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">[</span><span class="s1">&#39;harga-1&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Data Testing&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># Menambahkan judul, label, dan legenda</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pembagian Data Training dan Testing Berdasarkan harga&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;harga Beras&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>  <span class="c1"># Rotasi label sumbu x agar mudah dibaca</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>===== Data Train =====
+            harga-3  harga-2  harga-1
+Date                                 
+2020-01-06        0        0        0
+2020-01-07        0        0        0
+2020-01-08        0        0        0
+2020-01-09        0        0        0
+2020-01-10        0        0        0
+...             ...      ...      ...
+2023-09-20        0        0        0
+2023-09-21        0        0        0
+2023-09-22        0        0        0
+2023-09-25        0        0        0
+2023-09-26        0        0        0
+
+[972 rows x 3 columns]
+===== Data Testing ====
+            harga-3  harga-2  harga-1
+Date                                 
+2023-09-27        0        0        0
+2023-09-28        0        0        0
+2023-09-29        0        0        0
+2023-10-02        0        0        0
+2023-10-03        0        0        0
+...             ...      ...      ...
+2024-08-26        1        1        1
+2024-08-27        1        1        1
+2024-08-28        1        1        1
+2024-08-29        1        1        1
+2024-08-30        1        1        1
+
+[243 rows x 3 columns]
+</pre></div>
+</div>
+<img alt="_images/5504fa89671e299a5f5862a10200276c5a1f1882234a87b45151dfa40b884bbf.png" src="_images/5504fa89671e299a5f5862a10200276c5a1f1882234a87b45151dfa40b884bbf.png" />
+</div>
+</div>
+</section>
+</section>
 </section>
 </section>
 
@@ -867,6 +957,10 @@ Data yang dihasilkan siap digunakan untuk analisis atau pengembangan model predi
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-slidding-window">a. Slidding Window</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-normalisasi-data">b. Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pembagian-data">a. Pembagian Data</a></li>
 </ul>
 </li>
 </ul>

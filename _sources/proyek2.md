@@ -199,3 +199,51 @@ df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Harga Beras
 df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
 df_normalized.head()
 ```
+
+### Modelling
+
+#### a. Pembagian Data
+
+<p style="text-indent: 50px; text-align: justify;">
+Langkah berikutnya adalah membagi data menjadi data training dan data testing menggunakan train_test_split, 
+dengan proporsi 80% untuk training dan 20% untuk testing. 
+Setelah pembagian, data training (X_train dan y_train) akan digunakan untuk melatih model, 
+sedangkan data testing (X_test dan y_test) akan digunakan untuk mengevaluasi kinerja model yang telah dilatih.</P>
+
+
+```{code-cell} python
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[[ 'harga-3', 'harga-2', 'harga-1']]
+y = df_normalized['Harga Beras']
+
+# Membagi data menjadi training dan testing (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
+
+print('===== Data Train =====')
+print(X_train)
+
+print('===== Data Testing ====')
+print(X_test)
+
+# Mengambil nilai tanggal dari indeks X_train dan X_test
+dates_train = X_train.index
+dates_test = X_test.index
+
+# Plot data training
+plt.figure(figsize=(12,6))
+plt.plot(dates_train, X_train['harga-1'], label='Data Training', color='blue')
+
+# Plot data testing
+plt.plot(dates_test, X_test['harga-1'], label='Data Testing', color='red')
+
+# Menambahkan judul, label, dan legenda
+plt.title('Pembagian Data Training dan Testing Berdasarkan harga')
+plt.xlabel('Tanggal')
+plt.ylabel('harga Beras')
+plt.legend()
+plt.grid(True)
+plt.xticks(rotation=45)  # Rotasi label sumbu x agar mudah dibaca
+plt.tight_layout()
+plt.show()
+
+```
