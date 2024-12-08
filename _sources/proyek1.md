@@ -61,6 +61,20 @@ df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/hea
 pd.options.display.float_format = '{:.0f}'.format
 print(df.head())
 ```
+<p style="text-indent: 50px; text-align: justify;">
+Selanjutnya, untuk memastikan kolom Date diproses dengan benar, kita mengonversinya ke format datetime. Hal ini memungkinkan perbandingan dan analisis berdasarkan waktu yang lebih akurat. Selanjutnya, menjadikan Date sebagai indeks akan mempermudah pencarian data berdasarkan tanggal, sementara penyortiran data memastikan urutannya sesuai dengan waktu yang benar. </p>
+
+```{code-cell} python
+# mengubah kolom 'Date' dalam format datetime
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Mengatur kolom 'Date' sebagai indeks
+df.set_index('Date', inplace=True)
+
+# Mensortir data berdasarkan kolom Date dari terkecil ke terbesar
+df = df.sort_values(by='Date')
+print(df())
+```
 
 #### Deskripsi Data
 
