@@ -360,6 +360,6 @@ Kesimpulannya, Linear Regression adalah pilihan paling efektif untuk data ini,
  kemungkinan karena sifatnya yang sederhana dan linier cocok dengan pola data yang ada, 
  sementara SVR dan KNN mungkin kesulitan menangkap pola atau memerlukan parameter tuning lebih lanjut.
 
-### DEPLOYMENTS
+### DEPLOYMENT
 <b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
 https://huggingface.co/spaces/vaniawrenda/project2_prediksi_harga_beras
