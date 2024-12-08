@@ -247,3 +247,109 @@ plt.tight_layout()
 plt.show()
 
 ```
+
+#### b. Penyusunan Model
+<p style="text-indent: 50px; text-align: justify;">
+Pada tahap ini, dilakukan eksperimen dengan tiga model utama: 
+Regresi Linear, Support Vector Regression (SVR), dan K-Nearest Neighbors (KNN).
+Selain itu, untuk meningkatkan akurasi dan performa model, digunakan teknik ensemble melalui metode bagging. </P>
+
+```{code-cell} python
+from sklearn.ensemble import BaggingRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import r2_score, mean_squared_error
+from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
+
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[['harga-3', 'harga-2', 'harga-1']]
+y = df_normalized['Harga Beras']
+
+# Daftar parameter untuk percobaan
+train_sample_list = [0.6, 0.7, 0.8]  # Persentase data untuk training
+n_estimators_list = [10, 20, 30]
+max_samples_list = [0.7, 0.8, 1.0]
+random_state_list = [32, 42]
+
+# List model untuk ensemble Bagging
+models = {
+    "Linear Regression": LinearRegression(),
+    "SVR": SVR(),
+    "KNN": KNeighborsRegressor(n_neighbors=5)
+}
+
+# Dictionary untuk menyimpan hasil evaluasi
+final_results = []
+best_model = None
+best_rmse = float('inf')
+best_model_name = None
+best_params = None
+
+# Melakukan iterasi untuk setiap model dan kombinasi hyperparameter
+for model_name, base_model in models.items():
+    for train_sample in train_sample_list:
+        for n_estimators in n_estimators_list:
+            for max_samples in max_samples_list:
+                for random_state in random_state_list:
+
+                    # Membuat model Bagging Regressor
+                    bagging_model = BaggingRegressor(
+                        estimator=base_model,
+                        n_estimators=n_estimators,
+                        max_samples=max_samples,
+                        random_state=random_state
+                    )
+
+                    # Membagi data menjadi training dan testing sesuai ukuran train_sample
+                    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1-train_sample, shuffle=False)
+
+                    # Melatih model
+                    bagging_model.fit(X_train, y_train)
+
+                    # Melakukan prediksi menggunakan data uji
+                    y_pred = bagging_model.predict(X_test)
+
+                    # Menghitung metrik evaluasi
+                    r2 = r2_score(y_test, y_pred)
+                    mse = mean_squared_error(y_test, y_pred)
+                    rmse = np.sqrt(mse)
+
+                    # Menyimpan hasil
+                    final_results.append({
+                        'Model': model_name,
+                        'Train Sample': train_sample,
+                        'N Estimators': n_estimators,
+                        'Max Samples': max_samples,
+                        'Random State': random_state,
+                        'RMSE': rmse,
+                        'R2': r2
+                    })
+
+                    # Menyimpan model terbaik
+                    if rmse < best_rmse:
+                        best_rmse = rmse
+                        best_model = bagging_model
+                        best_model_name = model_name
+                        best_params = (train_sample, n_estimators, max_samples, random_state)
+
+# Membuat DataFrame dari hasil
+results_df = pd.DataFrame(final_results)
+
+# Menampilkan semua hasil
+print(results_df)
+
+# Menampilkan model terbaik
+print("\nModel terbaik:")
+print(f"Nama model       : {best_model_name}")
+print(f"RMSE terbaik     : {best_rmse}")
+print(f"Parameter terbaik: Train sample: {best_params[0]} | N estimators: {best_params[1]} | Max samples: {best_params[2]} | Random state: {best_params[3]}")
+
+# Menggunakan model terbaik untuk memprediksi
+y_best_pred = best_model.predict(X_test)
+
+
+
+```

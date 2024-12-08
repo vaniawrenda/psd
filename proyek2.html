@@ -399,6 +399,7 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pembagian-data">a. Pembagian Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-penyusunan-model">b. Penyusunan Model</a></li>
 </ul>
 </li>
 </ul>
@@ -872,6 +873,148 @@ Date
 </div>
 </div>
 </section>
+<section id="b-penyusunan-model">
+<h4>b. Penyusunan Model<a class="headerlink" href="#b-penyusunan-model" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">
+Pada tahap ini, dilakukan eksperimen dengan tiga model utama: 
+Regresi Linear, Support Vector Regression (SVR), dan K-Nearest Neighbors (KNN).
+Selain itu, untuk meningkatkan akurasi dan performa model, digunakan teknik ensemble melalui metode bagging. </P><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Mengatur fitur (X) dan target (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[[</span><span class="s1">&#39;harga-3&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-2&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-1&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span>
+
+<span class="c1"># Daftar parameter untuk percobaan</span>
+<span class="n">train_sample_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>  <span class="c1"># Persentase data untuk training</span>
+<span class="n">n_estimators_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+<span class="n">max_samples_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">random_state_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+
+<span class="c1"># List model untuk ensemble Bagging</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Linear Regression&quot;</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">(),</span>
+    <span class="s2">&quot;SVR&quot;</span><span class="p">:</span> <span class="n">SVR</span><span class="p">(),</span>
+    <span class="s2">&quot;KNN&quot;</span><span class="p">:</span> <span class="n">KNeighborsRegressor</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Dictionary untuk menyimpan hasil evaluasi</span>
+<span class="n">final_results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">best_rmse</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+<span class="n">best_model_name</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">best_params</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Melakukan iterasi untuk setiap model dan kombinasi hyperparameter</span>
+<span class="k">for</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">base_model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">train_sample</span> <span class="ow">in</span> <span class="n">train_sample_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n_estimators</span> <span class="ow">in</span> <span class="n">n_estimators_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">max_samples</span> <span class="ow">in</span> <span class="n">max_samples_list</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">random_state</span> <span class="ow">in</span> <span class="n">random_state_list</span><span class="p">:</span>
+
+                    <span class="c1"># Membuat model Bagging Regressor</span>
+                    <span class="n">bagging_model</span> <span class="o">=</span> <span class="n">BaggingRegressor</span><span class="p">(</span>
+                        <span class="n">estimator</span><span class="o">=</span><span class="n">base_model</span><span class="p">,</span>
+                        <span class="n">n_estimators</span><span class="o">=</span><span class="n">n_estimators</span><span class="p">,</span>
+                        <span class="n">max_samples</span><span class="o">=</span><span class="n">max_samples</span><span class="p">,</span>
+                        <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span>
+                    <span class="p">)</span>
+
+                    <span class="c1"># Membagi data menjadi training dan testing sesuai ukuran train_sample</span>
+                    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">train_sample</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+                    <span class="c1"># Melatih model</span>
+                    <span class="n">bagging_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+                    <span class="c1"># Melakukan prediksi menggunakan data uji</span>
+                    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">bagging_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+                    <span class="c1"># Menghitung metrik evaluasi</span>
+                    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+                    <span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+
+                    <span class="c1"># Menyimpan hasil</span>
+                    <span class="n">final_results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                        <span class="s1">&#39;Model&#39;</span><span class="p">:</span> <span class="n">model_name</span><span class="p">,</span>
+                        <span class="s1">&#39;Train Sample&#39;</span><span class="p">:</span> <span class="n">train_sample</span><span class="p">,</span>
+                        <span class="s1">&#39;N Estimators&#39;</span><span class="p">:</span> <span class="n">n_estimators</span><span class="p">,</span>
+                        <span class="s1">&#39;Max Samples&#39;</span><span class="p">:</span> <span class="n">max_samples</span><span class="p">,</span>
+                        <span class="s1">&#39;Random State&#39;</span><span class="p">:</span> <span class="n">random_state</span><span class="p">,</span>
+                        <span class="s1">&#39;RMSE&#39;</span><span class="p">:</span> <span class="n">rmse</span><span class="p">,</span>
+                        <span class="s1">&#39;R2&#39;</span><span class="p">:</span> <span class="n">r2</span>
+                    <span class="p">})</span>
+
+                    <span class="c1"># Menyimpan model terbaik</span>
+                    <span class="k">if</span> <span class="n">rmse</span> <span class="o">&lt;</span> <span class="n">best_rmse</span><span class="p">:</span>
+                        <span class="n">best_rmse</span> <span class="o">=</span> <span class="n">rmse</span>
+                        <span class="n">best_model</span> <span class="o">=</span> <span class="n">bagging_model</span>
+                        <span class="n">best_model_name</span> <span class="o">=</span> <span class="n">model_name</span>
+                        <span class="n">best_params</span> <span class="o">=</span> <span class="p">(</span><span class="n">train_sample</span><span class="p">,</span> <span class="n">n_estimators</span><span class="p">,</span> <span class="n">max_samples</span><span class="p">,</span> <span class="n">random_state</span><span class="p">)</span>
+
+<span class="c1"># Membuat DataFrame dari hasil</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">final_results</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan semua hasil</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">results_df</span><span class="p">)</span>
+
+<span class="c1"># Menampilkan model terbaik</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Model terbaik:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nama model       : </span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;RMSE terbaik     : </span><span class="si">{</span><span class="n">best_rmse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parameter terbaik: Train sample: </span><span class="si">{</span><span class="n">best_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> | N estimators: </span><span class="si">{</span><span class="n">best_params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> | Max samples: </span><span class="si">{</span><span class="n">best_params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2"> | Random state: </span><span class="si">{</span><span class="n">best_params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Menggunakan model terbaik untuk memprediksi</span>
+<span class="n">y_best_pred</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 Model  Train Sample  N Estimators  Max Samples  Random State  \
+0    Linear Regression             1            10            1            32   
+1    Linear Regression             1            10            1            42   
+2    Linear Regression             1            10            1            32   
+3    Linear Regression             1            10            1            42   
+4    Linear Regression             1            10            1            32   
+..                 ...           ...           ...          ...           ...   
+157                KNN             1            30            1            42   
+158                KNN             1            30            1            32   
+159                KNN             1            30            1            42   
+160                KNN             1            30            1            32   
+161                KNN             1            30            1            42   
+
+     RMSE  R2  
+0       0   1  
+1       0   1  
+2       0   1  
+3       0   1  
+4       0   1  
+..    ...  ..  
+157     0  -2  
+158     0  -2  
+159     0  -2  
+160     0  -2  
+161     0  -2  
+
+[162 rows x 7 columns]
+
+Model terbaik:
+Nama model       : Linear Regression
+RMSE terbaik     : 0.015349094010902203
+Parameter terbaik: Train sample: 0.6 | N estimators: 10 | Max samples: 0.7 | Random state: 42
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -961,6 +1104,7 @@ Date
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-pembagian-data">a. Pembagian Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-penyusunan-model">b. Penyusunan Model</a></li>
 </ul>
 </li>
 </ul>
