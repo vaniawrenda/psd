@@ -45,18 +45,7 @@ kernelspec:
 
 ```{code-cell} python
 # import library
-import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import BaggingRegressor
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
-import plotly.graph_objects as go
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly.express as px
 ```
 
 ```{code-cell} python
