@@ -100,8 +100,14 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yan
 df.dtypes
 ```
 <b>Jenis Data</b>
-1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
-2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
+Jenis Data
+
+- Open: Merupakan data numerik dengan tipe data float64, karena harga pembukaan aset koin dapat memiliki nilai pecahan dan bersifat kontinu.
+- High: Merupakan data numerik dengan tipe data float64, karena harga tertinggi yang dicapai dapat berupa nilai pecahan dan bersifat kontinu.
+- Low: Merupakan data numerik dengan tipe data float64, karena harga terendah yang tercatat dapat berupa nilai pecahan dan bersifat kontinu.
+- Close: Merupakan data numerik dengan tipe data float64, karena harga penutupan aset koin dapat memiliki nilai pecahan dan bersifat kontinu.
+- Adj Close: Merupakan data numerik dengan tipe data float64, karena harga penutupan yang disesuaikan dapat berupa nilai pecahan dan bersifat kontinu.
+- Volume: Merupakan data numerik dengan tipe data int64, karena jumlah aset koin yang diperdagangkan adalah bilangan bulat dan dapat dihitung secara diskrit.
 
 #### Eksplorasi Data
 
