@@ -73,11 +73,11 @@ df.set_index('Date', inplace=True)
 
 # Mensortir data berdasarkan kolom Date dari terkecil ke terbesar
 df = df.sort_values(by='Date')
-df
+df.head()
 ```
 
 #### b. Deskripsi Data
-Dataset ini memiliki 8 fitur atau kolom dan terdiri dari 1802 baris data. Berikut adalah penjelasan masing-masing atribut:
+Dataset ini memiliki 6 fitur atau kolom dan terdiri dari 1802 baris data. Berikut adalah penjelasan masing-masing atribut:
 
 - Date: Tanggal yang mencatat harga aset koin (format YYYY-MM-DD)
 - Open: Harga pembukaan aset koin pada tanggal tersebut
