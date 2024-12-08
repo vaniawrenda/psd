@@ -113,10 +113,6 @@ print(df.plot())
 ```
 
 ```{code-cell} python
-print(df.shape)
-```
-
-```{code-cell} python
 # Mencari Missing Value
 print(df.isnull().sum())
 ```
