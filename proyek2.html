@@ -679,7 +679,15 @@ Date
 </section>
 <section id="b-normalisasi-data">
 <h4>b. Normalisasi Data<a class="headerlink" href="#b-normalisasi-data" title="Link to this heading">#</a></h4>
-<div class="cell docutils container">
+<p style="text-indent: 50px; text-align: justify;">
+Proses normalisasi data dilakukan pada fitur **(harga-3, harga-2, harga-1)** dan target **(Harga Beras)** menggunakan **MinMaxScaler**. 
+Pertama, scaler untuk fitur diinisialisasi sebagai **scaler_features**, kemudian fitur-fitur tersebut dinormalisasi menggunakan **fit_transform**, 
+dan hasilnya disimpan dalam DataFrame **df_features_normalized** dengan kolom yang sama seperti aslinya. 
+Selanjutnya, target **(Harga Beras)** dinormalisasi menggunakan **scaler_target**, 
+dengan hasil normalisasi disimpan dalam **df_target_normalized**. 
+Setelah kedua DataFrame selesai dinormalisasi, keduanya digabung kembali menggunakan **pd.concat** 
+dengan menyusun fitur dan target dalam satu DataFrame bernama **df_normalized**. 
+Data yang dihasilkan siap digunakan untuk analisis atau pengembangan model prediktif. </P><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
 <span class="n">scaler_features</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
@@ -698,21 +706,80 @@ Date
 <span class="c1"># Gabungkan kembali dataframe yang sudah dinormalisasi</span>
 <span class="n">df_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_features_normalized</span><span class="p">,</span> <span class="n">df_target_normalized</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">df_normalized</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="c1"># Muat scaler dari file .pkl</span>
-<span class="kn">import</span> <span class="nn">joblib</span>
-
-<span class="c1"># Simpan scaler_features dan scaler_target ke file .pkl</span>
-<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_features</span><span class="p">,</span> <span class="s1">&#39;scaler-features.pkl&#39;</span><span class="p">)</span>
-<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_target</span><span class="p">,</span> <span class="s1">&#39;scaler-target.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;scaler-target.pkl&#39;]
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>harga-3</th>
+      <th>harga-2</th>
+      <th>harga-1</th>
+      <th>Harga Beras</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-06</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2020-01-07</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2020-01-08</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2020-01-09</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2020-01-10</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
