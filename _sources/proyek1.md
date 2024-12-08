@@ -73,7 +73,7 @@ df.set_index('Date', inplace=True)
 
 # Mensortir data berdasarkan kolom Date dari terkecil ke terbesar
 df = df.sort_values(by='Date')
-print(df())
+df
 ```
 
 #### Deskripsi Data
