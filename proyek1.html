@@ -386,8 +386,8 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologi">Metodologi</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-data">Deskripsi Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-sumber-data">a. Sumber Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-deskripsi-data">b. Deskripsi Data</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
 </ul>
 </li>
@@ -428,8 +428,8 @@ document.write(`
 <h2>Metodologi<a class="headerlink" href="#metodologi" title="Link to this heading">#</a></h2>
 <section id="data-understanding">
 <h3>Data Understanding<a class="headerlink" href="#data-understanding" title="Link to this heading">#</a></h3>
-<section id="sumber-data">
-<h4>Sumber Data<a class="headerlink" href="#sumber-data" title="Link to this heading">#</a></h4>
+<section id="a-sumber-data">
+<h4>a. Sumber Data<a class="headerlink" href="#a-sumber-data" title="Link to this heading">#</a></h4>
 <p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini diperoleh dari platform Yahoo Finance, yang dapat diakses di https://finance.yahoo.com/quote/ETH-USD/. Platform ini menawarkan informasi tentang harga Ethereum (ETH) terhadap dolar AS (USD) dalam berbagai periode waktu, termasuk harga penutupan, perubahan harga harian, dan fitur analisis pasar lainnya. Untuk proyek ini, digunakan data harga Ethereum dalam format CSV, dengan rentang waktu dari 10 April 2020 hingga 5 Desember 2024.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import library</span>
@@ -623,13 +623,18 @@ Selanjutnya, untuk memastikan kolom Date diproses dengan benar, kita mengonversi
 </div></div></div>
 </div>
 </section>
-<section id="deskripsi-data">
-<h4>Deskripsi Data<a class="headerlink" href="#deskripsi-data" title="Link to this heading">#</a></h4>
-<p>Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:</p>
-<ol class="arabic simple">
-<li><p>Date: Tanggal harga beras dengan format yyyy-mm-dd</p></li>
-<li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.</p></li>
-</ol>
+<section id="b-deskripsi-data">
+<h4>b. Deskripsi Data<a class="headerlink" href="#b-deskripsi-data" title="Link to this heading">#</a></h4>
+<p>Dataset ini memiliki 8 fitur atau kolom dan terdiri dari 2230 baris data. Berikut adalah penjelasan masing-masing atribut:</p>
+<ul class="simple">
+<li><p>Date: Tanggal yang mencatat harga aset koin (format YYYY-MM-DD)</p></li>
+<li><p>Open: Harga pembukaan aset koin pada tanggal tersebut</p></li>
+<li><p>High: Harga tertinggi yang tercatat pada tanggal tersebut</p></li>
+<li><p>Low: Harga terendah yang tercatat pada tanggal tersebut</p></li>
+<li><p>Close: Harga penutupan aset koin pada tanggal tersebut</p></li>
+<li><p>Adj Close: Harga penutupan yang telah disesuaikan dengan pembagian aset, dividen, dan aksi korporasi lainnya</p></li>
+<li><p>Volume: Jumlah transaksi aset koin yang terjadi pada tanggal tersebut</p></li>
+</ul>
 <p>Melihat ringkasan DataFrame.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -892,8 +897,8 @@ dtype: object
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologi">Metodologi</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sumber-data">Sumber Data</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deskripsi-data">Deskripsi Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-sumber-data">a. Sumber Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-deskripsi-data">b. Deskripsi Data</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#eksplorasi-data">Eksplorasi Data</a></li>
 </ul>
 </li>

@@ -39,7 +39,7 @@ kernelspec:
 
 ### Data Understanding 
 
-#### Sumber Data 
+#### a. Sumber Data 
 <p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini diperoleh dari platform Yahoo Finance, yang dapat diakses di https://finance.yahoo.com/quote/ETH-USD/. Platform ini menawarkan informasi tentang harga Ethereum (ETH) terhadap dolar AS (USD) dalam berbagai periode waktu, termasuk harga penutupan, perubahan harga harian, dan fitur analisis pasar lainnya. Untuk proyek ini, digunakan data harga Ethereum dalam format CSV, dengan rentang waktu dari 10 April 2020 hingga 5 Desember 2024.</p>
 
 ```{code-cell} python
@@ -76,11 +76,17 @@ df = df.sort_values(by='Date')
 df
 ```
 
-#### Deskripsi Data
+#### b. Deskripsi Data
+Dataset ini memiliki 8 fitur atau kolom dan terdiri dari 2230 baris data. Berikut adalah penjelasan masing-masing atribut:
 
-Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:
-1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
-2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
+- Date: Tanggal yang mencatat harga aset koin (format YYYY-MM-DD)
+- Open: Harga pembukaan aset koin pada tanggal tersebut
+- High: Harga tertinggi yang tercatat pada tanggal tersebut
+- Low: Harga terendah yang tercatat pada tanggal tersebut
+- Close: Harga penutupan aset koin pada tanggal tersebut
+- Adj Close: Harga penutupan yang telah disesuaikan dengan pembagian aset, dividen, dan aksi korporasi lainnya
+- Volume: Jumlah transaksi aset koin yang terjadi pada tanggal tersebut
+
 
 Melihat ringkasan DataFrame.
 
