@@ -89,14 +89,14 @@ df.dtypes
 
 #### c. Eksplorasi Data
 
-<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
+<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari
+format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame. Selanjutnya, sebelum 
+konversi disini menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, 
+karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
 ```{code-cell} python
 
 ```
-
-<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, sebelum konversi disini menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, 
-karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
 ```{code-cell} python
 # Merubah kolom 'Date' dalam format datetime dengan dayfirst=True
