@@ -394,6 +394,7 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-slidding-window">a. Slidding Window</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-normalisasi-data">b. Normalisasi Data</a></li>
 </ul>
 </li>
 </ul>
@@ -676,6 +677,44 @@ Date
 <li><p>kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.</p></li>
 </ol>
 </section>
+<section id="b-normalisasi-data">
+<h4>b. Normalisasi Data<a class="headerlink" href="#b-normalisasi-data" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
+<span class="n">scaler_features</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">scaler_target</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+
+<span class="c1"># Normalisasi fitur (harga-1, harga-2, harga-3)</span>
+<span class="n">df_features_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_features</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span>  <span class="s1">&#39;harga-3&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-2&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-1&#39;</span><span class="p">]]),</span>
+                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span>  <span class="s1">&#39;harga-3&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-2&#39;</span><span class="p">,</span> <span class="s1">&#39;harga-1&#39;</span><span class="p">],</span>
+                                      <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="c1"># Normalisasi target (harga)</span>
+<span class="n">df_target_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_target</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]]),</span>
+                                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">],</span>
+                                    <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="c1"># Gabungkan kembali dataframe yang sudah dinormalisasi</span>
+<span class="n">df_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_features_normalized</span><span class="p">,</span> <span class="n">df_target_normalized</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df_normalized</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># Muat scaler dari file .pkl</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+
+<span class="c1"># Simpan scaler_features dan scaler_target ke file .pkl</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_features</span><span class="p">,</span> <span class="s1">&#39;scaler-features.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_target</span><span class="p">,</span> <span class="s1">&#39;scaler-target.pkl&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;scaler-target.pkl&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -760,6 +799,7 @@ Date
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing">Preprocessing</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-slidding-window">a. Slidding Window</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-normalisasi-data">b. Normalisasi Data</a></li>
 </ul>
 </li>
 </ul>

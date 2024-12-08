@@ -166,3 +166,36 @@ Dimensi DataFrame saat ini adalah (1215, 4), yang berarti DataFrame memiliki:
 1. 1215 baris: Setiap baris mewakili satu entri 
 2. kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.
 
+
+#### b. Normalisasi Data
+
+
+
+```{code-cell} python
+
+# Inisialisasi scaler untuk fitur (input) dan target (output)
+scaler_features = MinMaxScaler()
+scaler_target = MinMaxScaler()
+
+# Normalisasi fitur (harga-1, harga-2, harga-3)
+df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[[  'harga-3', 'harga-2', 'harga-1']]),
+                                      columns=[  'harga-3', 'harga-2', 'harga-1'],
+                                      index=df.index)
+
+# Normalisasi target (harga)
+df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Harga Beras']]),
+                                    columns=['Harga Beras'],
+                                    index=df.index)
+
+# Gabungkan kembali dataframe yang sudah dinormalisasi
+df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
+df_normalized.head()
+
+# Muat scaler dari file .pkl
+import joblib
+
+# Simpan scaler_features dan scaler_target ke file .pkl
+joblib.dump(scaler_features, 'scaler-features.pkl')
+joblib.dump(scaler_target, 'scaler-target.pkl')
+
+```
