@@ -162,9 +162,9 @@ print(df.head())
 df.shape
 ```
 
-<p style="text-align: justify;">Dimensi DataFrame saat ini adalah (1215, 4), yang berarti DataFrame memiliki:
-a. 1215 baris: Setiap baris mewakili satu entri atau pengamatan dalam data Anda.
-b.  kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.
+<p style="text-align: justify;">Dimensi DataFrame saat ini adalah (1215, 4), yang berarti DataFrame memiliki: 
+  a. 1215 baris: Setiap baris mewakili satu entri atau pengamatan dalam data Anda.
+  b. kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.
 </p>
 
 
