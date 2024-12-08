@@ -57,14 +57,13 @@ import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
-import pandas as pd
 ```
 
 ```{code-cell} python
 #Mengambil dan menampilkan data
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
 pd.options.display.float_format = '{:.0f}'.format
-print (df.head())
+print(df.head())
 ```
 
 #### b. Deskripsi Data
@@ -93,17 +92,7 @@ df.dtypes
 <p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
 
 ```{code-cell} python
-# Merubah kolom 'Date' dalam format datetime dengan dayfirst=True
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True, errors='coerce')
 
-# Mengatur kolom 'Date' sebagai indeks
-df.set_index('Date', inplace=True)
-
-# Menghapus tanda koma (pemisah ribuan) dan mengonversi kolom ini menjadi tipe float
-df['Harga Beras'] = df['Harga Beras'].str.replace(',', '').astype(float)
-
-# Menampilkan 5 baris pertama untuk memastikan
-print(df.head())
 ```
 
 <p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
