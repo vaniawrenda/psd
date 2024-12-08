@@ -255,83 +255,93 @@ Regresi Linear, Support Vector Regression (SVR), dan K-Nearest Neighbors (KNN).
 Selain itu, untuk meningkatkan akurasi dan performa model, digunakan teknik ensemble melalui metode bagging. </P>
 
 ```{code-cell} python
-import tensorflow as tf
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.ensemble import BaggingRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
-import numpy as np
+from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Membagi data menjadi fitur (X) dan target (y)
-X = df_normalized[['harga-3', 'harga-2', 'harga-1']].values
-y = df_normalized['Harga Beras'].values
+# List model untuk ensemble Bagging
+models = {
+    "Linear Regression": LinearRegression(),
+    "SVR": SVR(),
+    "KNN": KNeighborsRegressor(n_neighbors=5)
+}
 
-# Membentuk data dalam format 3D untuk LSTM [samples, timesteps, features]
-X_lstm = X.reshape(X.shape[0], X.shape[1], 1)
+# Dictionary untuk menyimpan hasil evaluasi
+results = {}
 
-# Membagi data menjadi training dan testing (80%-20%)
-split_index = int(0.8 * len(X_lstm))
-X_train, X_test = X_lstm[:split_index], X_lstm[split_index:]
-y_train, y_test = y[:split_index], y[split_index:]
+# Bagi data menjadi training dan testing (80%-20%)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
 
-# Membuat model LSTM
-model = Sequential([
-    LSTM(64, activation='tanh', input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True),
-    Dropout(0.2),
-    LSTM(32, activation='tanh'),
-    Dropout(0.2),
-    Dense(1)  # Output layer untuk prediksi harga
-])
+# Variabel untuk menyimpan model terbaik
+best_model_name = None
+best_rmse = float('inf')
+best_metrics = None
 
-# Kompilasi model
-model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+# Iterasi setiap model
+for i, (name, base_model) in enumerate(models.items()):
+    # Inisialisasi Bagging Regressor dengan model dasar
+    bagging_model = BaggingRegressor(
+        estimator=base_model,
+        n_estimators=30,
+        max_samples=0.8,         # Menggunakan 80% dari data latih
+        max_features=1.0,       # Menggunakan semua fitur
+        bootstrap=True,         # Menggunakan bootstrap sampling
+        random_state=42
+    )
+    
+    # Latih model
+    bagging_model.fit(X_train, y_train)
+    
+    # Prediksi pada data uji
+    y_pred = bagging_model.predict(X_test)
+    
+    # Evaluasi model
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
+    mape = mean_absolute_percentage_error(y_test, y_pred) * 100  # Dalam persen
+    
+    # Simpan hasil evaluasi
+    results[name] = {"RMSE": rmse, "MAPE": mape}
+    
+    # Cek apakah model ini memiliki RMSE terbaik
+    if rmse < best_rmse:
+        best_rmse = rmse
+        best_model_name = name
+        best_metrics = {"RMSE": rmse, "MAPE": mape}
+    
+    # Kembalikan hasil prediksi ke skala asli
+    y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
+    y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
+    
+    # Plot hasil prediksi
+    plt.figure(figsize=(15, 6))
+    plt.plot(y_test.index, y_test_original, label="Actual", color="blue")
+    plt.plot(y_test.index, y_pred_original, label=f"Predicted ({name})", color="red")
+    
+    # Tambahkan detail plot
+    plt.title(f'Actual vs Predicted Values ({name})')
+    plt.xlabel('Tanggal')
+    plt.ylabel('Harga')
+    plt.legend()
+    plt.grid(True)
+    
+    # Tampilkan plot
+    plt.show()
 
-# Melatih model
-history = model.fit(
-    X_train, y_train,
-    validation_data=(X_test, y_test),
-    epochs=50,  # Jumlah iterasi pelatihan
-    batch_size=32,
-    verbose=1
-)
+# Tampilkan hasil evaluasi
+print("HASIL EVALUASI MODEL")
+for model, metrics in results.items():
+    print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
 
-# Evaluasi model
-y_pred = model.predict(X_test)
-
-# Menghitung metrik evaluasi
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
-mape = mean_absolute_percentage_error(y_test, y_pred) * 100
-
-# Menampilkan hasil evaluasi
-print(f"RMSE LSTM: {rmse:.2f}")
-print(f"MAPE LSTM: {mape:.2f}%")
-
-# Mengembalikan prediksi dan data uji ke skala asli
-y_pred_original = scaler_target.inverse_transform(y_pred)
-y_test_original = scaler_target.inverse_transform(y_test.reshape(-1, 1))
-
-# Plot hasil prediksi vs aktual
-plt.figure(figsize=(15, 6))
-plt.plot(range(len(y_test_original)), y_test_original, label="Actual", color="blue")
-plt.plot(range(len(y_pred_original)), y_pred_original, label="Predicted (LSTM)", color="red")
-plt.title("Actual vs Predicted Values (LSTM)")
-plt.xlabel("Index")
-plt.ylabel("Harga")
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# Menampilkan history loss
-plt.figure(figsize=(10, 5))
-plt.plot(history.history['loss'], label='Training Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')
-plt.title("Training and Validation Loss")
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.legend()
-plt.grid(True)
-plt.show()
+# Tampilkan hasil terbaik
+print("\nMODEL TERBAIK:")
+print(f"Model: {best_model_name}")
+print(f"RMSE Terbaik: {best_metrics['RMSE']:.2f}")
+print(f"MAPE Terbaik: {best_metrics['MAPE']:.2f}%")
 
 ```
