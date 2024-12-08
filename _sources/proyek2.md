@@ -277,6 +277,11 @@ results = {}
 # Bagi data menjadi training dan testing (80%-20%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=False)
 
+# Variabel untuk menyimpan model terbaik
+best_model_name = None
+best_rmse = float('inf')
+best_metrics = None
+
 # Iterasi setiap model
 for i, (name, base_model) in enumerate(models.items()):
     # Inisialisasi Bagging Regressor dengan model dasar
@@ -303,6 +308,12 @@ for i, (name, base_model) in enumerate(models.items()):
     # Simpan hasil evaluasi
     results[name] = {"RMSE": rmse, "MAPE": mape}
     
+    # Cek apakah model ini memiliki RMSE terbaik
+    if rmse < best_rmse:
+        best_rmse = rmse
+        best_model_name = name
+        best_metrics = {"RMSE": rmse, "MAPE": mape}
+    
     # Kembalikan hasil prediksi ke skala asli
     y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
     y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
@@ -327,5 +338,10 @@ print("HASIL EVALUASI MODEL")
 for model, metrics in results.items():
     print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
 
+# Tampilkan hasil terbaik
+print("\nMODEL TERBAIK:")
+print(f"Model: {best_model_name}")
+print(f"RMSE Terbaik: {best_metrics['RMSE']:.2f}")
+print(f"MAPE Terbaik: {best_metrics['MAPE']:.2f}%")
 
 ```
