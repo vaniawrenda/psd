@@ -40,7 +40,7 @@ kernelspec:
 
 ### Data Understanding 
 
-#### Sumber Data 
+#### a. Sumber Data 
 <p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari website PHIPS Nasional (Pusat Informasi Harga Pangan Strategis Nasional). PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2020 hingga 2024, dengan periode harian, yang diambil dari seluruh pasar modern di Jawa Timur.</p>
 
 ```{code-cell} python
@@ -49,7 +49,18 @@ import pandas as pd
 ```
 
 ```{code-cell} python
-# Membaca data CSV
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import BaggingRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
+import plotly.graph_objects as go
+import seaborn as sns
+import matplotlib.pyplot as plt
+import plotly.express as px
 
 #Mengambil dan menampilkan data
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
@@ -57,7 +68,7 @@ pd.options.display.float_format = '{:.0f}'.format
 print (df.head())
 ```
 
-#### Deskripsi Data
+#### b. Deskripsi Data
 
 Dataset ini terdiri dari 2 fitur atau kolom dan 1218 record atau baris. Atribut dalam dataset ini antara lain:
 1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
@@ -78,14 +89,21 @@ df.dtypes
 1. Date: Data saat ini disajikan dalam bentuk string, namun akan diubah menjadi tipe data datetime pada tahap eksplorasi untuk memudahkan analisis waktu. 
 2. Harga Beras (kg): Merupakan data numerik (Kontinu), karena harga dapat memiliki nilai pecahan dan dapat diukur dengan presisi yang lebih tinggi.
 
-#### Eksplorasi Data
+#### c. Eksplorasi Data
 
 <p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
 
 ```{code-cell} python
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
+# Merubah kolom 'Date' dalam format datetime dengan dayfirst=True
+df['Date'] = pd.to_datetime(df['Date'], dayfirst=True, errors='coerce')
+
+# Mengatur kolom 'Date' sebagai indeks
 df.set_index('Date', inplace=True)
-df.index = pd.to_datetime(df.index)
+
+# Menghapus tanda koma (pemisah ribuan) dan mengonversi kolom ini menjadi tipe float
+df['Harga Beras'] = df['Harga Beras'].str.replace(',', '').astype(float)
+
+# Menampilkan 5 baris pertama untuk memastikan
 print(df.head())
 ```
 
