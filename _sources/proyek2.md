@@ -163,25 +163,9 @@ df.shape
 ```
 
 <p style="text-align: justify;">Dimensi DataFrame saat ini adalah (1215, 4), yang berarti DataFrame memiliki:
-
-1215 baris: Setiap baris mewakili satu entri atau pengamatan dalam data Anda.
-4 kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.
+a. 1215 baris: Setiap baris mewakili satu entri atau pengamatan dalam data Anda.
+b.  kolom: Terdapat empat variabel atau fitur yang dicatat untuk setiap baris.
 </p>
 
-```{code-cell} python
-import numpy as np
-import pandas as pd
-# Menghitung korelasi Pearson antara fitur dan target
-correlations = {}
-for col in df.columns[:-1]:
-    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
-    correlations[col] = correlation
 
-# Menampilkan hasil korelasi
-for fitur, bobot_korelasi in correlations.items():
-    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
-```
 
-<p style="text-indent: 50px; text-align: justify;">Dalam analisis ini, menghitung korelasi Pearson antara setiap fitur yang dihasilkan dari harga beras pada hari-hari sebelumnya dan target harga saat ini. Hasil korelasi menunjukkan bahwa terdapat hubungan yang sangat kuat antara harga beras pada hari ke-5 sebelumnya (koefisien korelasi 0.9970) hingga harga beras pada hari ke-1 sebelumnya (koefisien korelasi 0.9993) dengan harga saat ini.</P>
-
-### Pra-pemrosesan Data (Data Preprocessing)
