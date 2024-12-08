@@ -345,6 +345,8 @@ print(f"RMSE Terbaik: {best_metrics['RMSE']:.2f}")
 print(f"MAPE Terbaik: {best_metrics['MAPE']:.2f}%")
 
 ```
+
+#### Kesimpulan
 <p style="text-indent: 50px; text-align: justify;">
 Berdasarkan hasil evaluasi, model Linear Regression menunjukkan 
 performa terbaik dengan RMSE sebesar 0.02 dan MAPE sebesar 1.22%. 
@@ -355,4 +357,9 @@ terutama SVR dengan MAPE 57.33%, menunjukkan tingkat kesalahan yang
 signifikan dalam memprediksi harga. Model KNN lebih baik dibandingkan SVR, 
 tetapi masih tidak seakurat Linear Regression.
 Kesimpulannya, Linear Regression adalah pilihan paling efektif untuk data ini,
- kemungkinan karena sifatnya yang sederhana dan linier cocok dengan pola data yang ada, sementara SVR dan KNN mungkin kesulitan menangkap pola atau memerlukan parameter tuning lebih lanjut.
+ kemungkinan karena sifatnya yang sederhana dan linier cocok dengan pola data yang ada, 
+ sementara SVR dan KNN mungkin kesulitan menangkap pola atau memerlukan parameter tuning lebih lanjut.
+
+### DEPLOYMENTS
+<b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
+https://huggingface.co/spaces/vaniawrenda/project2_prediksi_harga_beras
