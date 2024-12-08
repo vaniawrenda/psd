@@ -12,14 +12,16 @@ kernelspec:
   name: python3
 ---
 
-# Projek 2
+# Laporan Project 2
+
+## Pemodelan Prediksi Harga Beras Berdasarkan Tren Historis
 
 
-## Pendahuluan 
+## PENDAHULUAN
 
 ### Latar Belakang
 
-<p style="text-indent: 50px; text-align: justify;">Beras Rojolele merupakan salah satu varietas padi lokal unggulan yang dihasilkan oleh petani di Jawa Tengah. Dikenal dengan tekstur pulen, aroma harum, dan butiran besar, beras ini menjadi salah satu pilihan favorit masyarakat. Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa memberikan kualitas beras terbaik untuk konsumen. Misi beras Rojolele adalah konsisten menawarkan beras berkualitas tinggi dengan cita rasa pulen dan aroma harum, serta menjaga stabilitas harga dan ketersediaan produk, yang bertujuan untuk mendukung kesejahteraan petani lokal dan meningkatkan kualitas hidup konsumen.</p>
+<p style="text-indent: 50px; text-align: justify;">Beras Rojolele merupakan salah satu varietas padi lokal unggulan yang dihasilkan oleh petani di Jawa Tengah. Dengan visi menjadi perusahaan pengolahan beras terkemuka yang senantiasa memberikan kualitas beras terbaik untuk konsumen. Misi beras Rojolele adalah konsisten menawarkan beras berkualitas tinggi dengan cita rasa pulen dan aroma harum, serta menjaga stabilitas harga yang bertujuan untuk mendukung kesejahteraan petani lokal dan meningkatkan kualitas hidup konsumen.</p>
 
 <p style="text-indent: 50px; text-align: justify;">Seiring dengan perkembangan ekonomi dan perubahan gaya hidup, permintaan terhadap beras Rojolele terus mengalami peningkatan yang stabil. Namun, kenaikan permintaan ini membawa tantangan bagi para produsen dan distributor. Faktor seperti kebijakan pemerintah terkait impor dan ekspor beras dapat menyebabkan fluktuasi harga yang tidak terduga.</p>
   
@@ -27,19 +29,19 @@ kernelspec:
 
 ### Rumusan Masalah
 
-<p style="text-indent: 50px; text-align: justify;">Dalam upaya menjaga stabilitas harga dan memenuhi permintaan pasar, para produsen dan distributor beras Rojolele menghadapi beberapa masalah utama. Salah satu tantangan terbesar adalah fluktuasi harga yang disebabkan oleh kebijakan pemerintah terkiat impor dan ekspor beras.  Ketidakpastian ini sering kali mengakibatkan kesulitan dalam merencanakan produksi dan distribusi, yang pada gilirannya dapat mengganggu ketersediaan beras Rojolele di pasar. Oleh karena itu, perlu adanya pendekatan yang lebih efektif dalam peramalan harga agar produsen dan distributor dapat membuat keputusan yang lebih baik dalam menghadapi dinamika pasar yang cepat berubah.</p>
+<p style="text-indent: 50px; text-align: justify;">Dalam upaya menjaga stabilitas harga dan memenuhi permintaan beras Rojolele menghadapi beberapa masalah utama. Salah satu tantangan terbesar adalah fluktuasi harga yang disebabkan oleh kebijakan pemerintah terkiat impor dan ekspor beras. Oleh karena itu, perlu adanya pendekatan yang lebih efektif dalam peramalan harga agar produsen dan distributor dapat membuat keputusan yang lebih baik dalam menghadapi dinamika pasar yang cepat berubah.</p>
 
 ### Tujuan 
 
 <p style="text-indent: 50px; text-align: justify;">Tujuan utama dari analisis ini adalah untuk memprediksi harga beras pada hari berikutnya berdasarkan data historis, sehingga dapat meminimalkan risiko kerugian akibat fluktuasi harga yang tidak terduga.</p>
 
 
-## Metodologi
+## METODOLOGI
 
 ### Data Understanding 
 
 #### Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari website [PHIPS Nasional](https://www.bi.go.id/hargapangan) (Pusat Informasi Harga Pangan Strategis Nasional) . PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2020 hingga 2024, dengan periode harian, yang diambil dari seluruh pasar modern di Jawa Timur.</p>
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data sekunder yang diperoleh dari website [PHIPS Nasional](https://www.bi.go.id/hargapangan) (Pusat Informasi Harga Pangan Strategis Nasional). PHIPS Nasional adalah sebuah platform online yang dikelola oleh Bank Indonesia, yang menyediakan informasi historis mengenai harga pangan di seluruh provinsi di Indonesia. Pemantauan harga PIHPS Nasional telah mencakup empat jenis pasar, yakni pasar tradisional, pasar modern, pedagang besar, dan produsen. Dalam proyek ini, digunakan data historis harga beras dari tahun 2020 hingga 2024, dengan periode harian, yang diambil dari seluruh pasar modern di Jawa Timur.</p>
 
 ```{code-cell} python
 # import library
@@ -57,7 +59,7 @@ print (df.head())
 
 #### Deskripsi Data
 
-Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:
+Dataset ini terdiri dari 2 fitur atau kolom dan 1218 record atau baris. Atribut dalam dataset ini antara lain:
 1.  Date: Tanggal harga beras dengan format yyyy-mm-dd
 2.	Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.
 
@@ -67,7 +69,7 @@ Melihat ringkasan DataFrame.
 df.info()
 print('Ukuran data ', df.shape)
 ```
-Berdasarkan hasil output diatas, DataFrame memiliki 1479 baris dengan indeks yang dimulai dari 0. 
+Berdasarkan hasil output diatas, DataFrame memiliki 1218 baris dengan indeks yang dimulai dari 0. 
 
 ```{code-cell} python
 df.dtypes
@@ -90,7 +92,7 @@ print(df.head())
 <p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
 ```{code-cell} python
-#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
+#Mengonversi kolom Harga Beras dalam dataframe menjadi data float
 df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
 print(df.head())
 ```
