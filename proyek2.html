@@ -559,20 +559,45 @@ Date
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Harga Beras
-count         1218
-mean         13079
-std            923
-min          12350
-25%          12500
-50%          12600
-75%          13550
-max          15750
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Axes(0.125,0.11;0.775x0.77)
+</pre></div>
+</div>
+<img alt="_images/5f367427d5da488cf0eb74a472a123b41a4e04a1368d560238457fa39bf0084f.png" src="_images/5f367427d5da488cf0eb74a472a123b41a4e04a1368d560238457fa39bf0084f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">-------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                   </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">())</span>
+
+<span class="ne">TypeError</span>: &#39;tuple&#39; object is not callable
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mencari Missing Value</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -603,103 +628,12 @@ max          15750
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>xt-5</th>
-      <th>xt-4</th>
-      <th>xt-3</th>
-      <th>xt-2</th>
-      <th>xt-1</th>
-      <th>xt</th>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2020-01-01</th>
-      <td>12350</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-    </tr>
-    <tr>
-      <th>2020-01-02</th>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-    </tr>
-    <tr>
-      <th>2020-01-03</th>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12500</td>
-      <td>12500</td>
-      <td>12500</td>
-    </tr>
-    <tr>
-      <th>2020-01-06</th>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12500</td>
-      <td>12500</td>
-    </tr>
-    <tr>
-      <th>2020-01-07</th>
-      <td>12400</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12350</td>
-      <td>12500</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p style="text-indent: 50px; text-align: justify;">Visualisasi ini dibuat untuk menunjukkan perubahan harga beras dari waktu ke waktu, termasuk harga beras pada hari ke-5, ke-4, ke-3, ke-2, dan ke-1, serta harga saat ini. Dengan menggunakan grafik garis, kita dapat dengan jelas mengamati tren dan pola harga tersebut, sehingga membantu kita memahami bagaimana harga saat ini dipengaruhi oleh harga-harga di hari-hari sebelumnya.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date&#39;&gt;
-</pre></div>
-</div>
-<img alt="_images/43c891d46ee134957da8b50863dcb5e90a72dd6205cd1ff8833616e9734ef9a3.png" src="_images/43c891d46ee134957da8b50863dcb5e90a72dd6205cd1ff8833616e9734ef9a3.png" />
 </div>
 </div>
 <p style="text-indent: 50px; text-align: justify;">Selanjutnya melihat korelasi antara kolom satu dengan kolom lainnya.</p><div class="cell docutils container">
@@ -715,15 +649,6 @@ max          15750
 <span class="c1"># Menampilkan hasil korelasi</span>
 <span class="k">for</span> <span class="n">fitur</span><span class="p">,</span> <span class="n">bobot_korelasi</span> <span class="ow">in</span> <span class="n">correlations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Korelasi Pearson antara </span><span class="si">{</span><span class="n">fitur</span><span class="si">}</span><span class="s2"> dan target: </span><span class="si">{</span><span class="n">bobot_korelasi</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Korelasi Pearson antara xt-5 dan target: 0.9972
-Korelasi Pearson antara xt-4 dan target: 0.9977
-Korelasi Pearson antara xt-3 dan target: 0.9983
-Korelasi Pearson antara xt-2 dan target: 0.9988
-Korelasi Pearson antara xt-1 dan target: 0.9994
 </pre></div>
 </div>
 </div>

@@ -95,10 +95,6 @@ konversi disini menggunakan metode str.replace(',', '') untuk menghapus tanda ko
 karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
 ```{code-cell} python
-
-```
-
-```{code-cell} python
 # Merubah kolom 'Date' dalam format datetime dengan dayfirst=True
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True, errors='coerce')
 
@@ -110,6 +106,19 @@ df['Harga Beras'] = df['Harga Beras'].str.replace(',', '').astype(float)
 
 # Menampilkan 5 baris pertama untuk memastikan
 print(df.head())
+```
+
+```{code-cell} python
+print(df.plot())
+```
+
+```{code-cell} python
+print(df.shape())
+```
+
+```{code-cell} python
+# Mencari Missing Value
+print(df.isnull().sum())
 ```
 
 ```{code-cell} python

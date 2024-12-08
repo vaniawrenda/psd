@@ -18,59 +18,14 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import pandas as pd
-# Menghitung korelasi Pearson antara fitur dan target
-correlations = {}
-for col in df.columns[:-1]:
-    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
-    correlations[col] = correlation
-
-# Menampilkan hasil korelasi
-for fitur, bobot_korelasi in correlations.items():
-    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
+print(df.shape())
 ------------------
 
 
-[1;31m---------------------------------------------------------------------------[0m
-[1;31mTypeError[0m                                 Traceback (most recent call last)
-Cell [1;32mIn[9], line 6[0m
-[0;32m      4[0m correlations [38;5;241m=[39m {}
-[0;32m      5[0m [38;5;28;01mfor[39;00m col [38;5;129;01min[39;00m df[38;5;241m.[39mcolumns[:[38;5;241m-[39m[38;5;241m1[39m]:
-[1;32m----> 6[0m     correlation [38;5;241m=[39m [43mnp[49m[38;5;241;43m.[39;49m[43mcorrcoef[49m[43m([49m[43mdf[49m[43m[[49m[43mcol[49m[43m][49m[43m,[49m[43m [49m[43mdf[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mxt[39;49m[38;5;124;43m'[39;49m[43m][49m[43m)[49m[[38;5;241m0[39m, [38;5;241m1[39m]
-[0;32m      7[0m     correlations[col] [38;5;241m=[39m correlation
-[0;32m      9[0m [38;5;66;03m# Menampilkan hasil korelasi[39;00m
+[1;31m-------------------------------------------------------------[0m
+[1;31mTypeError[0m                   Traceback (most recent call last)
+Cell [1;32mIn[7], line 1[0m
+[1;32m----> 1[0m [38;5;28mprint[39m([43mdf[49m[38;5;241;43m.[39;49m[43mshape[49m[43m([49m[43m)[49m)
 
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\function_base.py:2889[0m, in [0;36mcorrcoef[1;34m(x, y, rowvar, bias, ddof, dtype)[0m
-[0;32m   2885[0m [38;5;28;01mif[39;00m bias [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m np[38;5;241m.[39m_NoValue [38;5;129;01mor[39;00m ddof [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m np[38;5;241m.[39m_NoValue:
-[0;32m   2886[0m     [38;5;66;03m# 2015-03-15, 1.10[39;00m
-[0;32m   2887[0m     warnings[38;5;241m.[39mwarn([38;5;124m'[39m[38;5;124mbias and ddof have no effect and are deprecated[39m[38;5;124m'[39m,
-[0;32m   2888[0m                   [38;5;167;01mDeprecationWarning[39;00m, stacklevel[38;5;241m=[39m[38;5;241m2[39m)
-[1;32m-> 2889[0m c [38;5;241m=[39m [43mcov[49m[43m([49m[43mx[49m[43m,[49m[43m [49m[43my[49m[43m,[49m[43m [49m[43mrowvar[49m[43m,[49m[43m [49m[43mdtype[49m[38;5;241;43m=[39;49m[43mdtype[49m[43m)[49m
-[0;32m   2890[0m [38;5;28;01mtry[39;00m:
-[0;32m   2891[0m     d [38;5;241m=[39m diag(c)
-
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\function_base.py:2724[0m, in [0;36mcov[1;34m(m, y, rowvar, bias, ddof, fweights, aweights, dtype)[0m
-[0;32m   2721[0m     [38;5;28;01melse[39;00m:
-[0;32m   2722[0m         w [38;5;241m*[39m[38;5;241m=[39m aweights
-[1;32m-> 2724[0m avg, w_sum [38;5;241m=[39m [43maverage[49m[43m([49m[43mX[49m[43m,[49m[43m [49m[43maxis[49m[38;5;241;43m=[39;49m[38;5;241;43m1[39;49m[43m,[49m[43m [49m[43mweights[49m[38;5;241;43m=[39;49m[43mw[49m[43m,[49m[43m [49m[43mreturned[49m[38;5;241;43m=[39;49m[38;5;28;43;01mTrue[39;49;00m[43m)[49m
-[0;32m   2725[0m w_sum [38;5;241m=[39m w_sum[[38;5;241m0[39m]
-[0;32m   2727[0m [38;5;66;03m# Determine the normalization[39;00m
-
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\lib\function_base.py:520[0m, in [0;36maverage[1;34m(a, axis, weights, returned, keepdims)[0m
-[0;32m    517[0m     keepdims_kw [38;5;241m=[39m {[38;5;124m'[39m[38;5;124mkeepdims[39m[38;5;124m'[39m: keepdims}
-[0;32m    519[0m [38;5;28;01mif[39;00m weights [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[1;32m--> 520[0m     avg [38;5;241m=[39m [43ma[49m[38;5;241;43m.[39;49m[43mmean[49m[43m([49m[43maxis[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkeepdims_kw[49m[43m)[49m
-[0;32m    521[0m     avg_as_array [38;5;241m=[39m np[38;5;241m.[39masanyarray(avg)
-[0;32m    522[0m     scl [38;5;241m=[39m avg_as_array[38;5;241m.[39mdtype[38;5;241m.[39mtype(a[38;5;241m.[39msize[38;5;241m/[39mavg_as_array[38;5;241m.[39msize)
-
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\numpy\core\_methods.py:121[0m, in [0;36m_mean[1;34m(a, axis, dtype, out, keepdims, where)[0m
-[0;32m    119[0m [38;5;28;01mif[39;00m [38;5;28misinstance[39m(ret, mu[38;5;241m.[39mndarray):
-[0;32m    120[0m     [38;5;28;01mwith[39;00m _no_nep50_warning():
-[1;32m--> 121[0m         ret [38;5;241m=[39m [43mum[49m[38;5;241;43m.[39;49m[43mtrue_divide[49m[43m([49m
-[0;32m    122[0m [43m                [49m[43mret[49m[43m,[49m[43m [49m[43mrcount[49m[43m,[49m[43m [49m[43mout[49m[38;5;241;43m=[39;49m[43mret[49m[43m,[49m[43m [49m[43mcasting[49m[38;5;241;43m=[39;49m[38;5;124;43m'[39;49m[38;5;124;43munsafe[39;49m[38;5;124;43m'[39;49m[43m,[49m[43m [49m[43msubok[49m[38;5;241;43m=[39;49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m
-[0;32m    123[0m     [38;5;28;01mif[39;00m is_float16_result [38;5;129;01mand[39;00m out [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[0;32m    124[0m         ret [38;5;241m=[39m arr[38;5;241m.[39mdtype[38;5;241m.[39mtype(ret)
-
-[1;31mTypeError[0m: unsupported operand type(s) for /: 'str' and 'int'
+[1;31mTypeError[0m: 'tuple' object is not callable
 
