@@ -46,6 +46,16 @@ kernelspec:
 ```{code-cell} python
 # import library
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import BaggingRegressor
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
+import seaborn as sns
+import matplotlib.pyplot as plt
 ```
 
 ```{code-cell} python
