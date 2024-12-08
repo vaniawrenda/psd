@@ -169,13 +169,13 @@ Dimensi DataFrame saat ini adalah (1215, 4), yang berarti DataFrame memiliki:
 
 #### b. Normalisasi Data
 <p style="text-indent: 50px; text-align: justify;">
-Proses normalisasi data dilakukan pada fitur **(harga-3, harga-2, harga-1)** dan target **(Harga Beras)** menggunakan **MinMaxScaler**. 
-Pertama, scaler untuk fitur diinisialisasi sebagai **scaler_features**, kemudian fitur-fitur tersebut dinormalisasi menggunakan **fit_transform**, 
-dan hasilnya disimpan dalam DataFrame **df_features_normalized** dengan kolom yang sama seperti aslinya. 
-Selanjutnya, target **(Harga Beras)** dinormalisasi menggunakan **scaler_target**, 
-dengan hasil normalisasi disimpan dalam **df_target_normalized**. 
-Setelah kedua DataFrame selesai dinormalisasi, keduanya digabung kembali menggunakan **pd.concat** 
-dengan menyusun fitur dan target dalam satu DataFrame bernama **df_normalized**. 
+Proses normalisasi data dilakukan pada fitur (harga-3, harga-2, harga-1) dan target (Harga Beras) menggunakan MinMaxScaler. 
+Pertama, scaler untuk fitur diinisialisasi sebagai scaler_features, kemudian fitur-fitur tersebut dinormalisasi menggunakan fit_transform, 
+dan hasilnya disimpan dalam DataFrame df_features_normalized dengan kolom yang sama seperti aslinya. 
+Selanjutnya, target (Harga Beras) dinormalisasi menggunakan scaler_target, 
+dengan hasil normalisasi disimpan dalam df_target_normalized. 
+Setelah kedua DataFrame selesai dinormalisasi, keduanya digabung kembali menggunakan pd.concat 
+dengan menyusun fitur dan target dalam satu DataFrame bernama df_normalized. 
 Data yang dihasilkan siap digunakan untuk analisis atau pengembangan model prediktif. </P>
 
 
