@@ -136,7 +136,6 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 #### a. Slidding Window
 
 <p style="text-indent: 50px; text-align: justify;">
-Berikut adalah penjelasan dengan mengganti konteksnya ke harga beras:
 Melakukan penambahan fitur lag untuk harga beras yang merepresentasikan harga pada hari-hari sebelumnya.
 Kolom baru yang ditambahkan adalah harga-1, harga-2, dan harga-3, yang masing-masing menunjukkan 
 harga beras satu, dua, dan tiga hari sebelumnya.Nilai-nilai NaN yang muncul akibat pergeseran (lag) 
