@@ -95,7 +95,8 @@ df.dtypes
 
 ```
 
-<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
+<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, sebelum konversi disini menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, 
+karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
 ```{code-cell} python
 # Merubah kolom 'Date' dalam format datetime dengan dayfirst=True
