@@ -206,3 +206,98 @@ df_normalized.head()
 ```
 
 <p>Proses di atas melakukan normalisasi data pada fitur input (Open, High, Low, Close) dan target output (Close Target) menggunakan MinMaxScaler.</p>
+
+### Modelling 
+
+#### a. Pembagian Data 
+
+
+<p style="text-indent: 50px; text-align: justify;">Langkah berikutnya adalah membagi data menjadi data training dan data testing menggunakan train_test_split, dengan proporsi 80% untuk training dan 20% untuk testing. Setelah pembagian, data training (X_train dan y_train) akan digunakan untuk melatih model, sedangkan data testing (X_test dan y_test) akan digunakan untuk mengevaluasi kinerja model yang telah dilatih.</p>
+
+```{code-cell} python
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[['Open', 'High', 'Low', 'Close']]
+y = df_normalized['Close Target']
+
+# Membagi data menjadi training dan testing (60% training, 40% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
+```
+
+```{code-cell} python
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.svm import SVR
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.preprocessing import MinMaxScaler
+
+# Daftar model regresi
+models = {
+    "Linear Regression": LinearRegression(),
+    "Decision Tree": DecisionTreeRegressor(random_state=32),
+    "Ridge Regression": Ridge(alpha=1.0),
+    "Support Vector Regression": SVR(kernel='rbf', C=1.0, epsilon=0.1),
+    "Random Forest": RandomForestRegressor(n_estimators=100, random_state=32),
+    "KNN Regressor": KNeighborsRegressor(n_neighbors=5)
+}
+
+# Dictionary untuk menyimpan hasil evaluasi
+results = {}
+
+# Iterasi setiap model
+for name, model in models.items():
+    # Latih model
+    model.fit(X_train, y_train)
+
+    # Prediksi pada data uji
+    y_pred = model.predict(X_test)
+
+    # Evaluasi
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
+    mape = mean_absolute_percentage_error(y_test, y_pred) * 100  # Dalam persen
+
+    # Simpan hasil evaluasi
+    results[name] = {"RMSE": rmse, "MAPE": mape}
+
+    # Kembalikan hasil prediksi ke skala asli
+    y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
+    y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
+
+    # Plot hasil prediksi
+    plt.figure(figsize=(15, 6))
+    plt.plot(y_test.index, y_test_original, label="Actual", color="blue")
+    plt.plot(y_test.index, y_pred_original, label=f"Predicted ({name})", color="red")
+
+    # Tambahkan detail plot
+    plt.title(f'Actual vs Predicted Values ({name})')
+    plt.xlabel('Tanggal')
+    plt.ylabel('Kurs')
+    plt.legend()
+    plt.grid(True)
+
+    # Tampilkan plot
+    plt.show()
+
+# Tampilkan hasil evaluasi
+print("HASIL EVALUASI MODEL")
+best_model = None
+best_rmse = float('inf')
+best_mape = float('inf')
+
+for model, metrics in results.items():
+    print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
+
+    # Tentukan model terbaik berdasarkan RMSE dan MAPE terkecil
+    if metrics['RMSE'] < best_rmse and metrics['MAPE'] < best_mape:
+        best_model = model
+        best_rmse = metrics['RMSE']
+        best_mape = metrics['MAPE']
+
+# Tampilkan model terbaik
+print(f"MODEL TERBAIK:\nModel: {best_model}\nRMSE Terbaik: {best_rmse:.2f}\nMAPE Terbaik: {best_mape:.2f}%")
+
+```
