@@ -787,68 +787,48 @@ Jenis Data</p>
 <p>1802 rows × 6 columns</p>
 </div></div></div>
 </div>
-<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p><div class="cell docutils container">
+<p style="text-indent: 50px; text-align: justify;"> 
+Setelah dipastikan tidak ada missing value, langkah berikutnya adalah membuat visualisasi tren data untuk setiap kolom menggunakan matplotlib dan seaborn. Grafik garis dibuat dengan tanggal sebagai sumbu X dan nilai kolom sebagai sumbu Y untuk menunjukkan perubahan nilai seiring waktu.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Trend of </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-
-<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;Harga Beras&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;Harga Beras&#39;
-</pre></div>
-</div>
+<img alt="_images/7583ce089d26ffbeb22bb44ea87ae6d618597353ff9ef9e2a8c90a1c2faee93a.png" src="_images/7583ce089d26ffbeb22bb44ea87ae6d618597353ff9ef9e2a8c90a1c2faee93a.png" />
+<img alt="_images/493cd26112322095e589e9c13960745354f11b757f2b538de07417dcc3fb286f.png" src="_images/493cd26112322095e589e9c13960745354f11b757f2b538de07417dcc3fb286f.png" />
+<img alt="_images/0f7a5e4d69497ffbe0c8dec5c662a4c9bec9a997f1c4c6a5062cd64e15c9880d.png" src="_images/0f7a5e4d69497ffbe0c8dec5c662a4c9bec9a997f1c4c6a5062cd64e15c9880d.png" />
+<img alt="_images/2ffba2c0da7ea84faa8eb6255e44bb1cbcafcf4343e43dc74c227c6966ec07b7.png" src="_images/2ffba2c0da7ea84faa8eb6255e44bb1cbcafcf4343e43dc74c227c6966ec07b7.png" />
+<img alt="_images/52a828a1ab02293a77c4d537409f6882724f7f7f62575786091708b32894980c.png" src="_images/52a828a1ab02293a77c4d537409f6882724f7f7f62575786091708b32894980c.png" />
+<img alt="_images/8541be1a35fe480fd23c0a9d111b1f4c95b7acf183babe144f92de1e37de59ab.png" src="_images/8541be1a35fe480fd23c0a9d111b1f4c95b7acf183babe144f92de1e37de59ab.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Open  High  Low  Close  Adj Close      Volume
+count  1802  1802 1802   1802       1802        1802
+mean   1958  2010 1901   1960       1960 16463876516
+std    1139  1170 1104   1139       1139 10276625400
+min     110   116   95    111        111  2081625742
+25%    1234  1273 1206   1237       1237  9405953393
+50%    1860  1889 1828   1861       1861 14469911390
+75%    2807  2917 2728   2808       2808 20298407800
+max    4810  4892 4718   4812       4812 84482912776
 </pre></div>
 </div>
 </div>
@@ -876,6 +856,56 @@ Jenis Data</p>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">])</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;Harga Beras&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;xt-5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;xt-4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;xt-3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Harga Beras&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;Harga Beras&#39;
 </pre></div>
 </div>
 </div>

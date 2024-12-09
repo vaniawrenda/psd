@@ -118,12 +118,21 @@ df.isnull().sum()
 df
 ```
 
-<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
+<p style="text-indent: 50px; text-align: justify;"> 
+Setelah dipastikan tidak ada missing value, langkah berikutnya adalah membuat visualisasi tren data untuk setiap kolom menggunakan matplotlib dan seaborn. Grafik garis dibuat dengan tanggal sebagai sumbu X dan nilai kolom sebagai sumbu Y untuk menunjukkan perubahan nilai seiring waktu.</p>
 
 ```{code-cell} python
-#Mengonversi kolom Harga Beras dalam dataframe mnenjadi data float
-df['Harga Beras'] = pd.to_numeric(df['Harga Beras'].str.replace(',', ''), errors='coerce')
-print(df.head())
+import matplotlib.pyplot as plt
+import seaborn as sns
+for col in df:
+    plt.figure(figsize=(7, 3))
+    sns.lineplot(data=df, x='Date', y=col)
+    plt.title(f'Trend of {col}')
+    plt.xlabel('Date')
+    plt.ylabel(col)
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.show()
 ```
 ```{code-cell} python
 print(df.describe())
