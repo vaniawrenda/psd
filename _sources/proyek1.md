@@ -148,7 +148,7 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
 ##### Korelasi antar fitur
-<p style="text-indent: 50px; text-align: justify;">SSelanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p>
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p>
 
 ```{code-cell} python
 correlation_matrix = df.corr()
@@ -160,25 +160,23 @@ plt.show()
 ```
 <p style="text-indent: 50px; text-align: justify;">Hasil korelasi pada heatmap menunjukkan bahwa fitur "Open," "High," "Low," "Close," dan "Adj Close" memiliki hubungan sangat kuat dengan nilai korelasi mendekati 1, menandakan keterkaitan yang tinggi. Sebaliknya, fitur "Volume" memiliki korelasi lemah (sekitar 0,26-0,27) terhadap fitur lainnya, sehingga perubahan pada "Volume" tidak terlalu memengaruhi fitur-fitur tersebut.</p>
 
-```{code-cell} python
-df.plot()
-```
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya melihat korelasi antara kolom satu dengan kolom lainnya.</p>
+### Data Prepocessing
+
+#### a. Menghapus fitur yang tidak relevan 
+<p style="text-indent: 50px; text-align: justify;">Dalam proses perhitungan matriks korelasi, ditemukan bahwa fitur 'Volume' tidak relevan atau tidak memiliki pengaruh signifikan terhadap fitur lainnya, sehingga fitur ini akan dihapus. Selain itu, fitur 'Adj Close' yang memiliki nilai identik dengan fitur 'Close' juga akan dihilangkan.</p>
 
 ```{code-cell} python
-import numpy as np
-import pandas as pd
-# Menghitung korelasi Pearson antara fitur dan target
-correlations = {}
-for col in df.columns[:-1]:
-    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
-    correlations[col] = correlation
-
-# Menampilkan hasil korelasi
-for fitur, bobot_korelasi in correlations.items():
-    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
+df = df.drop(columns=['Volume', 'Adj Close'])
+df.head()
 ```
 
-<p style="text-indent: 50px; text-align: justify;">Dalam analisis ini, menghitung korelasi Pearson antara setiap fitur yang dihasilkan dari harga beras pada hari-hari sebelumnya dan target harga saat ini. Hasil korelasi menunjukkan bahwa terdapat hubungan yang sangat kuat antara harga beras pada hari ke-5 sebelumnya (koefisien korelasi 0.9970) hingga harga beras pada hari ke-1 sebelumnya (koefisien korelasi 0.9993) dengan harga saat ini.</P>
+#### b. Rekayasa Fitur
 
-### Pra-pemrosesan Data (Data Preprocessing)
+<p style="text-indent: 50px; text-align: justify;">Dalam penelitian ini, fokusnya adalah memprediksi harga penutupan (Close) untuk hari berikutnya. Oleh karena itu, diperlukan penambahan variabel baru sebagai target. Variabel ini berguna untuk memahami potensi penurunan harga saham, sehingga investor dapat memanfaatkan prediksi tersebut untuk membeli aset saat harga sedang rendah, meningkatkan peluang keuntungan ketika harga kembali naik.</P>
+
+```{code-cell} python
+df['Close Target'] = df['Close'].shift(-1)
+
+df = df[:-1]
+df.head()
+```

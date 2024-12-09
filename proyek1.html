@@ -394,7 +394,11 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-prepocessing">Data Prepocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus fitur yang tidak relevan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -849,7 +853,7 @@ max    4810  4892 4718   4812       4812 84482912776
 </ol>
 <section id="korelasi-antar-fitur">
 <h5>Korelasi antar fitur<a class="headerlink" href="#korelasi-antar-fitur" title="Link to this heading">#</a></h5>
-<p style="text-indent: 50px; text-align: justify;">SSelanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p><div class="cell docutils container">
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
@@ -864,94 +868,185 @@ max    4810  4892 4718   4812       4812 84482912776
 <img alt="_images/b0fa3eeceebce65aa8e20376688bfc490f9c642f22ec39e65d4bcd469bfbb906.png" src="_images/b0fa3eeceebce65aa8e20376688bfc490f9c642f22ec39e65d4bcd469bfbb906.png" />
 </div>
 </div>
-<p style="text-indent: 50px; text-align: justify;">Hasil korelasi pada heatmap menunjukkan bahwa fitur "Open," "High," "Low," "Close," dan "Adj Close" memiliki hubungan sangat kuat dengan nilai korelasi mendekati 1, menandakan keterkaitan yang tinggi. Sebaliknya, fitur "Volume" memiliki korelasi lemah (sekitar 0,26-0,27) terhadap fitur lainnya, sehingga perubahan pada "Volume" tidak terlalu memengaruhi fitur-fitur tersebut.</p><div class="cell docutils container">
+<p style="text-indent: 50px; text-align: justify;">Hasil korelasi pada heatmap menunjukkan bahwa fitur "Open," "High," "Low," "Close," dan "Adj Close" memiliki hubungan sangat kuat dengan nilai korelasi mendekati 1, menandakan keterkaitan yang tinggi. Sebaliknya, fitur "Volume" memiliki korelasi lemah (sekitar 0,26-0,27) terhadap fitur lainnya, sehingga perubahan pada "Volume" tidak terlalu memengaruhi fitur-fitur tersebut.</p>
+</section>
+</section>
+</section>
+<section id="data-prepocessing">
+<h3>Data Prepocessing<a class="headerlink" href="#data-prepocessing" title="Link to this heading">#</a></h3>
+<section id="a-menghapus-fitur-yang-tidak-relevan">
+<h4>a. Menghapus fitur yang tidak relevan<a class="headerlink" href="#a-menghapus-fitur-yang-tidak-relevan" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">Dalam proses perhitungan matriks korelasi, ditemukan bahwa fitur 'Volume' tidak relevan atau tidak memiliki pengaruh signifikan terhadap fitur lainnya, sehingga fitur ini akan dihapus. Selain itu, fitur 'Adj Close' yang memiliki nilai identik dengan fitur 'Close' juga akan dihilangkan.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Adj Close&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date&#39;&gt;
-</pre></div>
-</div>
-<img alt="_images/20d643b13084f2f0965515469bc61819b8e425e89ef0d587f188586c9bc8ffab.png" src="_images/20d643b13084f2f0965515469bc61819b8e425e89ef0d587f188586c9bc8ffab.png" />
-</div>
-</div>
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya melihat korelasi antara kolom satu dengan kolom lainnya.</p><div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1"># Menghitung korelasi Pearson antara fitur dan target</span>
-<span class="n">correlations</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-    <span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;xt&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">correlations</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">correlation</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="c1"># Menampilkan hasil korelasi</span>
-<span class="k">for</span> <span class="n">fitur</span><span class="p">,</span> <span class="n">bobot_korelasi</span> <span class="ow">in</span> <span class="n">correlations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Korelasi Pearson antara </span><span class="si">{</span><span class="n">fitur</span><span class="si">}</span><span class="s2"> dan target: </span><span class="si">{</span><span class="n">bobot_korelasi</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-01</th>
+      <td>130</td>
+      <td>133</td>
+      <td>129</td>
+      <td>131</td>
+    </tr>
+    <tr>
+      <th>2020-01-02</th>
+      <td>131</td>
+      <td>131</td>
+      <td>127</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>2020-01-03</th>
+      <td>127</td>
+      <td>135</td>
+      <td>126</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <th>2020-01-04</th>
+      <td>134</td>
+      <td>136</td>
+      <td>133</td>
+      <td>135</td>
+    </tr>
+    <tr>
+      <th>2020-01-05</th>
+      <td>135</td>
+      <td>139</td>
+      <td>135</td>
+      <td>136</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="b-rekayasa-fitur">
+<h4>b. Rekayasa Fitur<a class="headerlink" href="#b-rekayasa-fitur" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">Dalam penelitian ini, fokusnya adalah memprediksi harga penutupan (Close) untuk hari berikutnya. Oleh karena itu, diperlukan penambahan variabel baru sebagai target. Variabel ini berguna untuk memahami potensi penurunan harga saham, sehingga investor dapat memanfaatkan prediksi tersebut untuk membeli aset saat harga sedang rendah, meningkatkan peluang keuntungan ketika harga kembali naik.</P><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &#39;xt&#39;
-
-<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
-
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">correlations</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">correlation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;xt&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">correlations</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">correlation</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># Menampilkan hasil korelasi</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
-<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
-<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
-<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-
-<span class="ne">KeyError</span>: &#39;xt&#39;
-</pre></div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Close Target</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-01</th>
+      <td>130</td>
+      <td>133</td>
+      <td>129</td>
+      <td>131</td>
+      <td>127</td>
+    </tr>
+    <tr>
+      <th>2020-01-02</th>
+      <td>131</td>
+      <td>131</td>
+      <td>127</td>
+      <td>127</td>
+      <td>134</td>
+    </tr>
+    <tr>
+      <th>2020-01-03</th>
+      <td>127</td>
+      <td>135</td>
+      <td>126</td>
+      <td>134</td>
+      <td>135</td>
+    </tr>
+    <tr>
+      <th>2020-01-04</th>
+      <td>134</td>
+      <td>136</td>
+      <td>133</td>
+      <td>135</td>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th>2020-01-05</th>
+      <td>135</td>
+      <td>139</td>
+      <td>135</td>
+      <td>136</td>
+      <td>144</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
-</div>
-<p style="text-indent: 50px; text-align: justify;">Dalam analisis ini, menghitung korelasi Pearson antara setiap fitur yang dihasilkan dari harga beras pada hari-hari sebelumnya dan target harga saat ini. Hasil korelasi menunjukkan bahwa terdapat hubungan yang sangat kuat antara harga beras pada hari ke-5 sebelumnya (koefisien korelasi 0.9970) hingga harga beras pada hari ke-1 sebelumnya (koefisien korelasi 0.9993) dengan harga saat ini.</P>
 </section>
-</section>
-</section>
-<section id="pra-pemrosesan-data-data-preprocessing">
-<h3>Pra-pemrosesan Data (Data Preprocessing)<a class="headerlink" href="#pra-pemrosesan-data-data-preprocessing" title="Link to this heading">#</a></h3>
 </section>
 </section>
 </section>
@@ -1036,7 +1131,11 @@ max    4810  4892 4718   4812       4812 84482912776
 </li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-prepocessing">Data Prepocessing</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus fitur yang tidak relevan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
