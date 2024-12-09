@@ -180,3 +180,29 @@ df['Close Target'] = df['Close'].shift(-1)
 df = df[:-1]
 df.head()
 ```
+
+<p style="text-indent: 50px; text-align: justify;">Dataset yang telah diproses hingga siap digunakan menunjukkan bahwa fitur input mencakup Open, High, Low, Close, dan Adj Close pada hari ini. Sementara itu, fitur output berupa Close Target, yaitu prediksi harga Low untuk hari berikutnya.</p>
+
+#### c. Normalisasi Data
+
+```{code-cell} python
+# Inisialisasi scaler untuk fitur (input) dan target (output)
+scaler_features = MinMaxScaler()
+scaler_target = MinMaxScaler()
+
+# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)
+df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[['Open', 'High', 'Low', 'Close']]),
+                                      columns=['Open', 'High', 'Low', 'Close'],
+                                      index=df.index)
+
+# Normalisasi target (Close Target)
+df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Close Target']]),
+                                    columns=['Close Target'],
+                                    index=df.index)
+
+# Gabungkan kembali dataframe yang sudah dinormalisasi
+df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
+df_normalized.head()
+```
+
+<p>Proses di atas melakukan normalisasi data pada fitur input (Open, High, Low, Close) dan target output (Close Target) menggunakan MinMaxScaler.</p>
