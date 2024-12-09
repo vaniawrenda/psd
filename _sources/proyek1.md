@@ -303,3 +303,6 @@ print(f"MODEL TERBAIK:\nModel: {best_model}\nRMSE Terbaik: {best_rmse:.2f}\nMAPE
 ```
 <p style="text-indent: 50px; text-align: justify;">
 Berdasarkan hasil evaluasi, model Linear Regression menunjukkan performa terbaik dengan RMSE sebesar 0.02 dan MAPE sebesar 2.13%. Ini menunjukkan bahwa prediksi model sangat mendekati nilai aktual dengan tingkat kesalahan yang rendah. Model lain seperti Ridge Regression, Random Forest, dan KNN Regressor memiliki hasil yang cukup baik, dengan RMSE yang serupa, tetapi MAPE mereka sedikit lebih tinggi, menunjukkan bahwa meskipun hasil prediksinya akurat, tingkat kesalahannya lebih besar dibandingkan Linear Regression. Sebaliknya, model Support Vector Regression (SVR) memiliki performa yang lebih buruk dengan MAPE sebesar 7.20%, menunjukkan tingkat kesalahan yang lebih tinggi. Kesimpulannya, Linear Regression adalah pilihan terbaik untuk data ini, karena menghasilkan kesalahan yang paling rendah dan paling konsisten dibandingkan dengan model lainnya.</p>
+
+### DEPLOYMENT
+<b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
