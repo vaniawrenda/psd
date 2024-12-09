@@ -147,21 +147,18 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya  melakukan rekayasa fitur, dimana membuat variabel baru yang merepresentasikan harga beras pada lima langkah waktu sebelumnya. Dengan menggunakan metode shift(), dapat menghasilkan kolom-kolom baru yang menyimpan nilai harga beras yang telah bergeser ke depan dalam waktu, sehingga model dapat menganalisis pola dan tren harga dari waktu ke waktu.</p>
+##### Korelasi antar fitur
+<p style="text-indent: 50px; text-align: justify;">SSelanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p>
 
 ```{code-cell} python
-df['xt-5'] = df['Harga Beras'].shift(-5)
-df['xt-4'] = df['Harga Beras'].shift(-4)
-df['xt-3'] = df['Harga Beras'].shift(-3)
-df['xt-2'] = df['Harga Beras'].shift(-2)
-df['xt-1'] = df['Harga Beras'].shift(-1)
-df['xt'] = df['Harga Beras']
+correlation_matrix = df.corr()
 
-df = df.dropna()
-df = df.drop(columns=['Harga Beras'])
-df.head()
+plt.figure(figsize=(7, 3))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Heatmap Korelasi Antar Fitur')
+plt.show()
 ```
-<p style="text-indent: 50px; text-align: justify;">Visualisasi ini dibuat untuk menunjukkan perubahan harga beras dari waktu ke waktu, termasuk harga beras pada hari ke-5, ke-4, ke-3, ke-2, dan ke-1, serta harga saat ini. Dengan menggunakan grafik garis, kita dapat dengan jelas mengamati tren dan pola harga tersebut, sehingga membantu kita memahami bagaimana harga saat ini dipengaruhi oleh harga-harga di hari-hari sebelumnya.</p>
+<p style="text-indent: 50px; text-align: justify;">Hasil korelasi pada heatmap menunjukkan bahwa fitur "Open," "High," "Low," "Close," dan "Adj Close" memiliki hubungan sangat kuat dengan nilai korelasi mendekati 1, menandakan keterkaitan yang tinggi. Sebaliknya, fitur "Volume" memiliki korelasi lemah (sekitar 0,26-0,27) terhadap fitur lainnya, sehingga perubahan pada "Volume" tidak terlalu memengaruhi fitur-fitur tersebut.</p>
 
 ```{code-cell} python
 df.plot()
