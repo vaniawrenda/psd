@@ -151,22 +151,8 @@ sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
 plt.title('Heatmap Korelasi Antar Fitur')
 plt.show()
 ```
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya melihat korelasi antara kolom satu dengan kolom lainnya.</p>
 
-```{code-cell} python
-import numpy as np
-import pandas as pd
-# Menghitung korelasi Pearson antara fitur dan target
-correlations = {}
-for col in df.columns[:-1]:
-    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
-    correlations[col] = correlation
 
-# Menampilkan hasil korelasi
-for fitur, bobot_korelasi in correlations.items():
-    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
-```
-
-<p style="text-indent: 50px; text-align: justify;">Dalam analisis ini, menghitung korelasi Pearson antara setiap fitur yang dihasilkan dari harga beras pada hari-hari sebelumnya dan target harga saat ini. Hasil korelasi menunjukkan bahwa terdapat hubungan yang sangat kuat antara harga beras pada hari ke-5 sebelumnya (koefisien korelasi 0.9970) hingga harga beras pada hari ke-1 sebelumnya (koefisien korelasi 0.9993) dengan harga saat ini.</P>
+<p style="text-indent: 50px; text-align: justify;">Hasil korelasi yang ditampilkan dalam heatmap ini menggambarkan hubungan antar fitur dalam data. Nilai korelasi berkisar antara -1 hingga 1, di mana 1 menunjukkan hubungan yang sangat kuat dan positif, 0 menunjukkan tidak ada hubungan, dan -1 menunjukkan hubungan yang sangat kuat namun negatif. Dari heatmap ini, dapat dilihat bahwa fitur Open, High, Low, Close, dan Adj Close memiliki korelasi yang sangat tinggi (mendekati 1), yang mengindikasikan bahwa nilai-nilai dari fitur-fitur tersebut saling berhubungan erat dan bergerak searah.  Di sisi lain, fitur Volume memiliki korelasi yang lebih rendah dengan fitur harga lainnya, dengan nilai berkisar antara 0.62 hingga 0.66. Ini menunjukkan bahwa meskipun ada hubungan positif antara *Volume* dan harga, hubungan tersebut tidak sekuat korelasi antar harga. Penafsiran ini penting untuk memahami interaksi antar fitur dalam analisis data, membantu mengurangi redundansi informasi dalam pemodelan, serta membantu dalam menentukan fitur mana yang paling berpengaruh dalam analisis lebih lanjut.</P>
 
 ### Pra-pemrosesan Data (Data Preprocessing)

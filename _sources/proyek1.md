@@ -12,26 +12,26 @@ kernelspec:
   name: python3
 ---
 
-# Laporan Project 1
+# Laporan Proyek 3
 
-
+## Prediksi Pergerakan Harga Ethereum (ETH) Berdasarkan Data Historis untuk Mendukung Strategi Investasi yang Lebih Efektif
 ## Pendahuluan 
 
 ### Latar Belakang
 
-<p style="text-indent: 50px; text-align: justify;">Ethereum (ETH) adalah mata uang kripto terdesentralisasi yang memanfaatkan teknologi blockchain untuk menjalankan kontrak pintar dan aplikasi terdesentralisasi (dApps). Ethereum terkenal karena kemampuannya mendukung pengembangan platform DeFi dan NFT, yang membuatnya populer di kalangan investor dan pengemban.</p>
+<p style="text-indent: 50px; text-align: justify;">Cryptocurrency telah berkembang pesat sebagai aset digital yang memanfaatkan teknologi blockchain untuk mencatat transaksi secara aman dan transparan. Salah satu cryptocurrency yang paling terkenal dan memiliki potensi besar adalah Ethereum (ETH), yang diluncurkan pada tahun 2015 oleh Vitalik Buterin. Ethereum bukan hanya sekadar cryptocurrency, tetapi juga platform blockchain yang memungkinkan pengembangan aplikasi terdesentralisasi (dApps) dan kontrak pintar (smart contracts). Ethereum memungkinkan transaksi yang lebih cepat, lebih murah, dan lebih fleksibel dibandingkan dengan blockchain lainnya, menjadikannya sebagai salah satu platform paling banyak digunakan dalam dunia cryptocurrency.</p>
 
-<p style="text-indent: 50px; text-align: justify;">Namun, harga Ethereum, seperti halnya cryptocurrency lainnya, sangat fluktuatif, dipengaruhi oleh faktor seperti perkembangan teknologi, adopsi pasar, kebijakan pemerintah, dan sentimen pasar global. Fluktuasi harga ini sering kali membuat investor kesulitan dalam membuat keputusan investasi yang tepat.</p>
+<p style="text-indent: 50px; text-align: justify;">Untuk membantu investor dalam mengelola fluktuasi harga dan merencanakan strategi investasi yang lebih efektif, penting untuk mengembangkan model prediksi harga Ethereum yang dapat memberikan wawasan lebih dalam mengenai potensi pergerakan harga di masa depan. Dengan memanfaatkan data historis harga Ethereum, analisis tren, dan faktor-faktor yang mempengaruhi pasar, model prediksi ini dapat membantu investor dalam mengambil keputusan yang lebih terinformasi, mengurangi risiko, dan meningkatkan peluang keuntungan.</p>
   
-<p style="text-indent: 50px; text-align: justify;">Untuk membantu investor mengatasi ketidakpastian harga Ethereum, teknologi prediksi dapat digunakan untuk memperkirakan pergerakan harga di masa depan. Dengan menganalisis data historis, pendekatan ini dapat mengurangi risiko dan mendukung pengambilan keputusan investasi yang lebih tepat.</p>
+<p style="text-indent: 50px; text-align: justify;">Seiring dengan meningkatnya adopsi Ethereum di berbagai sektor, baik dalam industri keuangan, teknologi, maupun sektor lainnya, pemahaman yang lebih baik tentang pergerakan harga Ethereum menjadi semakin penting. Oleh karena itu, pengembangan model prediksi harga Ethereum yang berbasis data historis menjadi sangat relevan untuk mendukung investor dalam menghadapi tantangan dan memanfaatkan peluang di pasar cryptocurrency yang sangat dinamis.</p>
 
 ### Rumusan Masalah
 
-<p style="text-indent: 50px; text-align: justify;">Ethereum menghadapi fluktuasi harga yang dipengaruhi oleh berbagai faktor eksternal, seperti sentimen pasar dan kebijakan ekonomi global. Oleh karena itu, diperlukan pendekatan yang lebih efektif untuk memprediksi pergerakan harga Ethereum agar investor dapat mengantisipasi perubahan harga yang cepat dan membuat keputusan yang lebih baik.</p>
+<p style="text-indent: 50px; text-align: justify;">Bagaimana data historis dapat digunakan untuk memprediksi pergerakan harga Ethereum (ETH) dan memberikan gambaran yang lebih jelas tentang potensi harga di masa depan? Selain itu, bagaimana analisis data historis dapat membantu investor memahami faktor-faktor yang mempengaruhi fluktuasi harga Ethereum dan merencanakan keputusan investasi yang lebih efektif dan terinformasi?</p>
 
 ### Tujuan 
 
-<p style="text-indent: 50px; text-align: justify;">Tujuan utama dari proyek ini adalah untuk memprediksi harga Ethereum di masa depan berdasarkan data historis harga, sehingga dapat membantu investor mengurangi risiko dan membuat keputusan investasi yang lebih informasional dalam pasar yang sangat volatil</p>
+<p style="text-indent: 50px; text-align: justify;">Penelitian ini bertujuan untuk mengeksplorasi penggunaan data historis dalam memprediksi pergerakan harga Ethereum (ETH) untuk membantu investor membuat keputusan investasi yang lebih baik. Selain itu, penelitian ini juga bertujuan untuk mengembangkan model prediksi yang dapat memberikan wawasan yang lebih dalam mengenai faktor-faktor yang mempengaruhi harga Ethereum, serta membantu investor merencanakan strategi investasi yang lebih matang dan mengurangi risiko yang terkait dengan fluktuasi harga.</p>
 
 
 
@@ -39,54 +39,41 @@ kernelspec:
 
 ### Data Understanding 
 
-#### a. Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini diperoleh dari platform Yahoo Finance, yang dapat diakses di https://finance.yahoo.com/quote/ETH-USD/. Platform ini menawarkan informasi tentang harga Ethereum (ETH) terhadap dolar AS (USD) dalam berbagai periode waktu, termasuk harga penutupan, perubahan harga harian, dan fitur analisis pasar lainnya. Untuk proyek ini, digunakan data harga Ethereum dalam format CSV, dengan rentang waktu dari 10 April 2020 hingga 5 Desember 2024.</p>
+#### Sumber Data 
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) <a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Cardano</a>
+ dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.</p>
 
 ```{code-cell} python
 # import library
-import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_percentage_error
-import seaborn as sns
-import matplotlib.pyplot as plt
 ```
 
 ```{code-cell} python
 # Membaca data CSV
+# Membaca data
 df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/etherium.csv')
-pd.options.display.float_format = '{:.0f}'.format
-print(df.head())
-```
-<p style="text-indent: 50px; text-align: justify;">
-Selanjutnya, untuk memastikan kolom Date diproses dengan benar, kita mengonversinya ke format datetime. Hal ini memungkinkan perbandingan dan analisis berdasarkan waktu yang lebih akurat. Selanjutnya, menjadikan Date sebagai indeks akan mempermudah pencarian data berdasarkan tanggal, sementara penyortiran data memastikan urutannya sesuai dengan waktu yang benar. </p>
 
-```{code-cell} python
-# mengubah kolom 'Date' dalam format datetime
+# Mengubah kolom 'Tanggal' menjadi format datetime
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Mengatur kolom 'Date' sebagai indeks
 df.set_index('Date', inplace=True)
 
-# Mensortir data berdasarkan kolom Date dari terkecil ke terbesar
+# Mensortir data berdasarkan tanggal
 df = df.sort_values(by='Date')
-df.head()
+print(df.head())
 ```
 
-#### b. Deskripsi Data
-Dataset ini memiliki 6 fitur atau kolom dan terdiri dari 1802 baris data. Berikut adalah penjelasan masing-masing atribut:
+#### Deskripsi Data
 
-- Date: Tanggal yang mencatat harga aset koin (format YYYY-MM-DD)
-- Open: Harga pembukaan aset koin pada tanggal tersebut
-- High: Harga tertinggi yang tercatat pada tanggal tersebut
-- Low: Harga terendah yang tercatat pada tanggal tersebut
-- Close: Harga penutupan aset koin pada tanggal tersebut
-- Adj Close: Harga penutupan yang telah disesuaikan dengan pembagian aset, dividen, dan aksi korporasi lainnya
-- Volume: Jumlah transaksi aset koin yang terjadi pada tanggal tersebut
-
+Dataset ini terdiri dari 6 fitur atau kolom dan 1802 record atau baris. Atribut dalam dataset ini antara lain:
+- Date: Kolom ini mencatat tanggal setiap data harga. Formatnya adalah YYYY-MM-DD (tahun-bulan-hari), yang menunjukkan data harian dari 1 Januari 2020 hingga seterusnya.
+- Open:Harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilai ini menunjukkan harga pertama yang tercatat ketika pasar mulai aktif pada hari tersebut.
+-	High: Harga tertinggi yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level maksimum yang dicapai oleh aset pada hari itu.
+- Low:Harga terendah yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level minimum yang dicapai oleh aset pada hari itu.
+- Close: Harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilai ini adalah harga terakhir yang tercatat sebelum pasar tutup.
+- Adj Close: Harga penutupan yang telah disesuaikan untuk faktor-faktor tertentu, seperti dividen, aksi korporasi, atau perubahan lainnya. Dalam konteks cryptocurrency, nilai ini biasanya sama dengan harga penutupan kecuali ada penyesuaian tertentu.
+- Volume: Jumlah total unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Volume menunjukkan tingkat aktivitas perdagangan dan dapat digunakan untuk mengukur minat pasar pada aset tersebut.
 
 Melihat ringkasan DataFrame.
 
@@ -94,48 +81,31 @@ Melihat ringkasan DataFrame.
 df.info()
 print('Ukuran data ', df.shape)
 ```
-Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yang dimulai dari 0. 
 
 ```{code-cell} python
 df.dtypes
 ```
+Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yang dimulai dari 0. 
+
 <b>Jenis Data</b>
-Jenis Data
+1. Open: Data numerik (kontinu), menunjukkan harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilainya dapat berupa pecahan desimal untuk mencerminkan perubahan harga dengan presisi tinggi.
+2. High: Data numerik (kontinu), mencatat harga tertinggi yang dicapai Cardano (ADA) selama hari perdagangan. Nilainya kontinu karena dapat memiliki pecahan desimal.
+3. Low: Data numerik (kontinu), menunjukkan harga terendah yang dicapai Cardano (ADA) selama hari perdagangan. Data ini juga bersifat kontinu karena dapat memiliki pecahan desimal.
+4. Close: Data numerik (kontinu), menunjukkan harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilainya kontinu dan digunakan untuk menganalisis perubahan harga harian.
+6. Adj Close: Data numerik (kontinu), menunjukkan harga penutupan yang telah disesuaikan untuk mencerminkan peristiwa seperti dividen atau perubahan struktur pasar. Data ini penting untuk analisis historis yang lebih akurat.
+7. Volume: Data numerik (diskrit), menunjukkan jumlah unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Karena volume dihitung dalam bilangan bulat (jumlah unit), data ini bersifat diskrit.
 
-- Open: Merupakan data numerik dengan tipe data float64, karena harga pembukaan aset koin dapat memiliki nilai pecahan dan bersifat kontinu.
-- High: Merupakan data numerik dengan tipe data float64, karena harga tertinggi yang dicapai dapat berupa nilai pecahan dan bersifat kontinu.
-- Low: Merupakan data numerik dengan tipe data float64, karena harga terendah yang tercatat dapat berupa nilai pecahan dan bersifat kontinu.
-- Close: Merupakan data numerik dengan tipe data float64, karena harga penutupan aset koin dapat memiliki nilai pecahan dan bersifat kontinu.
-- Adj Close: Merupakan data numerik dengan tipe data float64, karena harga penutupan yang disesuaikan dapat berupa nilai pecahan dan bersifat kontinu.
-- Volume: Merupakan data numerik dengan tipe data int64, karena jumlah aset koin yang diperdagangkan adalah bilangan bulat dan dapat dihitung secara diskrit.
 
-#### C. Eksplorasi Data
+#### Eksplorasi Data
 
-<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, mencari missing value</p>
+<p style="text-indent: 50px; text-align: justify;">Mengecek apakah terdapat missing value pada data.</p>
 
 ```{code-cell} python
 df.isnull().sum()
-df
 ```
 
-<p style="text-indent: 50px; text-align: justify;"> 
-Setelah dipastikan tidak ada missing value, langkah berikutnya adalah membuat visualisasi tren data untuk setiap kolom menggunakan matplotlib dan seaborn. Grafik garis dibuat dengan tanggal sebagai sumbu X dan nilai kolom sebagai sumbu Y untuk menunjukkan perubahan nilai seiring waktu.</p>
-
 ```{code-cell} python
-import matplotlib.pyplot as plt
-import seaborn as sns
-for col in df:
-    plt.figure(figsize=(7, 3))
-    sns.lineplot(data=df, x='Date', y=col)
-    plt.title(f'Trend of {col}')
-    plt.xlabel('Date')
-    plt.ylabel(col)
-    plt.grid(True)
-    plt.xticks(rotation=45)
-    plt.show()
-```
-```{code-cell} python
-print(df.describe())
+df.describe()
 ```
 Memberikan informasi statistik dekskriptif dari kolom numerik. 
 1. count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.
@@ -147,8 +117,30 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
-##### Korelasi antar fitur
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya, membuat heatmap digunakan untuk memahami hubungan antar fitur dalam dataset. Heatmap ini membantu mengidentifikasi korelasi kuat atau lemah antar fitur, sehingga memudahkan dalam memilih fitur yang relevan untuk analisis atau pembuatan model prediksi. Dengan demikian, dapat mengoptimalkan kinerja model dan menghindari potensi masalah seperti multikolinearitas.</p>
+##### Tren tiap fitur
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya, untuk menganalisis dinamika harga Cardano (ADA), kita akan menampilkan tren setiap fitur yang ada dalam data historis. Tren ini mencakup pergerakan harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), serta volume perdagangan (Volume) dari waktu ke waktu. </p>
+
+```{code-cell} python
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np  # Tambahkan ini untuk memperbaiki error
+
+# Membuat subplot otomatis berdasarkan jumlah kolom dalam dataframe
+plt.figure(figsize=(9, int(np.ceil(len(df.columns) / 3))*3))
+
+for i, col in enumerate(df.columns):
+    plt.subplot(int(np.ceil(len(df.columns) / 3)), 3, i + 1)
+    sns.lineplot(data=df, x='Date', y=col)
+    plt.title(f'Trend of {col}')
+    plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
+```
+
+##### Korelasi antar fitur 
+
+<p style="text-indent: 50px; text-align: justify;">Korelasi antar fitur dalam data historis harga Cardano (ADA) merujuk pada hubungan atau keterkaitan antara dua atau lebih variabel dalam dataset. Dalam konteks ini, fitur-fitur seperti harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), dan volume perdagangan (Volume) dapat saling mempengaruhi satu sama lain. Analisis korelasi membantu kita untuk memahami sejauh mana perubahan pada satu fitur dapat berhubungan dengan perubahan pada fitur lainnya</p>
 
 ```{code-cell} python
 correlation_matrix = df.corr()
@@ -158,153 +150,3 @@ sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
 plt.title('Heatmap Korelasi Antar Fitur')
 plt.show()
 ```
-<p style="text-indent: 50px; text-align: justify;">Hasil korelasi pada heatmap menunjukkan bahwa fitur "Open," "High," "Low," "Close," dan "Adj Close" memiliki hubungan sangat kuat dengan nilai korelasi mendekati 1, menandakan keterkaitan yang tinggi. Sebaliknya, fitur "Volume" memiliki korelasi lemah (sekitar 0,26-0,27) terhadap fitur lainnya, sehingga perubahan pada "Volume" tidak terlalu memengaruhi fitur-fitur tersebut.</p>
-
-### Data Preprocessing
-
-#### a. Menghapus fitur yang tidak relevan 
-<p style="text-indent: 50px; text-align: justify;">Dalam proses perhitungan matriks korelasi, ditemukan bahwa fitur 'Volume' tidak relevan atau tidak memiliki pengaruh signifikan terhadap fitur lainnya, sehingga fitur ini akan dihapus. Selain itu, fitur 'Adj Close' yang memiliki nilai identik dengan fitur 'Close' juga akan dihilangkan.</p>
-
-```{code-cell} python
-df = df.drop(columns=['Volume', 'Adj Close'])
-df.head()
-```
-
-#### b. Rekayasa Fitur
-
-<p style="text-indent: 50px; text-align: justify;">Dalam penelitian ini, fokusnya adalah memprediksi harga penutupan (Close) untuk hari berikutnya. Oleh karena itu, diperlukan penambahan variabel baru sebagai target. Variabel ini berguna untuk memahami potensi penurunan harga saham, sehingga investor dapat memanfaatkan prediksi tersebut untuk membeli aset saat harga sedang rendah, meningkatkan peluang keuntungan ketika harga kembali naik.</P>
-
-```{code-cell} python
-df['Close Target'] = df['Close'].shift(-1)
-
-df = df[:-1]
-df.head()
-```
-
-<p style="text-indent: 50px; text-align: justify;">Dataset yang telah diproses hingga siap digunakan menunjukkan bahwa fitur input mencakup Open, High, Low, Close, dan Adj Close pada hari ini. Sementara itu, fitur output berupa Close Target, yaitu prediksi harga Low untuk hari berikutnya.</p>
-
-#### c. Normalisasi Data
-
-```{code-cell} python
-# Inisialisasi scaler untuk fitur (input) dan target (output)
-scaler_features = MinMaxScaler()
-scaler_target = MinMaxScaler()
-
-# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)
-df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[['Open', 'High', 'Low', 'Close']]),
-                                      columns=['Open', 'High', 'Low', 'Close'],
-                                      index=df.index)
-
-# Normalisasi target (Close Target)
-df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Close Target']]),
-                                    columns=['Close Target'],
-                                    index=df.index)
-
-# Gabungkan kembali dataframe yang sudah dinormalisasi
-df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
-df_normalized.head()
-```
-
-<p>Proses di atas melakukan normalisasi data pada fitur input (Open, High, Low, Close) dan target output (Close Target) menggunakan MinMaxScaler.</p>
-
-### Modelling 
-
-#### a. Pembagian Data 
-
-
-<p style="text-indent: 50px; text-align: justify;">Langkah berikutnya adalah membagi data menjadi data training dan data testing menggunakan train_test_split, dengan proporsi 80% untuk training dan 20% untuk testing. Setelah pembagian, data training (X_train dan y_train) akan digunakan untuk melatih model, sedangkan data testing (X_test dan y_test) akan digunakan untuk mengevaluasi kinerja model yang telah dilatih.</p>
-
-```{code-cell} python
-# Mengatur fitur (X) dan target (y)
-X = df_normalized[['Open', 'High', 'Low', 'Close']]
-y = df_normalized['Close Target']
-
-# Membagi data menjadi training dan testing (60% training, 40% testing)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
-```
-
-```{code-cell} python
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.svm import SVR
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.linear_model import LinearRegression, Ridge
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
-from sklearn.preprocessing import MinMaxScaler
-
-# Daftar model regresi
-models = {
-    "Linear Regression": LinearRegression(),
-    "Decision Tree": DecisionTreeRegressor(random_state=32),
-    "Ridge Regression": Ridge(alpha=1.0),
-    "Support Vector Regression": SVR(kernel='rbf', C=1.0, epsilon=0.1),
-    "Random Forest": RandomForestRegressor(n_estimators=100, random_state=32),
-    "KNN Regressor": KNeighborsRegressor(n_neighbors=5)
-}
-
-# Dictionary untuk menyimpan hasil evaluasi
-results = {}
-
-# Iterasi setiap model
-for name, model in models.items():
-    # Latih model
-    model.fit(X_train, y_train)
-
-    # Prediksi pada data uji
-    y_pred = model.predict(X_test)
-
-    # Evaluasi
-    mse = mean_squared_error(y_test, y_pred)
-    rmse = np.sqrt(mse)
-    mape = mean_absolute_percentage_error(y_test, y_pred) * 100  # Dalam persen
-
-    # Simpan hasil evaluasi
-    results[name] = {"RMSE": rmse, "MAPE": mape}
-
-    # Kembalikan hasil prediksi ke skala asli
-    y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
-    y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
-
-    # Plot hasil prediksi
-    plt.figure(figsize=(15, 6))
-    plt.plot(y_test.index, y_test_original, label="Actual", color="blue")
-    plt.plot(y_test.index, y_pred_original, label=f"Predicted ({name})", color="red")
-
-    # Tambahkan detail plot
-    plt.title(f'Actual vs Predicted Values ({name})')
-    plt.xlabel('Tanggal')
-    plt.ylabel('Kurs')
-    plt.legend()
-    plt.grid(True)
-
-    # Tampilkan plot
-    plt.show()
-
-# Tampilkan hasil evaluasi
-print("HASIL EVALUASI MODEL")
-best_model = None
-best_rmse = float('inf')
-best_mape = float('inf')
-
-for model, metrics in results.items():
-    print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
-
-    # Tentukan model terbaik berdasarkan RMSE dan MAPE terkecil
-    if metrics['RMSE'] < best_rmse and metrics['MAPE'] < best_mape:
-        best_model = model
-        best_rmse = metrics['RMSE']
-        best_mape = metrics['MAPE']
-
-# Tampilkan model terbaik
-print(f"MODEL TERBAIK:\nModel: {best_model}\nRMSE Terbaik: {best_rmse:.2f}\nMAPE Terbaik: {best_mape:.2f}%")
-
-```
-#### Kesimpulan
-
-<p style="text-indent: 50px; text-align: justify;">
-Berdasarkan hasil evaluasi, model Linear Regression menunjukkan performa terbaik dengan RMSE sebesar 0.02 dan MAPE sebesar 2.13%. Ini menunjukkan bahwa prediksi model sangat mendekati nilai aktual dengan tingkat kesalahan yang rendah. Model lain seperti Ridge Regression, Random Forest, dan KNN Regressor memiliki hasil yang cukup baik, dengan RMSE yang serupa, tetapi MAPE mereka sedikit lebih tinggi, menunjukkan bahwa meskipun hasil prediksinya akurat, tingkat kesalahannya lebih besar dibandingkan Linear Regression. Sebaliknya, model Support Vector Regression (SVR) memiliki performa yang lebih buruk dengan MAPE sebesar 7.20%, menunjukkan tingkat kesalahan yang lebih tinggi. Kesimpulannya, Linear Regression adalah pilihan terbaik untuk data ini, karena menghasilkan kesalahan yang paling rendah dan paling konsisten dibandingkan dengan model lainnya.</p>
-
-### DEPLOYMENT
-<b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
