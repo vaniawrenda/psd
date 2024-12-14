@@ -122,8 +122,12 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 <p style="text-indent: 50px; text-align: justify;">Selanjutnya, untuk menganalisis dinamika harga Cardano (ADA), kita akan menampilkan tren setiap fitur yang ada dalam data historis. Tren ini mencakup pergerakan harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), serta volume perdagangan (Volume) dari waktu ke waktu. </p>
 
 ```{code-cell} python
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np  # Tambahkan ini untuk memperbaiki error
+
 # Membuat subplot otomatis berdasarkan jumlah kolom dalam dataframe
-plt.figure(figsize=(9, int(np.ceil(len(df.columns) / 3)) * 3))
+plt.figure(figsize=(9, int(np.ceil(len(df.columns) / 3))*3))
 
 for i, col in enumerate(df.columns):
     plt.subplot(int(np.ceil(len(df.columns) / 3)), 3, i + 1)
