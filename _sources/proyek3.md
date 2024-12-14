@@ -41,7 +41,7 @@ kernelspec:
 ### Data Understanding 
 
 #### Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) <a href="https://finance.yahoo.com/quote/ADA-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance</a>
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) <a href="https://finance.yahoo.com/quote/ADA-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Cardano</a>
  dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.</p>
 
 ```{code-cell} python
@@ -51,8 +51,17 @@ import pandas as pd
 
 ```{code-cell} python
 # Membaca data CSV
-df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/dataset.csv')
-pd.options.display.float_format = '{:.0f}'.format
+# Membaca data
+df = pd.read_csv('https://raw.githubusercontent.com/vaniawrenda/dataset/refs/heads/main/cardano.csv')
+
+# Mengubah kolom 'Tanggal' menjadi format datetime
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Mengatur kolom 'Date' sebagai indeks
+df.set_index('Date', inplace=True)
+
+# Mensortir data berdasarkan tanggal
+df = df.sort_values(by='Date')
 print(df.head())
 ```
 
