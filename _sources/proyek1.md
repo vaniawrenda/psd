@@ -218,6 +218,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 <p style="text-indent: 50px; text-align: justify;"> Pada tahap ini, dilakukan eksperimen menggunakan dua model utama, yaitu Linear Regression dan Support Vector Regression (SVR). Pendekatan ini bertujuan untuk mengevaluasi performa kedua model dalam memprediksi harga secara akurat. </p>
 
 ```{code-cell} python
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 
 # List model regresi
@@ -234,34 +235,34 @@ results = {}
 for name, model in models.items():
     # Latih model
     model.fit(X_train, y_train)
-    
+
     # Prediksi pada data uji
     y_pred = model.predict(X_test)
-    
+
     # Evaluasi
     mse = mean_squared_error(y_test, y_pred)
     rmse = np.sqrt(mse)
     mape = mean_absolute_percentage_error(y_test, y_pred) * 100  # Dalam persen
-    
+
     # Simpan hasil evaluasi
     results[name] = {"RMSE": rmse, "MAPE": mape}
-    
+
     # Kembalikan hasil prediksi ke skala asli
     y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
     y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
-    
+
     # Plot hasil prediksi
     plt.figure(figsize=(15, 6))
     plt.plot(y_test.index, y_test_original, label="Actual", color="blue")
     plt.plot(y_test.index, y_pred_original, label=f"Predicted ({name})", color="red")
-    
+
     # Tambahkan detail plot
     plt.title(f'Actual vs Predicted Values ({name})')
-    plt.xlabel('Tanggal')
-    plt.ylabel('Kurs')
+    plt.xlabel('Date')
+    plt.ylabel('Harga')
     plt.legend()
     plt.grid(True)
-    
+
     # Tampilkan plot
     plt.show()
 
@@ -269,4 +270,5 @@ for name, model in models.items():
 print("HASIL EVALUASI MODEL")
 for model, metrics in results.items():
     print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
+
 ```
