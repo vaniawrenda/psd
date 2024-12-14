@@ -89,11 +89,10 @@ df.dtypes
 Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yang dimulai dari 0. 
 
 <b>Jenis Data</b>
-1. Date: Data waktu yang telah disajikan dalam bentuk indeks bertipe datetime. Dengan menjadikannya indeks, analisis berbasis waktu seperti tren, musiman, atau pergerakan harga harian menjadi lebih efisien.
-2. Open: Data numerik (kontinu), menunjukkan harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilainya dapat berupa pecahan desimal untuk mencerminkan perubahan harga dengan presisi tinggi.
-3. High: Data numerik (kontinu), mencatat harga tertinggi yang dicapai Cardano (ADA) selama hari perdagangan. Nilainya kontinu karena dapat memiliki pecahan desimal.
-4. Low: Data numerik (kontinu), menunjukkan harga terendah yang dicapai Cardano (ADA) selama hari perdagangan. Data ini juga bersifat kontinu karena dapat memiliki pecahan desimal.
-5. Close: Data numerik (kontinu), menunjukkan harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilainya kontinu dan digunakan untuk menganalisis perubahan harga harian.
+1. Open: Data numerik (kontinu), menunjukkan harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilainya dapat berupa pecahan desimal untuk mencerminkan perubahan harga dengan presisi tinggi.
+2. High: Data numerik (kontinu), mencatat harga tertinggi yang dicapai Cardano (ADA) selama hari perdagangan. Nilainya kontinu karena dapat memiliki pecahan desimal.
+3. Low: Data numerik (kontinu), menunjukkan harga terendah yang dicapai Cardano (ADA) selama hari perdagangan. Data ini juga bersifat kontinu karena dapat memiliki pecahan desimal.
+4. Close: Data numerik (kontinu), menunjukkan harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilainya kontinu dan digunakan untuk menganalisis perubahan harga harian.
 6. Adj Close: Data numerik (kontinu), menunjukkan harga penutupan yang telah disesuaikan untuk mencerminkan peristiwa seperti dividen atau perubahan struktur pasar. Data ini penting untuk analisis historis yang lebih akurat.
 7. Volume: Data numerik (diskrit), menunjukkan jumlah unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Karena volume dihitung dalam bilangan bulat (jumlah unit), data ini bersifat diskrit.
 
