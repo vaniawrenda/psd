@@ -919,7 +919,9 @@ dtype: int64
 <h4>C. Normalisasi Data<a class="headerlink" href="#c-normalisasi-data" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library yang dibutuhkan</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
 <span class="n">scaler_features</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 <span class="n">scaler_target</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 
@@ -940,18 +942,83 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">scaler_features</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">scaler_target</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Normalisasi fitur (Open, High, Low,, &#39;Close&#39; Close Target-4, Close Target-5)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;MinMaxScaler&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Close Target</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-01</th>
+      <td>0.002991</td>
+      <td>0.002538</td>
+      <td>0.004708</td>
+      <td>0.003227</td>
+      <td>0.002989</td>
+    </tr>
+    <tr>
+      <th>2020-01-02</th>
+      <td>0.003229</td>
+      <td>0.002440</td>
+      <td>0.004604</td>
+      <td>0.002989</td>
+      <td>0.003464</td>
+    </tr>
+    <tr>
+      <th>2020-01-03</th>
+      <td>0.002957</td>
+      <td>0.002733</td>
+      <td>0.004639</td>
+      <td>0.003464</td>
+      <td>0.003600</td>
+    </tr>
+    <tr>
+      <th>2020-01-04</th>
+      <td>0.003467</td>
+      <td>0.002831</td>
+      <td>0.005124</td>
+      <td>0.003600</td>
+      <td>0.003634</td>
+    </tr>
+    <tr>
+      <th>2020-01-05</th>
+      <td>0.003603</td>
+      <td>0.003059</td>
+      <td>0.005331</td>
+      <td>0.003634</td>
+      <td>0.004517</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P></section>
 </section>

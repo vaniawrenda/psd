@@ -180,6 +180,8 @@ df.head()
 #### C. Normalisasi Data
 
 ```{code-cell} python
+# Import library yang dibutuhkan
+from sklearn.preprocessing import MinMaxScaler
 # Inisialisasi scaler untuk fitur (input) dan target (output)
 scaler_features = MinMaxScaler()
 scaler_target = MinMaxScaler()
