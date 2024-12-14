@@ -201,3 +201,72 @@ df_normalized.head()
 ```
 <p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P>
 
+### Modeling
+#### a. Pembagian Data
+
+<p style="text-indent: 50px; text-align: justify;">Langkah berikutnya adalah membagi dataset menjadi data pelatihan dan pengujian menggunakan fungsi train_test_split. Sebanyak 80% data digunakan untuk melatih model, sedangkan 20% sisanya digunakan untuk pengujian. Pengaturan shuffle=False diterapkan agar urutan data tetap terjaga sesuai dengan urutan aslinya. Data pelatihan (X_train dan y_train) digunakan untuk membangun model, sementara data pengujian (X_test dan y_test) digunakan untuk mengevaluasi kinerja model.</p>
+
+```{code-cell} python
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[['Open', 'High', 'Low', 'Close']]
+y = df_normalized['Close Target']
+
+# Membagi data menjadi training dan testing (60% training, 40% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
+```
+#### b. Modelling
+<p style="text-indent: 50px; text-align: justify;"> Pada tahap ini, dilakukan eksperimen menggunakan dua model utama, yaitu Linear Regression dan Support Vector Regression (SVR). Pendekatan ini bertujuan untuk mengevaluasi performa kedua model dalam memprediksi harga secara akurat. </p>
+
+```{code-cell} python
+from sklearn.svm import SVR
+
+# List model regresi
+models = {
+    "Linear Regression": LinearRegression(),
+    "Decision Tree": DecisionTreeRegressor(random_state=32),
+    "Support Vector Regression": SVR(kernel='rbf')
+}
+
+# Dictionary untuk menyimpan hasil evaluasi
+results = {}
+
+# Iterasi setiap model
+for name, model in models.items():
+    # Latih model
+    model.fit(X_train, y_train)
+    
+    # Prediksi pada data uji
+    y_pred = model.predict(X_test)
+    
+    # Evaluasi
+    mse = mean_squared_error(y_test, y_pred)
+    rmse = np.sqrt(mse)
+    mape = mean_absolute_percentage_error(y_test, y_pred) * 100  # Dalam persen
+    
+    # Simpan hasil evaluasi
+    results[name] = {"RMSE": rmse, "MAPE": mape}
+    
+    # Kembalikan hasil prediksi ke skala asli
+    y_pred_original = scaler_target.inverse_transform(y_pred.reshape(-1, 1))
+    y_test_original = scaler_target.inverse_transform(y_test.values.reshape(-1, 1))
+    
+    # Plot hasil prediksi
+    plt.figure(figsize=(15, 6))
+    plt.plot(y_test.index, y_test_original, label="Actual", color="blue")
+    plt.plot(y_test.index, y_pred_original, label=f"Predicted ({name})", color="red")
+    
+    # Tambahkan detail plot
+    plt.title(f'Actual vs Predicted Values ({name})')
+    plt.xlabel('Tanggal')
+    plt.ylabel('Kurs')
+    plt.legend()
+    plt.grid(True)
+    
+    # Tampilkan plot
+    plt.show()
+
+# Tampilkan hasil evaluasi
+print("HASIL EVALUASI MODEL")
+for model, metrics in results.items():
+    print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
+```
