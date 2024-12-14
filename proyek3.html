@@ -475,10 +475,15 @@ Date
 </section>
 <section id="deskripsi-data">
 <h4>Deskripsi Data<a class="headerlink" href="#deskripsi-data" title="Link to this heading">#</a></h4>
-<p>Dataset ini terdiri dari 2 fitur atau kolom dan 1479 record atau baris. Atribut dalam dataset ini antara lain:</p>
+<p>Dataset ini terdiri dari 6 fitur atau kolom dan 1802 record atau baris. Atribut dalam dataset ini antara lain:</p>
 <ol class="arabic simple">
-<li><p>Date: Tanggal harga beras dengan format yyyy-mm-dd</p></li>
-<li><p>Harga: Berisi harga beras Rojolele dalam satuan rupiah per kilogram.</p></li>
+<li><p>Date: Kolom ini mencatat tanggal setiap data harga. Formatnya adalah YYYY-MM-DD (tahun-bulan-hari), yang menunjukkan data harian dari 1 Januari 2020 hingga seterusnya.</p></li>
+<li><p>Open:Harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilai ini menunjukkan harga pertama yang tercatat ketika pasar mulai aktif pada hari tersebut.</p></li>
+<li><p>High: Harga tertinggi yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level maksimum yang dicapai oleh aset pada hari itu.</p></li>
+<li><p>Low:Harga terendah yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level minimum yang dicapai oleh aset pada hari itu.</p></li>
+<li><p>Close: Harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilai ini adalah harga terakhir yang tercatat sebelum pasar tutup.</p></li>
+<li><p>Adj Close: Harga penutupan yang telah disesuaikan untuk faktor-faktor tertentu, seperti dividen, aksi korporasi, atau perubahan lainnya. Dalam konteks cryptocurrency, nilai ini biasanya sama dengan harga penutupan kecuali ada penyesuaian tertentu.</p></li>
+<li><p>Volume: Jumlah total unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Volume menunjukkan tingkat aktivitas perdagangan dan dapat digunakan untuk mengukur minat pasar pada aset tersebut.</p></li>
 </ol>
 <p>Melihat ringkasan DataFrame.</p>
 <div class="cell docutils container">
