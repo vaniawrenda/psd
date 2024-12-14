@@ -105,9 +105,8 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yan
 df.isnull().sum()
 ```
 
-
 ```{code-cell} python
-print(df.describe())
+df.describe()
 ```
 Memberikan informasi statistik dekskriptif dari kolom numerik. 
 1. count: Menghitung jumlah entri yang tidak kosong (valid) dalam kolom.
@@ -119,19 +118,18 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya  melakukan rekayasa fitur, dimana membuat variabel baru yang merepresentasikan harga beras pada lima langkah waktu sebelumnya. Dengan menggunakan metode shift(), dapat menghasilkan kolom-kolom baru yang menyimpan nilai harga beras yang telah bergeser ke depan dalam waktu, sehingga model dapat menganalisis pola dan tren harga dari waktu ke waktu.</p>
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya  mengecek apakah terdapat outlier</p>
 
 ```{code-cell} python
-df['xt-5'] = df['Harga Beras'].shift(-5)
-df['xt-4'] = df['Harga Beras'].shift(-4)
-df['xt-3'] = df['Harga Beras'].shift(-3)
-df['xt-2'] = df['Harga Beras'].shift(-2)
-df['xt-1'] = df['Harga Beras'].shift(-1)
-df['xt'] = df['Harga Beras']
-
-df = df.dropna()
-df = df.drop(columns=['Harga Beras'])
-df.head()
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sb
+features = ['Open', 'High', 'Low', 'Close', 'Volume']
+plt.subplots(figsize=(20,10))
+for i, col in enumerate(features):
+  plt.subplot(2,3,i+1)
+  sb.boxplot(df[col])
+plt.show()
 ```
 <p style="text-indent: 50px; text-align: justify;">Visualisasi ini dibuat untuk menunjukkan perubahan harga beras dari waktu ke waktu, termasuk harga beras pada hari ke-5, ke-4, ke-3, ke-2, dan ke-1, serta harga saat ini. Dengan menggunakan grafik garis, kita dapat dengan jelas mengamati tren dan pola harga tersebut, sehingga membantu kita memahami bagaimana harga saat ini dipengaruhi oleh harga-harga di hari-hari sebelumnya.</p>
 
