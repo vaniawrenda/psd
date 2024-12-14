@@ -163,7 +163,6 @@ df = df.drop(columns=['Volume', 'Adj Close'])
 df.head()
 ```
 
-
 #### b. Rekayasa Fitur
 
 <p style="text-indent: 50px; text-align: justify;"> Dalam penelitian ini, tujuan utamanya adalah memprediksi nilai Close Ethereum (EDH) untuk hari berikutnya. Oleh karena itu, diperlukan variabel baru yang akan berfungsi sebagai target prediksi. Fitur ini memberikan gambaran mengenai potensi penurunan harga, yang dapat dimanfaatkan oleh investor untuk membeli aset pada nilai yang lebih rendah, sehingga meningkatkan peluang keuntungan ketika harga Ethereum kembali mengalami kenaikan.</p>
@@ -174,3 +173,28 @@ df['Close Target'] = df['Close'].shift(-1)
 df = df[:-1]
 df.head()
 ```
+
+
+#### C. Normalisasi Data
+
+```{code-cell} python
+# Inisialisasi scaler untuk fitur (input) dan target (output)
+scaler_features = MinMaxScaler()
+scaler_target = MinMaxScaler()
+
+# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)
+df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[['Open', 'High', 'Low', 'Close']]),
+                                      columns=['Open', 'High', 'Low', 'Close'],
+                                      index=df.index)
+
+# Normalisasi target (Close Target)
+df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Close Target']]),
+                                    columns=['Close Target'],
+                                    index=df.index)
+
+# Gabungkan kembali dataframe yang sudah dinormalisasi
+df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
+df_normalized.head()
+```
+<p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P>
+

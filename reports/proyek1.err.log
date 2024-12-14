@@ -18,66 +18,33 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import pandas as pd
-# Menghitung korelasi Pearson antara fitur dan target
-correlations = {}
-for col in df.columns[:-1]:
-    correlation = np.corrcoef(df[col], df['xt'])[0, 1]
-    correlations[col] = correlation
+# Inisialisasi scaler untuk fitur (input) dan target (output)
+scaler_features = MinMaxScaler()
+scaler_target = MinMaxScaler()
 
-# Menampilkan hasil korelasi
-for fitur, bobot_korelasi in correlations.items():
-    print(f"Korelasi Pearson antara {fitur} dan target: {bobot_korelasi:.4f}")
+# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)
+df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[['Open', 'High', 'Low', 'Close']]),
+                                      columns=['Open', 'High', 'Low', 'Close'],
+                                      index=df.index)
+
+# Normalisasi target (Close Target)
+df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Close Target']]),
+                                    columns=['Close Target'],
+                                    index=df.index)
+
+# Gabungkan kembali dataframe yang sudah dinormalisasi
+df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
+df_normalized.head()
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mKeyError[0m                                  Traceback (most recent call last)
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3805[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
-[0;32m   3804[0m [38;5;28;01mtry[39;00m:
-[1;32m-> 3805[0m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43m_engine[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mcasted_key[49m[43m)[49m
-[0;32m   3806[0m [38;5;28;01mexcept[39;00m [38;5;167;01mKeyError[39;00m [38;5;28;01mas[39;00m err:
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Cell [1;32mIn[11], line 2[0m
+[0;32m      1[0m [38;5;66;03m# Inisialisasi scaler untuk fitur (input) dan target (output)[39;00m
+[1;32m----> 2[0m scaler_features [38;5;241m=[39m [43mMinMaxScaler[49m()
+[0;32m      3[0m scaler_target [38;5;241m=[39m MinMaxScaler()
+[0;32m      5[0m [38;5;66;03m# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)[39;00m
 
-File [1;32mindex.pyx:167[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
-
-File [1;32mindex.pyx:196[0m, in [0;36mpandas._libs.index.IndexEngine.get_loc[1;34m()[0m
-
-File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7081[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
-
-File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7089[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
-
-[1;31mKeyError[0m: 'xt'
-
-The above exception was the direct cause of the following exception:
-
-[1;31mKeyError[0m                                  Traceback (most recent call last)
-Cell [1;32mIn[11], line 6[0m
-[0;32m      4[0m correlations [38;5;241m=[39m {}
-[0;32m      5[0m [38;5;28;01mfor[39;00m col [38;5;129;01min[39;00m df[38;5;241m.[39mcolumns[:[38;5;241m-[39m[38;5;241m1[39m]:
-[1;32m----> 6[0m     correlation [38;5;241m=[39m np[38;5;241m.[39mcorrcoef(df[col], [43mdf[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mxt[39;49m[38;5;124;43m'[39;49m[43m][49m)[[38;5;241m0[39m, [38;5;241m1[39m]
-[0;32m      7[0m     correlations[col] [38;5;241m=[39m correlation
-[0;32m      9[0m [38;5;66;03m# Menampilkan hasil korelasi[39;00m
-
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102[0m, in [0;36mDataFrame.__getitem__[1;34m(self, key)[0m
-[0;32m   4100[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mcolumns[38;5;241m.[39mnlevels [38;5;241m>[39m [38;5;241m1[39m:
-[0;32m   4101[0m     [38;5;28;01mreturn[39;00m [38;5;28mself[39m[38;5;241m.[39m_getitem_multilevel(key)
-[1;32m-> 4102[0m indexer [38;5;241m=[39m [38;5;28;43mself[39;49m[38;5;241;43m.[39;49m[43mcolumns[49m[38;5;241;43m.[39;49m[43mget_loc[49m[43m([49m[43mkey[49m[43m)[49m
-[0;32m   4103[0m [38;5;28;01mif[39;00m is_integer(indexer):
-[0;32m   4104[0m     indexer [38;5;241m=[39m [indexer]
-
-File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3812[0m, in [0;36mIndex.get_loc[1;34m(self, key)[0m
-[0;32m   3807[0m     [38;5;28;01mif[39;00m [38;5;28misinstance[39m(casted_key, [38;5;28mslice[39m) [38;5;129;01mor[39;00m (
-[0;32m   3808[0m         [38;5;28misinstance[39m(casted_key, abc[38;5;241m.[39mIterable)
-[0;32m   3809[0m         [38;5;129;01mand[39;00m [38;5;28many[39m([38;5;28misinstance[39m(x, [38;5;28mslice[39m) [38;5;28;01mfor[39;00m x [38;5;129;01min[39;00m casted_key)
-[0;32m   3810[0m     ):
-[0;32m   3811[0m         [38;5;28;01mraise[39;00m InvalidIndexError(key)
-[1;32m-> 3812[0m     [38;5;28;01mraise[39;00m [38;5;167;01mKeyError[39;00m(key) [38;5;28;01mfrom[39;00m [38;5;21;01merr[39;00m
-[0;32m   3813[0m [38;5;28;01mexcept[39;00m [38;5;167;01mTypeError[39;00m:
-[0;32m   3814[0m     [38;5;66;03m# If we have a listlike key, _check_indexing_error will raise[39;00m
-[0;32m   3815[0m     [38;5;66;03m#  InvalidIndexError. Otherwise we fall through and re-raise[39;00m
-[0;32m   3816[0m     [38;5;66;03m#  the TypeError.[39;00m
-[0;32m   3817[0m     [38;5;28mself[39m[38;5;241m.[39m_check_indexing_error(key)
-
-[1;31mKeyError[0m: 'xt'
+[1;31mNameError[0m: name 'MinMaxScaler' is not defined
 
