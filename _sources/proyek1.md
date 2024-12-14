@@ -40,8 +40,8 @@ kernelspec:
 ### Data Understanding 
 
 #### Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Ethereum (ETH) <a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Cardano</a>
- dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.</p>
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Ethereum (ETH) <a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Ethereum</a>
+ dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Ethereum yang akurat dan berbasis data.</p>
 
 ```{code-cell} python
 # import library
@@ -149,4 +149,28 @@ plt.figure(figsize=(7, 3))
 sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
 plt.title('Heatmap Korelasi Antar Fitur')
 plt.show()
+```
+
+
+### Pra-pemrosesan Data (Data Preprocessing)
+
+#### a. Menghapus Fitur yang tidak relevan
+<p style="text-indent: 50px; text-align: justify;">Pada tahap perhitungan matriks korelasi, ditemukan bahwa fitur ‘volume’ tidak relevan atau tidak memiliki pengaruh terhadap fitur lainnya, sehingga fitur ‘volume’ akan dihilangkan. Selain itu, fitur ‘Adj Close’ juga dihapus karena nilainya identik dengan fitur ‘Close’.</p>
+
+```{code-cell} python
+# Menghapus kolom yang tidak digunakan
+df = df.drop(columns=['Volume', 'Adj Close'])
+df.head()
+```
+
+
+#### b. Rekayasa Fitur
+
+<p style="text-indent: 50px; text-align: justify;"> Dalam penelitian ini, tujuan utamanya adalah memprediksi nilai Close Ethereum (EDH) untuk hari berikutnya. Oleh karena itu, diperlukan variabel baru yang akan berfungsi sebagai target prediksi. Fitur ini memberikan gambaran mengenai potensi penurunan harga, yang dapat dimanfaatkan oleh investor untuk membeli aset pada nilai yang lebih rendah, sehingga meningkatkan peluang keuntungan ketika harga Ethereum kembali mengalami kenaikan.</p>
+
+```{code-cell} python
+df['Close Target'] = df['Close'].shift(-1)
+
+df = df[:-1]
+df.head()
 ```

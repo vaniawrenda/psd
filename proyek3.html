@@ -179,7 +179,7 @@
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="proyek1.html">Laporan Proyek 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proyek1.html">Laporan Proyek 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proyek2.html">Laporan Project 2</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Laporan Proyek 3</a></li>
 </ul>
@@ -395,7 +395,11 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus Fitur yang tidak relevan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -736,6 +740,180 @@ dtype: int64
 </section>
 <section id="pra-pemrosesan-data-data-preprocessing">
 <h3>Pra-pemrosesan Data (Data Preprocessing)<a class="headerlink" href="#pra-pemrosesan-data-data-preprocessing" title="Link to this heading">#</a></h3>
+<section id="a-menghapus-fitur-yang-tidak-relevan">
+<h4>a. Menghapus Fitur yang tidak relevan<a class="headerlink" href="#a-menghapus-fitur-yang-tidak-relevan" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">Pada tahap perhitungan matriks korelasi, ditemukan bahwa fitur ‘volume’ tidak relevan atau tidak memiliki pengaruh terhadap fitur lainnya, sehingga fitur ‘volume’ akan dihilangkan. Selain itu, fitur ‘Adj Close’ juga dihapus karena nilainya identik dengan fitur ‘Close’.</p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Menghapus kolom yang tidak digunakan</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Volume&#39;</span><span class="p">,</span> <span class="s1">&#39;Adj Close&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-01</th>
+      <td>0.0328</td>
+      <td>0.0338</td>
+      <td>0.0327</td>
+      <td>0.0335</td>
+    </tr>
+    <tr>
+      <th>2020-01-02</th>
+      <td>0.0335</td>
+      <td>0.0335</td>
+      <td>0.0324</td>
+      <td>0.0328</td>
+    </tr>
+    <tr>
+      <th>2020-01-03</th>
+      <td>0.0327</td>
+      <td>0.0344</td>
+      <td>0.0325</td>
+      <td>0.0342</td>
+    </tr>
+    <tr>
+      <th>2020-01-04</th>
+      <td>0.0342</td>
+      <td>0.0347</td>
+      <td>0.0339</td>
+      <td>0.0346</td>
+    </tr>
+    <tr>
+      <th>2020-01-05</th>
+      <td>0.0346</td>
+      <td>0.0354</td>
+      <td>0.0345</td>
+      <td>0.0347</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="b-rekayasa-fitur">
+<h4>b. Rekayasa Fitur<a class="headerlink" href="#b-rekayasa-fitur" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;"> Dalam penelitian ini, tujuan utamanya adalah memprediksi nilai Close Cardano (ADA) untuk hari berikutnya. Oleh karena itu, diperlukan variabel baru yang akan berfungsi sebagai target prediksi. Fitur ini memberikan gambaran mengenai potensi penurunan harga, yang dapat dimanfaatkan oleh investor untuk membeli aset pada nilai yang lebih rendah, sehingga meningkatkan peluang keuntungan ketika harga Cardano kembali mengalami kenaikan.</p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Close Target</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2020-01-01</th>
+      <td>0.0328</td>
+      <td>0.0338</td>
+      <td>0.0327</td>
+      <td>0.0335</td>
+      <td>0.0328</td>
+    </tr>
+    <tr>
+      <th>2020-01-02</th>
+      <td>0.0335</td>
+      <td>0.0335</td>
+      <td>0.0324</td>
+      <td>0.0328</td>
+      <td>0.0342</td>
+    </tr>
+    <tr>
+      <th>2020-01-03</th>
+      <td>0.0327</td>
+      <td>0.0344</td>
+      <td>0.0325</td>
+      <td>0.0342</td>
+      <td>0.0346</td>
+    </tr>
+    <tr>
+      <th>2020-01-04</th>
+      <td>0.0342</td>
+      <td>0.0347</td>
+      <td>0.0339</td>
+      <td>0.0346</td>
+      <td>0.0347</td>
+    </tr>
+    <tr>
+      <th>2020-01-05</th>
+      <td>0.0346</td>
+      <td>0.0354</td>
+      <td>0.0345</td>
+      <td>0.0347</td>
+      <td>0.0373</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -813,7 +991,11 @@ dtype: int64
 </li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus Fitur yang tidak relevan</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

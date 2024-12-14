@@ -156,3 +156,23 @@ plt.show()
 <p style="text-indent: 50px; text-align: justify;">Hasil korelasi yang ditampilkan dalam heatmap ini menggambarkan hubungan antar fitur dalam data. Nilai korelasi berkisar antara -1 hingga 1, di mana 1 menunjukkan hubungan yang sangat kuat dan positif, 0 menunjukkan tidak ada hubungan, dan -1 menunjukkan hubungan yang sangat kuat namun negatif. Dari heatmap ini, dapat dilihat bahwa fitur Open, High, Low, Close, dan Adj Close memiliki korelasi yang sangat tinggi (mendekati 1), yang mengindikasikan bahwa nilai-nilai dari fitur-fitur tersebut saling berhubungan erat dan bergerak searah.  Di sisi lain, fitur Volume memiliki korelasi yang lebih rendah dengan fitur harga lainnya, dengan nilai berkisar antara 0.62 hingga 0.66. Ini menunjukkan bahwa meskipun ada hubungan positif antara *Volume* dan harga, hubungan tersebut tidak sekuat korelasi antar harga. Penafsiran ini penting untuk memahami interaksi antar fitur dalam analisis data, membantu mengurangi redundansi informasi dalam pemodelan, serta membantu dalam menentukan fitur mana yang paling berpengaruh dalam analisis lebih lanjut.</P>
 
 ### Pra-pemrosesan Data (Data Preprocessing)
+
+#### a. Menghapus Fitur yang tidak relevan
+<p style="text-indent: 50px; text-align: justify;">Pada tahap perhitungan matriks korelasi, ditemukan bahwa fitur ‘volume’ tidak relevan atau tidak memiliki pengaruh terhadap fitur lainnya, sehingga fitur ‘volume’ akan dihilangkan. Selain itu, fitur ‘Adj Close’ juga dihapus karena nilainya identik dengan fitur ‘Close’.</p>
+
+```{code-cell} python
+# Menghapus kolom yang tidak digunakan
+df = df.drop(columns=['Volume', 'Adj Close'])
+df.head()
+```
+
+#### b. Rekayasa Fitur
+
+<p style="text-indent: 50px; text-align: justify;"> Dalam penelitian ini, tujuan utamanya adalah memprediksi nilai Close Cardano (ADA) untuk hari berikutnya. Oleh karena itu, diperlukan variabel baru yang akan berfungsi sebagai target prediksi. Fitur ini memberikan gambaran mengenai potensi penurunan harga, yang dapat dimanfaatkan oleh investor untuk membeli aset pada nilai yang lebih rendah, sehingga meningkatkan peluang keuntungan ketika harga Cardano kembali mengalami kenaikan.</p>
+
+```{code-cell} python
+df['Close Target'] = df['Close'].shift(-1)
+
+df = df[:-1]
+df.head()
+```
