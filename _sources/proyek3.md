@@ -118,25 +118,34 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya menampilkan tren setiap fitur</p>
+##### Tren tiap fitur
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya, untuk menganalisis dinamika harga Cardano (ADA), kita akan menampilkan tren setiap fitur yang ada dalam data historis. Tren ini mencakup pergerakan harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), serta volume perdagangan (Volume) dari waktu ke waktu. </p>
 
 ```{code-cell} python
-import matplotlib.pyplot as plt
-import seaborn as sns
-for col in df:
-    plt.figure(figsize=(7, 3))
+# Membuat subplot otomatis berdasarkan jumlah kolom dalam dataframe
+plt.figure(figsize=(9, int(np.ceil(len(df.columns) / 3)) * 3))
+
+for i, col in enumerate(df.columns):
+    plt.subplot(int(np.ceil(len(df.columns) / 3)), 3, i + 1)
     sns.lineplot(data=df, x='Date', y=col)
     plt.title(f'Trend of {col}')
-    plt.xlabel('Date')
-    plt.ylabel(col)
-    plt.grid(True)
-    plt.xticks(rotation=45) 
-    plt.show()
+    plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
 ```
-<p style="text-indent: 50px; text-align: justify;">Visualisasi ini dibuat untuk menunjukkan perubahan harga beras dari waktu ke waktu, termasuk harga beras pada hari ke-5, ke-4, ke-3, ke-2, dan ke-1, serta harga saat ini. Dengan menggunakan grafik garis, kita dapat dengan jelas mengamati tren dan pola harga tersebut, sehingga membantu kita memahami bagaimana harga saat ini dipengaruhi oleh harga-harga di hari-hari sebelumnya.</p>
+
+##### Korelasi antar fitur 
+
+<p style="text-indent: 50px; text-align: justify;">Korelasi antar fitur dalam data historis harga Cardano (ADA) merujuk pada hubungan atau keterkaitan antara dua atau lebih variabel dalam dataset. Dalam konteks ini, fitur-fitur seperti harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), dan volume perdagangan (Volume) dapat saling mempengaruhi satu sama lain. Analisis korelasi membantu kita untuk memahami sejauh mana perubahan pada satu fitur dapat berhubungan dengan perubahan pada fitur lainnya</p>
 
 ```{code-cell} python
-df.plot()
+correlation_matrix = df.corr()
+
+plt.figure(figsize=(7, 3))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Heatmap Korelasi Antar Fitur')
+plt.show()
 ```
 <p style="text-indent: 50px; text-align: justify;">Selanjutnya melihat korelasi antara kolom satu dengan kolom lainnya.</p>
 
