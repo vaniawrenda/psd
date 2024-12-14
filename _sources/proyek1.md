@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Laporan Proyek 3
+# Laporan Proyek 1
 
 ## Prediksi Pergerakan Harga Ethereum (ETH) Berdasarkan Data Historis untuk Mendukung Strategi Investasi yang Lebih Efektif
 ## Pendahuluan 
