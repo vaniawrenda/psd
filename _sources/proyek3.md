@@ -118,18 +118,20 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 7. 75%: Kuartil ketiga, yang berarti 75% dari data berada di bawah atau sama dengan nilai ini.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya  mengecek apakah terdapat outlier</p>
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya menampilkan tren setiap fitur</p>
 
 ```{code-cell} python
-import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sb
-features = ['Open', 'High', 'Low', 'Close', 'Volume']
-plt.subplots(figsize=(20,10))
-for i, col in enumerate(features):
-  plt.subplot(2,3,i+1)
-  sb.boxplot(df[col])
-plt.show()
+import seaborn as sns
+for col in df:
+    plt.figure(figsize=(7, 3))
+    sns.lineplot(data=df, x='Date', y=col)
+    plt.title(f'Trend of {col}')
+    plt.xlabel('Date')
+    plt.ylabel(col)
+    plt.grid(True)
+    plt.xticks(rotation=45) 
+    plt.show()
 ```
 <p style="text-indent: 50px; text-align: justify;">Visualisasi ini dibuat untuk menunjukkan perubahan harga beras dari waktu ke waktu, termasuk harga beras pada hari ke-5, ke-4, ke-3, ke-2, dan ke-1, serta harga saat ini. Dengan menggunakan grafik garis, kita dapat dengan jelas mengamati tren dan pola harga tersebut, sehingga membantu kita memahami bagaimana harga saat ini dipengaruhi oleh harga-harga di hari-hari sebelumnya.</p>
 
