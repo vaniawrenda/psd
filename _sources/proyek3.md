@@ -32,7 +32,7 @@ kernelspec:
 
 ### Tujuan 
 
-<p style="text-indent: 50px; text-align: justify;">Penelitian ini bertujuan untuk mengeksplorasi pemanfaatan data historis dalam memprediksi pergerakan harga Cardano (ADA) guna memberikan wawasan yang lebih mendalam bagi investor dalam merencanakan strategi investasi yang lebih efektif. Selain itu, penelitian ini juga bertujuan untuk mengembangkan model prediksi berbasis data historis yang akurat, sehingga dapat membantu investor dalam meminimalkan risiko dan membuat keputusan investasi yang lebih terinformasi dan berbasis data. Dengan demikian, penelitian ini diharapkan dapat memberikan solusi praktis yang mendukung pengambilan keputusan investasi yang lebih strategis di pasar cryptocurrency.</p>
+<p style="text-indent: 50px; text-align: justify;">Penelitian ini bertujuan untuk mengeksplorasi pemanfaatan data historis dalam memprediksi pergerakan harga Cardano (ADA) guna memberikan wawasan yang lebih mendalam bagi investor dalam merencanakan strategi investasi yang lebih efektif. Selain itu, penelitian ini juga bertujuan untuk mengembangkan model prediksi berbasis data historis yang akurat, sehingga dapat membantu investor dalam meminimalkan risiko dan membuat keputusan yang lebih strategis dan terencana. Dengan demikian, penelitian ini diharapkan dapat memberikan solusi praktis yang mendukung pengambilan keputusan yang lebih baik di pasar cryptocurrency.</p>
 
 
 
@@ -41,7 +41,7 @@ kernelspec:
 ### Data Understanding 
 
 #### Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) (https://finance.yahoo.com/quote/ADA-USD/history/) dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.**</p>
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) https://finance.yahoo.com/quote/ADA-USD/history/ dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.**</p>
 
 ```{code-cell} python
 # import library
