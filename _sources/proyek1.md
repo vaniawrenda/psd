@@ -218,9 +218,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 <p style="text-indent: 50px; text-align: justify;"> Pada tahap ini, dilakukan eksperimen menggunakan dua model utama, yaitu Linear Regression dan Support Vector Regression (SVR). Pendekatan ini bertujuan untuk mengevaluasi performa kedua model dalam memprediksi harga secara akurat. </p>
 
 ```{code-cell} python
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.svm import SVR
-
 # List model regresi
 models = {
     "Linear Regression": LinearRegression(),

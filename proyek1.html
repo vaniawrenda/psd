@@ -1062,10 +1062,7 @@ dtype: int64
 <h4>b. Modelling<a class="headerlink" href="#b-modelling" title="Link to this heading">#</a></h4>
 <p style="text-indent: 50px; text-align: justify;"> Pada tahap ini, dilakukan eksperimen menggunakan dua model utama, yaitu Linear Regression dan Support Vector Regression (SVR). Pendekatan ini bertujuan untuk mengevaluasi performa kedua model dalam memprediksi harga secara akurat. </p><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
-
-<span class="c1"># List model regresi</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># List model regresi</span>
 <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;Linear Regression&quot;</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">(),</span>
     <span class="s2">&quot;Decision Tree&quot;</span><span class="p">:</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">32</span><span class="p">),</span>
