@@ -18,10 +18,16 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
-df.set_index('Date', inplace=True)
-df.index = pd.to_datetime(df.index)
-print(df.head())
+df['xt-5'] = df['Harga Beras'].shift(-5)
+df['xt-4'] = df['Harga Beras'].shift(-4)
+df['xt-3'] = df['Harga Beras'].shift(-3)
+df['xt-2'] = df['Harga Beras'].shift(-2)
+df['xt-1'] = df['Harga Beras'].shift(-1)
+df['xt'] = df['Harga Beras']
+
+df = df.dropna()
+df = df.drop(columns=['Harga Beras'])
+df.head()
 ------------------
 
 
@@ -40,15 +46,15 @@ File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7081[0m, in [0;36mpandas
 
 File [1;32mpandas\\_libs\\hashtable_class_helper.pxi:7089[0m, in [0;36mpandas._libs.hashtable.PyObjectHashTable.get_item[1;34m()[0m
 
-[1;31mKeyError[0m: 'Date'
+[1;31mKeyError[0m: 'Harga Beras'
 
 The above exception was the direct cause of the following exception:
 
 [1;31mKeyError[0m                                  Traceback (most recent call last)
-Cell [1;32mIn[5], line 1[0m
-[1;32m----> 1[0m df[[38;5;124m'[39m[38;5;124mDate[39m[38;5;124m'[39m] [38;5;241m=[39m pd[38;5;241m.[39mto_datetime([43mdf[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mDate[39;49m[38;5;124;43m'[39;49m[43m][49m, dayfirst[38;5;241m=[39m[38;5;28;01mTrue[39;00m)[38;5;241m.[39mdt[38;5;241m.[39mdate
-[0;32m      2[0m df[38;5;241m.[39mset_index([38;5;124m'[39m[38;5;124mDate[39m[38;5;124m'[39m, inplace[38;5;241m=[39m[38;5;28;01mTrue[39;00m)
-[0;32m      3[0m df[38;5;241m.[39mindex [38;5;241m=[39m pd[38;5;241m.[39mto_datetime(df[38;5;241m.[39mindex)
+Cell [1;32mIn[7], line 1[0m
+[1;32m----> 1[0m df[[38;5;124m'[39m[38;5;124mxt-5[39m[38;5;124m'[39m] [38;5;241m=[39m [43mdf[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mHarga Beras[39;49m[38;5;124;43m'[39;49m[43m][49m[38;5;241m.[39mshift([38;5;241m-[39m[38;5;241m5[39m)
+[0;32m      2[0m df[[38;5;124m'[39m[38;5;124mxt-4[39m[38;5;124m'[39m] [38;5;241m=[39m df[[38;5;124m'[39m[38;5;124mHarga Beras[39m[38;5;124m'[39m][38;5;241m.[39mshift([38;5;241m-[39m[38;5;241m4[39m)
+[0;32m      3[0m df[[38;5;124m'[39m[38;5;124mxt-3[39m[38;5;124m'[39m] [38;5;241m=[39m df[[38;5;124m'[39m[38;5;124mHarga Beras[39m[38;5;124m'[39m][38;5;241m.[39mshift([38;5;241m-[39m[38;5;241m3[39m)
 
 File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102[0m, in [0;36mDataFrame.__getitem__[1;34m(self, key)[0m
 [0;32m   4100[0m [38;5;28;01mif[39;00m [38;5;28mself[39m[38;5;241m.[39mcolumns[38;5;241m.[39mnlevels [38;5;241m>[39m [38;5;241m1[39m:
@@ -70,5 +76,5 @@ File [1;32m~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\c
 [0;32m   3816[0m     [38;5;66;03m#  the TypeError.[39;00m
 [0;32m   3817[0m     [38;5;28mself[39m[38;5;241m.[39m_check_indexing_error(key)
 
-[1;31mKeyError[0m: 'Date'
+[1;31mKeyError[0m: 'Harga Beras'
 

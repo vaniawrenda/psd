@@ -99,19 +99,13 @@ Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yan
 
 #### Eksplorasi Data
 
-<p style="text-indent: 50px; text-align: justify;">Sebelum melakukan eksplorasi data, kolom date akan dikonversi dari format string menjadi tipe data datetime dan dijadikan sebagai indeks dari DataFrame.</p>
+<p style="text-indent: 50px; text-align: justify;">Mengecek apakah terdapat missing value pada data.</p>
 
 ```{code-cell} python
-df['Date'] = pd.to_datetime(df['Date'], dayfirst=True).dt.date
-df.set_index('Date', inplace=True)
-df.index = pd.to_datetime(df.index)
-print(df.head())
+df.isnull().sum()
 ```
 
-<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, Pastikan bahwa kolom Harga Beras memiliki format yang tepat untuk analisis lebih lanjut. Dalam langkah ini, menggunakan fungsi pd.to_numeric() untuk mengonversi nilai dalam kolom tersebut menjadi tipe data float, yang memungkinkan untuk melakukan perhitungan matematis yang lebih akurat. Sebelum konversi, disini juga menggunakan metode str.replace(',', '') untuk menghapus tanda koma (,) dari string yang ada, karena nilai harga beras biasanya dituliskan dengan tanda koma sebagai pemisah ribuan.</p>
 
-```{code-cell} python
-```
 ```{code-cell} python
 print(df.describe())
 ```
