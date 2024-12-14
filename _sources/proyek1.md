@@ -40,7 +40,7 @@ kernelspec:
 ### Data Understanding 
 
 #### Sumber Data 
-<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Cardano (ADA) <a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Cardano</a>
+<p style="text-indent: 50px; text-align: justify;">Data yang digunakan dalam proyek ini merupakan data yang diperoleh dari platform Yahoo Finance, yang menyediakan informasi historis mengenai harga berbagai aset keuangan, termasuk cryptocurrency. Yahoo Finance adalah sumber data terpercaya yang banyak digunakan oleh investor dan analis untuk mendapatkan data harga, volume perdagangan, serta indikator pasar lainnya. Dalam proyek ini, digunakan data historis harga Ethereum (ETH) <a href="https://finance.yahoo.com/quote/ETH-USD/history/" target="_blank" rel="noopener noreferrer">Yahoo Finance Cardano</a>
  dari tahun 2020 hingga 2024, dengan frekuensi harian. Data ini mencakup informasi mengenai harga pembukaan (open), harga tertinggi (high), harga terendah (low), harga penutupan (close), serta volume perdagangan. Informasi ini diambil untuk mendukung analisis dan pengembangan model prediksi harga Cardano yang akurat dan berbasis data.</p>
 
 ```{code-cell} python
@@ -68,12 +68,12 @@ print(df.head())
 
 Dataset ini terdiri dari 6 fitur atau kolom dan 1802 record atau baris. Atribut dalam dataset ini antara lain:
 - Date: Kolom ini mencatat tanggal setiap data harga. Formatnya adalah YYYY-MM-DD (tahun-bulan-hari), yang menunjukkan data harian dari 1 Januari 2020 hingga seterusnya.
-- Open:Harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilai ini menunjukkan harga pertama yang tercatat ketika pasar mulai aktif pada hari tersebut.
--	High: Harga tertinggi yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level maksimum yang dicapai oleh aset pada hari itu.
-- Low:Harga terendah yang dicapai oleh Cardano (ADA) selama hari perdagangan. Nilai ini menunjukkan level minimum yang dicapai oleh aset pada hari itu.
-- Close: Harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilai ini adalah harga terakhir yang tercatat sebelum pasar tutup.
+- Open:Harga pembukaan Ethereum (ETH) pada awal hari perdagangan. Nilai ini menunjukkan harga pertama yang tercatat ketika pasar mulai aktif pada hari tersebut.
+-	High: Harga tertinggi yang dicapai oleh Ethereum (ETH) selama hari perdagangan. Nilai ini menunjukkan level maksimum yang dicapai oleh aset pada hari itu.
+- Low:Harga terendah yang dicapai oleh Ethereum (ETH) selama hari perdagangan. Nilai ini menunjukkan level minimum yang dicapai oleh aset pada hari itu.
+- Close: Harga penutupan Ethereum (ETH) pada akhir hari perdagangan. Nilai ini adalah harga terakhir yang tercatat sebelum pasar tutup.
 - Adj Close: Harga penutupan yang telah disesuaikan untuk faktor-faktor tertentu, seperti dividen, aksi korporasi, atau perubahan lainnya. Dalam konteks cryptocurrency, nilai ini biasanya sama dengan harga penutupan kecuali ada penyesuaian tertentu.
-- Volume: Jumlah total unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Volume menunjukkan tingkat aktivitas perdagangan dan dapat digunakan untuk mengukur minat pasar pada aset tersebut.
+- Volume: Jumlah total unit Ethereum (ETH) yang diperdagangkan selama hari tersebut. Volume menunjukkan tingkat aktivitas perdagangan dan dapat digunakan untuk mengukur minat pasar pada aset tersebut.
 
 Melihat ringkasan DataFrame.
 
@@ -88,12 +88,12 @@ df.dtypes
 Berdasarkan hasil output diatas, DataFrame memiliki 1802 baris dengan indeks yang dimulai dari 0. 
 
 <b>Jenis Data</b>
-1. Open: Data numerik (kontinu), menunjukkan harga pembukaan Cardano (ADA) pada awal hari perdagangan. Nilainya dapat berupa pecahan desimal untuk mencerminkan perubahan harga dengan presisi tinggi.
-2. High: Data numerik (kontinu), mencatat harga tertinggi yang dicapai Cardano (ADA) selama hari perdagangan. Nilainya kontinu karena dapat memiliki pecahan desimal.
-3. Low: Data numerik (kontinu), menunjukkan harga terendah yang dicapai Cardano (ADA) selama hari perdagangan. Data ini juga bersifat kontinu karena dapat memiliki pecahan desimal.
-4. Close: Data numerik (kontinu), menunjukkan harga penutupan Cardano (ADA) pada akhir hari perdagangan. Nilainya kontinu dan digunakan untuk menganalisis perubahan harga harian.
+1. Open: Data numerik (kontinu), menunjukkan harga pembukaan Ethereum (ETH) pada awal hari perdagangan. Nilainya dapat berupa pecahan desimal untuk mencerminkan perubahan harga dengan presisi tinggi.
+2. High: Data numerik (kontinu), mencatat harga tertinggi yang dicapai Ethereum (ETH) selama hari perdagangan. Nilainya kontinu karena dapat memiliki pecahan desimal.
+3. Low: Data numerik (kontinu), menunjukkan harga terendah yang dicapai Ethereum (ETH) selama hari perdagangan. Data ini juga bersifat kontinu karena dapat memiliki pecahan desimal.
+4. Close: Data numerik (kontinu), menunjukkan harga penutupan Ethereum (ETH) pada akhir hari perdagangan. Nilainya kontinu dan digunakan untuk menganalisis perubahan harga harian.
 6. Adj Close: Data numerik (kontinu), menunjukkan harga penutupan yang telah disesuaikan untuk mencerminkan peristiwa seperti dividen atau perubahan struktur pasar. Data ini penting untuk analisis historis yang lebih akurat.
-7. Volume: Data numerik (diskrit), menunjukkan jumlah unit Cardano (ADA) yang diperdagangkan selama hari tersebut. Karena volume dihitung dalam bilangan bulat (jumlah unit), data ini bersifat diskrit.
+7. Volume: Data numerik (diskrit), menunjukkan jumlah unit Ethereum (ETH) yang diperdagangkan selama hari tersebut. Karena volume dihitung dalam bilangan bulat (jumlah unit), data ini bersifat diskrit.
 
 
 #### Eksplorasi Data
@@ -118,7 +118,7 @@ Memberikan informasi statistik dekskriptif dari kolom numerik.
 8. max: Menunjukkan nilai maksimum atau tertinggi dalam kolom.
 
 ##### Tren tiap fitur
-<p style="text-indent: 50px; text-align: justify;">Selanjutnya, untuk menganalisis dinamika harga Cardano (ADA), kita akan menampilkan tren setiap fitur yang ada dalam data historis. Tren ini mencakup pergerakan harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), serta volume perdagangan (Volume) dari waktu ke waktu. </p>
+<p style="text-indent: 50px; text-align: justify;">Selanjutnya, untuk menganalisis dinamika harga Ethereum (ETH) , kita akan menampilkan tren setiap fitur yang ada dalam data historis. Tren ini mencakup pergerakan harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), serta volume perdagangan (Volume) dari waktu ke waktu. </p>
 
 ```{code-cell} python
 import matplotlib.pyplot as plt
@@ -140,7 +140,7 @@ plt.show()
 
 ##### Korelasi antar fitur 
 
-<p style="text-indent: 50px; text-align: justify;">Korelasi antar fitur dalam data historis harga Cardano (ADA) merujuk pada hubungan atau keterkaitan antara dua atau lebih variabel dalam dataset. Dalam konteks ini, fitur-fitur seperti harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), dan volume perdagangan (Volume) dapat saling mempengaruhi satu sama lain. Analisis korelasi membantu kita untuk memahami sejauh mana perubahan pada satu fitur dapat berhubungan dengan perubahan pada fitur lainnya</p>
+<p style="text-indent: 50px; text-align: justify;">Korelasi antar fitur dalam data historis harga Ethereum (ETH) merujuk pada hubungan atau keterkaitan antara dua atau lebih variabel dalam dataset. Dalam konteks ini, fitur-fitur seperti harga pembukaan (Open), harga tertinggi (High), harga terendah (Low), harga penutupan (Close), dan volume perdagangan (Volume) dapat saling mempengaruhi satu sama lain. Analisis korelasi membantu kita untuk memahami sejauh mana perubahan pada satu fitur dapat berhubungan dengan perubahan pada fitur lainnya</p>
 
 ```{code-cell} python
 correlation_matrix = df.corr()
