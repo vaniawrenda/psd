@@ -1043,7 +1043,9 @@ dtype: int64
 <h4>a. Pembagian Data<a class="headerlink" href="#a-pembagian-data" title="Link to this heading">#</a></h4>
 <p style="text-indent: 50px; text-align: justify;">Langkah berikutnya adalah membagi dataset menjadi data pelatihan dan pengujian menggunakan fungsi train_test_split. Sebanyak 80% data digunakan untuk melatih model, sedangkan 20% sisanya digunakan untuk pengujian. Pengaturan shuffle=False diterapkan agar urutan data tetap terjaga sesuai dengan urutan aslinya. Data pelatihan (X_train dan y_train) digunakan untuk membangun model, sementara data pengujian (X_test dan y_test) digunakan untuk mengevaluasi kinerja model.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengatur fitur (X) dan target (y)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Mengatur fitur (X) dan target (y)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span>
 

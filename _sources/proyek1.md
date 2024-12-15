@@ -215,12 +215,15 @@ df_normalized.head()
 <p style="text-indent: 50px; text-align: justify;">Langkah berikutnya adalah membagi dataset menjadi data pelatihan dan pengujian menggunakan fungsi train_test_split. Sebanyak 80% data digunakan untuk melatih model, sedangkan 20% sisanya digunakan untuk pengujian. Pengaturan shuffle=False diterapkan agar urutan data tetap terjaga sesuai dengan urutan aslinya. Data pelatihan (X_train dan y_train) digunakan untuk membangun model, sementara data pengujian (X_test dan y_test) digunakan untuk mengevaluasi kinerja model.</p>
 
 ```{code-cell} python
+from sklearn.model_selection import train_test_split
+
 # Mengatur fitur (X) dan target (y)
 X = df_normalized[['Open', 'High', 'Low', 'Close']]
 y = df_normalized['Close Target']
 
 # Membagi data menjadi training dan testing (60% training, 40% testing)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
+
 ```
 #### b. Modelling
 <p style="text-indent: 50px; text-align: justify;"> Pada tahap ini, dilakukan eksperimen menggunakan dua model utama, yaitu Linear Regression dan Support Vector Regression (SVR). Pendekatan ini bertujuan untuk mengevaluasi performa kedua model dalam memprediksi harga secara akurat. </p>
