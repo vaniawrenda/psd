@@ -346,7 +346,7 @@ print(f"MAPE Terbaik: {best_metrics['MAPE']:.2f}%")
 
 ```
 
-#### Kesimpulan
+### Evaluation
 <p style="text-indent: 50px; text-align: justify;">
 Berdasarkan hasil evaluasi, model Linear Regression menunjukkan 
 performa terbaik dengan RMSE sebesar 0.02 dan MAPE sebesar 1.22%. 
