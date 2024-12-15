@@ -323,5 +323,5 @@ for model, metrics in results.items():
 best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
 best_model = models[best_model_name]
 
-print(f"Model terbaik ({best_model_name}) ditemukan!")
+print(f" Model terbaik ({best_model_name})")
 ```
