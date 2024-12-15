@@ -239,57 +239,50 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 <p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p>
 
 ```{code-cell} python
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.svm import SVR
-from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
 import matplotlib.pyplot as plt
 
-# List of regression models (Ridge Regression removed)
+# List model regresi
 models = {
     "Linear Regression": LinearRegression(),
     "Decision Tree": DecisionTreeRegressor(random_state=32),
-    "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
+    "Ridge Regression": Ridge(alpha=1.0)
 }
 
-# Dictionary to store evaluation results
+# Dictionary untuk menyimpan hasil evaluasi
 results = {}
 
-# Iterate over each model
+# Iterasi setiap model
 for name, model in models.items():
-    # Train the model
+    # Latih model
     model.fit(X_train, y_train)
 
-    # Predict on the test data
+    # Prediksi pada data uji
     y_pred = model.predict(X_test)
 
-    # Ensure y_test is 2D for multi-output models (convert Series to ndarray if needed)
-    if y_test.ndim == 1:
-        y_test = y_test.values.reshape(-1, 1)
-
-    # Evaluate for each target day ahead
+    # Evaluasi untuk setiap target hari ke depan
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        # Ensure correct indexing for multi-output predictions using numpy indexing
-        mse = mean_squared_error(y_test[:, i], y_pred[:, i])
-        mape = mean_absolute_percentage_error(y_test[:, i], y_pred[:, i]) * 100
+        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
+        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
         mse_list.append(mse)
         mape_list.append(mape)
 
-    # Save average evaluation results
+    # Simpan hasil evaluasi rata-rata
     results[name] = {
         "Average RMSE": np.sqrt(np.mean(mse_list)),
         "Average MAPE": np.mean(mape_list)
     }
 
-    # Inverse transform predictions and actual values to original scale
+    # Kembalikan hasil prediksi ke skala asli
     y_pred_original = scaler_target.inverse_transform(y_pred)
     y_test_original = scaler_target.inverse_transform(y_test)
 
-    # Plot the actual vs predicted values for each day
+    # Plot hasil prediksi untuk setiap hari
     plt.figure(figsize=(15, 6))
     for i in range(FORECAST_STEPS):
         plt.plot(
@@ -299,28 +292,25 @@ for name, model in models.items():
             y_test.index, y_pred_original[:, i], label=f"Predicted Target+{i+1}", alpha=0.7
         )
 
-    # Add plot details
+    # Tambahkan detail plot
     plt.title(f'Actual vs Predicted Values ({name})')
     plt.xlabel('Tanggal')
     plt.ylabel('Kurs')
     plt.legend()
     plt.grid(True)
 
-    # Show plot
+    # Tampilkan plot
     plt.show()
 
-# Display evaluation results
+# Tampilkan hasil evaluasi
 print("HASIL EVALUASI MODEL")
 for model, metrics in results.items():
     print(f"{model}:")
     print(f"  Average RMSE: {metrics['Average RMSE']:.2f}")
     print(f"  Average MAPE: {metrics['Average MAPE']:.2f}%")
 
-# Find the model with the best Average MAPE (smallest value)
+# Cari model dengan Average MAPE terbaik (nilai terkecil)
 best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
 best_model = models[best_model_name]
-
-# Print the best model
-print(f"\nModel terbaik: {best_model_name}")
 
 ```
