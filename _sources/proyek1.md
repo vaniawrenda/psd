@@ -228,8 +228,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 # List model regresi
 models = {
     "Linear Regression": LinearRegression(),
-    "Decision Tree": DecisionTreeRegressor(random_state=32),
-    "Support Vector Regression": SVR(kernel='rbf')
+    "Ridge Regression": Ridge(alpha=1.0),
+    "Gradient Boosting" : GradientBoostingRegressor(random_state=32),
 }
 
 # Dictionary untuk menyimpan hasil evaluasi
