@@ -309,3 +309,8 @@ pilihan paling efektif untuk data ini, karena kemampuannya memberikan
 prediksi yang lebih akurat dengan tingkat kesalahan yang rendah,
 sementara model Ridge Regression dan Gradient Boosting mungkin 
 memerlukan parameter tuning lebih lanjut untuk mencapai performa yang lebih baik. </p>
+
+
+
+### Deployment
+<b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
