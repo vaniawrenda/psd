@@ -273,9 +273,9 @@ for name, model in models.items():
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        # Ensure correct indexing for multi-output predictions
-        mse = mean_squared_error(y_test[:, i], y_pred[:, i])
-        mape = mean_absolute_percentage_error(y_test[:, i], y_pred[:, i]) * 100
+        # Ensure correct indexing for multi-output predictions using .iloc for pandas DataFrame
+        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
+        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
         mse_list.append(mse)
         mape_list.append(mape)
 
