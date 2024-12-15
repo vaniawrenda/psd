@@ -1007,17 +1007,20 @@ dtype: int64
 <h4>b. Penyusunann Model<a class="headerlink" href="#b-penyusunann-model" title="Link to this heading">#</a></h4>
 <p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">Ridge</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="c1"># List model regresi</span>
+<span class="c1"># Model regresi</span>
 <span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;Linear Regression&quot;</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">(),</span>
     <span class="s2">&quot;Decision Tree&quot;</span><span class="p">:</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">32</span><span class="p">),</span>
-    <span class="s2">&quot;Ridge Regression&quot;</span><span class="p">:</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="s2">&quot;SVR&quot;</span><span class="p">:</span> <span class="n">MultiOutputRegressor</span><span class="p">(</span><span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
 <span class="p">}</span>
 
 <span class="c1"># Dictionary untuk menyimpan hasil evaluasi</span>
@@ -1080,13 +1083,20 @@ dtype: int64
 <span class="c1"># Cari model dengan Average MAPE terbaik (nilai terkecil)</span>
 <span class="n">best_model_name</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;Average MAPE&quot;</span><span class="p">])</span>
 <span class="n">best_model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span>
+
+<span class="c1"># Simpan scaler fitur, scaler target, dan model terbaik ke file pkl</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_features</span><span class="p">,</span> <span class="s1">&#39;scaler_features.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_target</span><span class="p">,</span> <span class="s1">&#39;scaler_target.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">best_model_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">_model.pkl&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model terbaik (</span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2">) dan scaler berhasil disimpan ke file .pkl!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/a63829e1d3bf138716ed398752c3e48cf20f5fe5fb87cbe004838e9a35741879.png" src="_images/a63829e1d3bf138716ed398752c3e48cf20f5fe5fb87cbe004838e9a35741879.png" />
 <img alt="_images/660427e5445be702e6bce1f37d4792481c1666bfa0f5642571a2cdd07044b8ee.png" src="_images/660427e5445be702e6bce1f37d4792481c1666bfa0f5642571a2cdd07044b8ee.png" />
-<img alt="_images/7e282bb7a0d460de0ba12f24c23ad1119d013875c91d37feee3aa1e8b4603011.png" src="_images/7e282bb7a0d460de0ba12f24c23ad1119d013875c91d37feee3aa1e8b4603011.png" />
+<img alt="_images/34d75f8796db7d6b589691f112ef3cef8fb4cb0bed03c347f1b16ec19c1c204e.png" src="_images/34d75f8796db7d6b589691f112ef3cef8fb4cb0bed03c347f1b16ec19c1c204e.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HASIL EVALUASI MODEL
 Linear Regression:
   Average RMSE: 0.01
@@ -1094,9 +1104,10 @@ Linear Regression:
 Decision Tree:
   Average RMSE: 0.02
   Average MAPE: 11.78%
-Ridge Regression:
-  Average RMSE: 0.01
-  Average MAPE: 5.59%
+SVR:
+  Average RMSE: 0.03
+  Average MAPE: 25.53%
+Model terbaik (Linear Regression) dan scaler berhasil disimpan ke file .pkl!
 </pre></div>
 </div>
 </div>

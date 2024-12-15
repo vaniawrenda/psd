@@ -247,17 +247,20 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 <p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p>
 
 ```{code-cell} python
-from sklearn.linear_model import LinearRegression, Ridge
+from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.svm import SVR
+from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
+import joblib
 import matplotlib.pyplot as plt
 
-# List model regresi
+# Model regresi
 models = {
     "Linear Regression": LinearRegression(),
     "Decision Tree": DecisionTreeRegressor(random_state=32),
-    "Ridge Regression": Ridge(alpha=1.0)
+    "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
 }
 
 # Dictionary untuk menyimpan hasil evaluasi
@@ -320,5 +323,12 @@ for model, metrics in results.items():
 # Cari model dengan Average MAPE terbaik (nilai terkecil)
 best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
 best_model = models[best_model_name]
+
+# Simpan scaler fitur, scaler target, dan model terbaik ke file pkl
+joblib.dump(scaler_features, 'scaler_features.pkl')
+joblib.dump(scaler_target, 'scaler_target.pkl')
+joblib.dump(best_model, f'{best_model_name.replace(" ", "_").lower()}_model.pkl')
+
+print(f"Model terbaik ({best_model_name}) dan scaler berhasil disimpan ke file .pkl!")
 
 ```
