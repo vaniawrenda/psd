@@ -18,33 +18,21 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Inisialisasi scaler untuk fitur (input) dan target (output)
-scaler_features = MinMaxScaler()
-scaler_target = MinMaxScaler()
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[['Open', 'High', 'Low', 'Close']]
+y = df_normalized['Close Target']
 
-# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)
-df_features_normalized = pd.DataFrame(scaler_features.fit_transform(df[['Open', 'High', 'Low', 'Close']]),
-                                      columns=['Open', 'High', 'Low', 'Close'],
-                                      index=df.index)
-
-# Normalisasi target (Close Target)
-df_target_normalized = pd.DataFrame(scaler_target.fit_transform(df[['Close Target']]),
-                                    columns=['Close Target'],
-                                    index=df.index)
-
-# Gabungkan kembali dataframe yang sudah dinormalisasi
-df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1)
-df_normalized.head()
+# Membagi data menjadi training dan testing (60% training, 40% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
 ------------------
 
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mNameError[0m                                 Traceback (most recent call last)
-Cell [1;32mIn[11], line 2[0m
-[0;32m      1[0m [38;5;66;03m# Inisialisasi scaler untuk fitur (input) dan target (output)[39;00m
-[1;32m----> 2[0m scaler_features [38;5;241m=[39m [43mMinMaxScaler[49m()
-[0;32m      3[0m scaler_target [38;5;241m=[39m MinMaxScaler()
-[0;32m      5[0m [38;5;66;03m# Normalisasi fitur (Open, High, Low,, 'Close' Close Target-4, Close Target-5)[39;00m
+Cell [1;32mIn[14], line 6[0m
+[0;32m      3[0m y [38;5;241m=[39m df_normalized[[38;5;124m'[39m[38;5;124mClose Target[39m[38;5;124m'[39m]
+[0;32m      5[0m [38;5;66;03m# Membagi data menjadi training dan testing (60% training, 40% testing)[39;00m
+[1;32m----> 6[0m X_train, X_test, y_train, y_test [38;5;241m=[39m [43mtrain_test_split[49m(X, y, test_size[38;5;241m=[39m[38;5;241m0.4[39m, shuffle[38;5;241m=[39m[38;5;28;01mFalse[39;00m)
 
-[1;31mNameError[0m: name 'MinMaxScaler' is not defined
+[1;31mNameError[0m: name 'train_test_split' is not defined
 

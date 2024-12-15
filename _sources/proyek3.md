@@ -176,8 +176,25 @@ df['Close Target'] = df['Close'].shift(-1)
 df = df[:-1]
 df.head()
 ```
+### c. Forecasting
 
-#### C. Normalisasi Data
+<p style="text-indent: 50px; text-align: justify;">Pada tahap ini, parameter FORECAST_STEPS digunakan untuk menentukan jumlah periode atau langkah ke depan yang akan diprediksi dalam metode multi-step forecasting. Nilainya diatur menjadi 5, yang berarti model akan memproyeksikan nilai target untuk 5 hari atau periode mendatang. Parameter ini dapat disesuaikan berdasarkan kebutuhan analisis atau tujuan prediksi. Dalam pendekatan Iterative Multi-Step Forecasting, setiap prediksi yang dihasilkan akan menjadi input untuk langkah prediksi berikutnya. Proses ini dimulai dengan memprediksi langkah pertama, kemudian hasilnya digunakan sebagai data input untuk langkah kedua, dan seterusnya hingga mencapai jumlah langkah yang telah ditentukan oleh FORECAST_STEPS. Pendekatan ini memungkinkan prediksi bertahap untuk beberapa periode ke depan.</p>
+
+```{code-cell} python
+# Parameter untuk Multi-Step Forecasting
+FORECAST_STEPS = 5  # Jumlah langkah ke depan yang ingin diprediksi
+```
+
+```{code-cell} python
+# Membuat target untuk n langkah ke depan
+for i in range(1, FORECAST_STEPS + 1):
+    df[f'Close Target+{i}'] = df['Close'].shift(-i)
+
+# Menghapus baris yang memiliki nilai NaN pada target
+df = df[:-FORECAST_STEPS]
+```
+
+#### d. Normalisasi Data
 
 ```{code-cell} python
 # Import library yang dibutuhkan
@@ -202,3 +219,106 @@ df_normalized.head()
 ```
 <p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P>
 
+### Modelling 
+
+#### a. Normalisasi Data 
+<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, data dibagi menjadi data training dan data testing menggunakan train_test_split, dengan 80% data digunakan untuk training dan 20% untuk testing. Proses ini dilakukan dengan opsi shuffle=False agar urutan data tetap terjaga sesuai dengan urutan aslinya. Setelah pembagian, data training (X_train dan y_train) digunakan untuk melatih model, sementara data testing (X_test dan y_test) digunakan untuk menguji performa model yang telah dilatih. </p>
+
+
+```{code-cell} python
+# Mengatur fitur (X) dan target (y)
+X = df_normalized[['Open', 'High', 'Low', 'Close']]
+y = df_normalized['Close Target']
+
+# Membagi data menjadi training dan testing (60% training, 40% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
+```
+#### b. Penyusunann Model
+<p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p>
+
+```{code-cell} python
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.svm import SVR
+from sklearn.multioutput import MultiOutputRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+import numpy as np
+import joblib
+import matplotlib.pyplot as plt
+
+# Model regresi
+models = {
+    "Linear Regression": LinearRegression(),
+    "Decision Tree": DecisionTreeRegressor(random_state=32),
+    "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
+}
+
+# Dictionary untuk menyimpan hasil evaluasi
+results = {}
+
+# Iterasi setiap model
+for name, model in models.items():
+    # Latih model
+    model.fit(X_train, y_train)
+
+    # Prediksi pada data uji
+    y_pred = model.predict(X_test)
+
+    # Evaluasi untuk setiap target hari ke depan
+    mse_list = []
+    mape_list = []
+    for i in range(FORECAST_STEPS):
+        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
+        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
+        mse_list.append(mse)
+        mape_list.append(mape)
+
+    # Simpan hasil evaluasi rata-rata
+    results[name] = {
+        "Average RMSE": np.sqrt(np.mean(mse_list)),
+        "Average MAPE": np.mean(mape_list)
+    }
+
+    # Kembalikan hasil prediksi ke skala asli
+    y_pred_original = scaler_target.inverse_transform(y_pred)
+    y_test_original = scaler_target.inverse_transform(y_test)
+
+    # Plot hasil prediksi untuk setiap hari
+    plt.figure(figsize=(15, 6))
+    for i in range(FORECAST_STEPS):
+        plt.plot(
+            y_test.index, y_test_original[:, i], label=f"Actual Target+{i+1}", linestyle="dashed"
+        )
+        plt.plot(
+            y_test.index, y_pred_original[:, i], label=f"Predicted Target+{i+1}", alpha=0.7
+        )
+
+    # Tambahkan detail plot
+    plt.title(f'Actual vs Predicted Values ({name})')
+    plt.xlabel('Tanggal')
+    plt.ylabel('Kurs')
+    plt.legend()
+    plt.grid(True)
+
+    # Tampilkan plot
+    plt.show()
+
+# Tampilkan hasil evaluasi
+print("HASIL EVALUASI MODEL")
+for model, metrics in results.items():
+    print(f"{model}:")
+    print(f"  Average RMSE: {metrics['Average RMSE']:.2f}")
+    print(f"  Average MAPE: {metrics['Average MAPE']:.2f}%")
+
+# Cari model dengan Average MAPE terbaik (nilai terkecil)
+best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
+best_model = models[best_model_name]
+
+# Simpan scaler fitur, scaler target, dan model terbaik ke file pkl
+joblib.dump(scaler_features, 'scaler_features.pkl')
+joblib.dump(scaler_target, 'scaler_target.pkl')
+joblib.dump(best_model, f'{best_model_name.replace(" ", "_").lower()}_model.pkl')
+
+print(f"Model terbaik ({best_model_name}) dan scaler berhasil disimpan ke file .pkl!")
+
+```

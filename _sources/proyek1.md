@@ -314,3 +314,4 @@ memerlukan parameter tuning lebih lanjut untuk mencapai performa yang lebih baik
 
 ### Deployment
 <b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
+https://huggingface.co/spaces/vaniawrenda/Project1_Prediksi_Etherium

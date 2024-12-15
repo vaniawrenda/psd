@@ -398,7 +398,15 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus Fitur yang tidak relevan</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-normalisasi-data">C. Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-forecasting">c. Forecasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d-normalisasi-data">d. Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-normalisasi-data">a. Normalisasi Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-penyusunann-model">b. Penyusunann Model</a></li>
 </ul>
 </li>
 </ul>
@@ -915,8 +923,31 @@ dtype: int64
 </div></div></div>
 </div>
 </section>
-<section id="c-normalisasi-data">
-<h4>C. Normalisasi Data<a class="headerlink" href="#c-normalisasi-data" title="Link to this heading">#</a></h4>
+</section>
+<section id="c-forecasting">
+<h3>c. Forecasting<a class="headerlink" href="#c-forecasting" title="Link to this heading">#</a></h3>
+<p style="text-indent: 50px; text-align: justify;">Pada tahap ini, parameter FORECAST_STEPS digunakan untuk menentukan jumlah periode atau langkah ke depan yang akan diprediksi dalam metode multi-step forecasting. Nilainya diatur menjadi 5, yang berarti model akan memproyeksikan nilai target untuk 5 hari atau periode mendatang. Parameter ini dapat disesuaikan berdasarkan kebutuhan analisis atau tujuan prediksi. Dalam pendekatan Iterative Multi-Step Forecasting, setiap prediksi yang dihasilkan akan menjadi input untuk langkah prediksi berikutnya. Proses ini dimulai dengan memprediksi langkah pertama, kemudian hasilnya digunakan sebagai data input untuk langkah kedua, dan seterusnya hingga mencapai jumlah langkah yang telah ditentukan oleh FORECAST_STEPS. Pendekatan ini memungkinkan prediksi bertahap untuk beberapa periode ke depan.</p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameter untuk Multi-Step Forecasting</span>
+<span class="n">FORECAST_STEPS</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Jumlah langkah ke depan yang ingin diprediksi</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Membuat target untuk n langkah ke depan</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">FORECAST_STEPS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Close Target+</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Menghapus baris yang memiliki nilai NaN pada target</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="o">-</span><span class="n">FORECAST_STEPS</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="d-normalisasi-data">
+<h4>d. Normalisasi Data<a class="headerlink" href="#d-normalisasi-data" title="Link to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library yang dibutuhkan</span>
@@ -1020,7 +1051,130 @@ dtype: int64
 </table>
 </div></div></div>
 </div>
-<p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P></section>
+<p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P>
+</section>
+</section>
+<section id="modelling">
+<h3>Modelling<a class="headerlink" href="#modelling" title="Link to this heading">#</a></h3>
+<section id="a-normalisasi-data">
+<h4>a. Normalisasi Data<a class="headerlink" href="#a-normalisasi-data" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;"> Selanjutnya, data dibagi menjadi data training dan data testing menggunakan train_test_split, dengan 80% data digunakan untuk training dan 20% untuk testing. Proses ini dilakukan dengan opsi shuffle=False agar urutan data tetap terjaga sesuai dengan urutan aslinya. Setelah pembagian, data training (X_train dan y_train) digunakan untuk melatih model, sementara data testing (X_test dan y_test) digunakan untuk menguji performa model yang telah dilatih. </p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mengatur fitur (X) dan target (y)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span>
+
+<span class="c1"># Membagi data menjadi training dan testing (60% training, 40% testing)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Membagi data menjadi training dan testing (60% training, 40% testing)</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;train_test_split&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="b-penyusunann-model">
+<h4>b. Penyusunann Model<a class="headerlink" href="#b-penyusunann-model" title="Link to this heading">#</a></h4>
+<p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="kn">import</span> <span class="n">MultiOutputRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_percentage_error</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Model regresi</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Linear Regression&quot;</span><span class="p">:</span> <span class="n">LinearRegression</span><span class="p">(),</span>
+    <span class="s2">&quot;Decision Tree&quot;</span><span class="p">:</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">32</span><span class="p">),</span>
+    <span class="s2">&quot;SVR&quot;</span><span class="p">:</span> <span class="n">MultiOutputRegressor</span><span class="p">(</span><span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1"># Dictionary untuk menyimpan hasil evaluasi</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># Iterasi setiap model</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="c1"># Latih model</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Prediksi pada data uji</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+    <span class="c1"># Evaluasi untuk setiap target hari ke depan</span>
+    <span class="n">mse_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mape_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">FORECAST_STEPS</span><span class="p">):</span>
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">mse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
+        <span class="n">mape_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mape</span><span class="p">)</span>
+
+    <span class="c1"># Simpan hasil evaluasi rata-rata</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Average RMSE&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mse_list</span><span class="p">)),</span>
+        <span class="s2">&quot;Average MAPE&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mape_list</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Kembalikan hasil prediksi ke skala asli</span>
+    <span class="n">y_pred_original</span> <span class="o">=</span> <span class="n">scaler_target</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">y_test_original</span> <span class="o">=</span> <span class="n">scaler_target</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+
+    <span class="c1"># Plot hasil prediksi untuk setiap hari</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">FORECAST_STEPS</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y_test_original</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Actual Target+</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+            <span class="n">y_test</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y_pred_original</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Predicted Target+</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Tambahkan detail plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Actual vs Predicted Values (</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Tanggal&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Kurs&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Tampilkan plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Tampilkan hasil evaluasi</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;HASIL EVALUASI MODEL&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">metrics</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Average RMSE: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Average RMSE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Average MAPE: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Average MAPE&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="c1"># Cari model dengan Average MAPE terbaik (nilai terkecil)</span>
+<span class="n">best_model_name</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;Average MAPE&quot;</span><span class="p">])</span>
+<span class="n">best_model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span>
+
+<span class="c1"># Simpan scaler fitur, scaler target, dan model terbaik ke file pkl</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_features</span><span class="p">,</span> <span class="s1">&#39;scaler_features.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">scaler_target</span><span class="p">,</span> <span class="s1">&#39;scaler_target.pkl&#39;</span><span class="p">)</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_model</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">best_model_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s1">_model.pkl&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model terbaik (</span><span class="si">{</span><span class="n">best_model_name</span><span class="si">}</span><span class="s2">) dan scaler berhasil disimpan ke file .pkl!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 </section>
@@ -1101,7 +1255,15 @@ dtype: int64
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pra-pemrosesan-data-data-preprocessing">Pra-pemrosesan Data (Data Preprocessing)</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-menghapus-fitur-yang-tidak-relevan">a. Menghapus Fitur yang tidak relevan</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-rekayasa-fitur">b. Rekayasa Fitur</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-normalisasi-data">C. Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c-forecasting">c. Forecasting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#d-normalisasi-data">d. Normalisasi Data</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling">Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-normalisasi-data">a. Normalisasi Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-penyusunann-model">b. Penyusunann Model</a></li>
 </ul>
 </li>
 </ul>
