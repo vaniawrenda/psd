@@ -247,7 +247,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
 import matplotlib.pyplot as plt
 
-# List of regression models
+# List of regression models (Ridge Regression removed)
 models = {
     "Linear Regression": LinearRegression(),
     "Decision Tree": DecisionTreeRegressor(random_state=32),
@@ -265,9 +265,9 @@ for name, model in models.items():
     # Predict on the test data
     y_pred = model.predict(X_test)
 
-    # Ensure y_test is 2D for multi-output models
+    # Ensure y_test is 2D for multi-output models (convert Series to ndarray if needed)
     if y_test.ndim == 1:
-        y_test = y_test.reshape(-1, 1)
+        y_test = y_test.values.reshape(-1, 1)
 
     # Evaluate for each target day ahead
     mse_list = []
