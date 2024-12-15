@@ -951,105 +951,35 @@ dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import library yang dibutuhkan</span>
+<span class="c1"># Import library yang dibutuhkan</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
-<span class="c1"># Inisialisasi scaler untuk fitur (input) dan target (output)</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Inisialisasi scaler untuk fitur dan target</span>
 <span class="n">scaler_features</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 <span class="n">scaler_target</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
 
-<span class="c1"># Normalisasi fitur (Open, High, Low,, &#39;Close&#39; Close Target-4, Close Target-5)</span>
-<span class="n">df_features_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_features</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]]),</span>
-                                      <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">],</span>
-                                      <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="c1"># Normalisasi fitur</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+<span class="n">df_features_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">scaler_features</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">features</span><span class="p">]),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="p">)</span>
 
-<span class="c1"># Normalisasi target (Close Target)</span>
-<span class="n">df_target_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scaler_target</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]]),</span>
-                                    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">],</span>
-                                    <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="c1"># Normalisasi target</span>
+<span class="n">target_columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;Close Target+</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">FORECAST_STEPS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="n">df_target_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">scaler_target</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">target_columns</span><span class="p">]),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="n">target_columns</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span>
+<span class="p">)</span>
 
-<span class="c1"># Gabungkan kembali dataframe yang sudah dinormalisasi</span>
+<span class="c1"># Menggabungkan kembali dataframe yang sudah dinormalisasi</span>
 <span class="n">df_normalized</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_features_normalized</span><span class="p">,</span> <span class="n">df_target_normalized</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">df_normalized</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Open</th>
-      <th>High</th>
-      <th>Low</th>
-      <th>Close</th>
-      <th>Close Target</th>
-    </tr>
-    <tr>
-      <th>Date</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2020-01-01</th>
-      <td>0.002991</td>
-      <td>0.002538</td>
-      <td>0.004708</td>
-      <td>0.003227</td>
-      <td>0.002989</td>
-    </tr>
-    <tr>
-      <th>2020-01-02</th>
-      <td>0.003229</td>
-      <td>0.002440</td>
-      <td>0.004604</td>
-      <td>0.002989</td>
-      <td>0.003464</td>
-    </tr>
-    <tr>
-      <th>2020-01-03</th>
-      <td>0.002957</td>
-      <td>0.002733</td>
-      <td>0.004639</td>
-      <td>0.003464</td>
-      <td>0.003600</td>
-    </tr>
-    <tr>
-      <th>2020-01-04</th>
-      <td>0.003467</td>
-      <td>0.002831</td>
-      <td>0.005124</td>
-      <td>0.003600</td>
-      <td>0.003634</td>
-    </tr>
-    <tr>
-      <th>2020-01-05</th>
-      <td>0.003603</td>
-      <td>0.003059</td>
-      <td>0.005331</td>
-      <td>0.003634</td>
-      <td>0.004517</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p style="text-indent: 50px; text-align: justify;"> Normalisasi data pada fitur dan target dilakukan untuk menyelaraskan nilai-nilai dalam dataset agar berada dalam rentang tertentu, biasanya antara 0 dan 1. Dalam konteks ini, MinMaxScaler digunakan untuk menormalisasi fitur seperti (Open, High, Low, Close) serta target (Close Target). Proses normalisasi fitur dilakukan dengan scaler_features.fit_transform(), sedangkan normalisasi target menggunakan scaler_target.fit_transform(). Hasil normalisasi tersebut kemudian digabungkan menjadi satu dataframe bernama df_normalized menggunakan pd.concat(), sehingga data siap untuk digunakan dalam pengembangan model prediksi harga Cardano. Normalisasi ini berperan penting dalam memastikan skala data yang seragam, sehingga model dapat memproses data secara lebih optimal dan menghasilkan prediksi yang lebih andal. </P>
 </section>
@@ -1068,6 +998,58 @@ dtype: int64
 
 <span class="c1"># Membagi data menjadi training dan testing (60% training, 40% testing)</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3805,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3804</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3805</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File index.pyx:167,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File index.pyx:196,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7081,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas\\_libs\\hashtable_class_helper.pxi:7089,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: &#39;Close Target&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># Mengatur fitur (X) dan target (y)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">X</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[[</span><span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">,</span> <span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;Close&#39;</span><span class="p">]]</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">y</span> <span class="o">=</span> <span class="n">df_normalized</span><span class="p">[</span><span class="s1">&#39;Close Target&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Membagi data menjadi training dan testing (60% training, 40% testing)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py:4102,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4100</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">4101</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">4102</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">4103</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">4104</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py:3812,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span>         <span class="nb">isinstance</span><span class="p">(</span><span class="n">casted_key</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>         <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3810</span>     <span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3811</span>         <span class="k">raise</span> <span class="n">InvalidIndexError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3812</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3813</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3814</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3815</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3816</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3817</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: &#39;Close Target&#39;
 </pre></div>
 </div>
 </div>
@@ -1150,50 +1132,6 @@ dtype: int64
 <span class="c1"># Cari model dengan Average MAPE terbaik (nilai terkecil)</span>
 <span class="n">best_model_name</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;Average MAPE&quot;</span><span class="p">])</span>
 <span class="n">best_model</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">best_model_name</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexingError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">29</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">mape_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">FORECAST_STEPS</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">29</span>     <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">30</span>     <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="g g-Whitespace">     </span><span class="mi">31</span>     <span class="n">mse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mse</span><span class="p">)</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexing.py:1184,</span> in <span class="ni">_LocationIndexer.__getitem__</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1182</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_scalar_access</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1183</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="o">.</span><span class="n">_get_value</span><span class="p">(</span><span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">takeable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_takeable</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1184</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_tuple</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1185</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1186</span>     <span class="c1"># we by definition only have the 0th axis</span>
-<span class="g g-Whitespace">   </span><span class="mi">1187</span>     <span class="n">axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="ow">or</span> <span class="mi">0</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexing.py:1690,</span> in <span class="ni">_iLocIndexer._getitem_tuple</span><span class="nt">(self, tup)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1689</span> <span class="k">def</span> <span class="nf">_getitem_tuple</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tup</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1690</span>     <span class="n">tup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_tuple_indexer</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1691</span>     <span class="k">with</span> <span class="n">suppress</span><span class="p">(</span><span class="n">IndexingError</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1692</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_lowerdim</span><span class="p">(</span><span class="n">tup</span><span class="p">)</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexing.py:962,</span> in <span class="ni">_LocationIndexer._validate_tuple_indexer</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span> <span class="nd">@final</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span> <span class="k">def</span> <span class="nf">_validate_tuple_indexer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span><span class="sd">     Check the key for valid keys across my indexer.</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">962</span>     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key_length</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">963</span>     <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_ellipsis</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">964</span>     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-
-<span class="nn">File ~\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexing.py:1001,</span> in <span class="ni">_LocationIndexer._validate_key_length</span><span class="nt">(self, key)</span>
-<span class="g g-Whitespace">    </span><span class="mi">999</span>             <span class="k">raise</span> <span class="n">IndexingError</span><span class="p">(</span><span class="n">_one_ellipsis_message</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1000</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validate_key_length</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1001</span>     <span class="k">raise</span> <span class="n">IndexingError</span><span class="p">(</span><span class="s2">&quot;Too many indexers&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1002</span> <span class="k">return</span> <span class="n">key</span>
-
-<span class="ne">IndexingError</span>: Too many indexers
 </pre></div>
 </div>
 </div>
