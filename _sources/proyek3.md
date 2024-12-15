@@ -245,55 +245,46 @@ from sklearn.svm import SVR
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
-import joblib
 import matplotlib.pyplot as plt
 
-# Model regresi
+# List of regression models
 models = {
     "Linear Regression": LinearRegression(),
     "Decision Tree": DecisionTreeRegressor(random_state=32),
     "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
 }
 
-# Dictionary untuk menyimpan hasil evaluasi
+# Dictionary to store evaluation results
 results = {}
 
-# Iterasi setiap model
+# Iterate over each model
 for name, model in models.items():
-    # Latih model
+    # Train the model
     model.fit(X_train, y_train)
 
-    # Prediksi pada data uji
+    # Predict on the test data
     y_pred = model.predict(X_test)
 
-    # Evaluasi untuk setiap target hari ke depan
+    # Evaluate for each target day ahead
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        # Ensure y_test and y_pred are correctly accessed
-        if y_test.ndim == 1:
-            # If y_test is 1D, directly access it
-            mse = mean_squared_error(y_test, y_pred[:, i])
-            mape = mean_absolute_percentage_error(y_test, y_pred[:, i]) * 100
-        else:
-            # If y_test is 2D, use .iloc to index the correct column for each forecast step
-            mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
-            mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
-        
+        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
+        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
         mse_list.append(mse)
         mape_list.append(mape)
 
-    # Simpan hasil evaluasi rata-rata
+    # Save average evaluation results
     results[name] = {
         "Average RMSE": np.sqrt(np.mean(mse_list)),
         "Average MAPE": np.mean(mape_list)
     }
 
-    # Kembalikan hasil prediksi ke skala asli
+    # Inverse transform predictions and actual values to original scale
     y_pred_original = scaler_target.inverse_transform(y_pred)
     y_test_original = scaler_target.inverse_transform(y_test)
 
-    # Plot hasil prediksi untuk setiap hari
+    # Plot the actual vs predicted values for each day
     plt.figure(figsize=(15, 6))
     for i in range(FORECAST_STEPS):
         plt.plot(
@@ -303,32 +294,28 @@ for name, model in models.items():
             y_test.index, y_pred_original[:, i], label=f"Predicted Target+{i+1}", alpha=0.7
         )
 
-    # Tambahkan detail plot
+    # Add plot details
     plt.title(f'Actual vs Predicted Values ({name})')
     plt.xlabel('Tanggal')
     plt.ylabel('Kurs')
     plt.legend()
     plt.grid(True)
 
-    # Tampilkan plot
+    # Show plot
     plt.show()
 
-# Tampilkan hasil evaluasi
+# Display evaluation results
 print("HASIL EVALUASI MODEL")
 for model, metrics in results.items():
     print(f"{model}:")
     print(f"  Average RMSE: {metrics['Average RMSE']:.2f}")
     print(f"  Average MAPE: {metrics['Average MAPE']:.2f}%")
 
-# Cari model dengan Average MAPE terbaik (nilai terkecil)
+# Find the model with the best Average MAPE (smallest value)
 best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
 best_model = models[best_model_name]
 
-# Simpan scaler fitur, scaler target, dan model terbaik ke file pkl
-joblib.dump(scaler_features, 'scaler_features.pkl')
-joblib.dump(scaler_target, 'scaler_target.pkl')
-joblib.dump(best_model, f'{best_model_name.replace(" ", "_").lower()}_model.pkl')
-
-print(f"Model terbaik ({best_model_name}) dan scaler berhasil disimpan ke file .pkl!")
+# Print the best model
+print(f"\nModel terbaik: {best_model_name}")
 
 ```
