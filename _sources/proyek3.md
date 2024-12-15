@@ -245,6 +245,7 @@ from sklearn.svm import SVR
 from sklearn.multioutput import MultiOutputRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
+import joblib
 import matplotlib.pyplot as plt
 
 # Model regresi
@@ -269,8 +270,14 @@ for name, model in models.items():
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
-        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
+        # Ensure y_test is 2D, if not reshape it
+        if y_test.ndim == 1:
+            mse = mean_squared_error(y_test, y_pred[:, i])
+            mape = mean_absolute_percentage_error(y_test, y_pred[:, i]) * 100
+        else:
+            mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
+            mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
+        
         mse_list.append(mse)
         mape_list.append(mape)
 
@@ -315,7 +322,12 @@ for model, metrics in results.items():
 best_model_name = min(results, key=lambda x: results[x]["Average MAPE"])
 best_model = models[best_model_name]
 
-print(f"Model terbaik ({best_model_name}) ditemukan!")
+# Simpan scaler fitur, scaler target, dan model terbaik ke file pkl
+joblib.dump(scaler_features, 'scaler_features.pkl')
+joblib.dump(scaler_target, 'scaler_target.pkl')
+joblib.dump(best_model, f'{best_model_name.replace(" ", "_").lower()}_model.pkl')
+
+print(f"Model terbaik ({best_model_name}) dan scaler berhasil disimpan ke file .pkl!")
 
 
 ```
