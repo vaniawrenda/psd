@@ -325,3 +325,10 @@ best_model = models[best_model_name]
 
 print(f" Model terbaik ({best_model_name})")
 ```
+
+
+<p style="text-indent: 50px; text-align: justify;"> Berdasarkan hasil evaluasi, model Linear Regression menunjukkan performa terbaik dengan Average RMSE sebesar 0.01 dan Average MAPE sebesar 5.20%. Hal ini mengindikasikan bahwa prediksi model sangat dekat dengan nilai aktual, dengan tingkat kesalahan rata-rata yang rendah. Sebaliknya, model Decision Tree dan SVR menunjukkan performa yang lebih buruk, dengan Average MAPE masing-masing sebesar 11.78% dan 25.53%, yang menunjukkan tingkat kesalahan yang lebih tinggi dalam memprediksi nilai target. Kesimpulannya, Linear Regression adalah model yang paling efektif untuk data ini, karena memberikan hasil yang lebih akurat dan stabil. Model ini kemungkinan besar cocok dengan pola data yang ada, karena sifatnya yang sederhana dan linier. Sementara itu, SVR dan Decision Tree mungkin memerlukan parameter tuning lebih lanjut atau tidak cocok dengan karakteristik data yang sedang dianalisis.</p>
+
+### Deployment 
+<b>Hasil deployment dapat dilihat melalui tautan berikut:</b>
+https://huggingface.co/spaces/vaniawrenda/project3_Prediksi_Cardano
