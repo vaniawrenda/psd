@@ -33,9 +33,6 @@ models = {
     "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
 }
 
-# Define the forecast steps (ensure this is defined)
-FORECAST_STEPS = 5  # Example: Adjust based on your forecast steps
-
 # Dictionary to store evaluation results
 results = {}
 
@@ -110,13 +107,13 @@ print(f"\nModel terbaik: {best_model_name}")
 
 [1;31m---------------------------------------------------------------------------[0m
 [1;31mAttributeError[0m                            Traceback (most recent call last)
-Cell [1;32mIn[15], line 39[0m
-[0;32m     36[0m mape_list [38;5;241m=[39m []
-[0;32m     37[0m [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m(FORECAST_STEPS):
-[0;32m     38[0m     [38;5;66;03m# Ensure correct indexing for multi-output predictions using .iloc for pandas DataFrame[39;00m
-[1;32m---> 39[0m     mse [38;5;241m=[39m mean_squared_error([43my_test[49m[38;5;241;43m.[39;49m[43miloc[49m[:, i], y_pred[:, i])
-[0;32m     40[0m     mape [38;5;241m=[39m mean_absolute_percentage_error(y_test[38;5;241m.[39miloc[:, i], y_pred[:, i]) [38;5;241m*[39m [38;5;241m100[39m
-[0;32m     41[0m     mse_list[38;5;241m.[39mappend(mse)
+Cell [1;32mIn[15], line 36[0m
+[0;32m     33[0m mape_list [38;5;241m=[39m []
+[0;32m     34[0m [38;5;28;01mfor[39;00m i [38;5;129;01min[39;00m [38;5;28mrange[39m(FORECAST_STEPS):
+[0;32m     35[0m     [38;5;66;03m# Ensure correct indexing for multi-output predictions using .iloc for pandas DataFrame[39;00m
+[1;32m---> 36[0m     mse [38;5;241m=[39m mean_squared_error([43my_test[49m[38;5;241;43m.[39;49m[43miloc[49m[:, i], y_pred[:, i])
+[0;32m     37[0m     mape [38;5;241m=[39m mean_absolute_percentage_error(y_test[38;5;241m.[39miloc[:, i], y_pred[:, i]) [38;5;241m*[39m [38;5;241m100[39m
+[0;32m     38[0m     mse_list[38;5;241m.[39mappend(mse)
 
 [1;31mAttributeError[0m: 'numpy.ndarray' object has no attribute 'iloc'
 
