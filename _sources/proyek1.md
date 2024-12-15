@@ -294,3 +294,18 @@ print(f"Model dengan RMSE terbaik: {best_model_rmse} dengan RMSE = {results[best
 print(f"Model dengan MAPE terbaik: {best_model_mape} dengan MAPE = {results[best_model_mape]['MAPE']:.2f}%")
 
 ```
+
+<p style="text-indent: 50px; text-align: justify;"> Berdasarkan hasil evaluasi, model Linear Regression menunjukkan 
+performa terbaik dengan RMSE sebesar 0.02 dan MAPE sebesar 2.13%.
+Hal ini mengindikasikan bahwa prediksi model sangat dekat dengan 
+nilai aktual, dengan tingkat kesalahan rata-rata yang rendah. 
+Model Ridge Regression dan Gradient Boosting memiliki performa
+yang sedikit lebih buruk dibandingkan Linear Regression,
+dengan MAPE yang sedikit lebih tinggi (2.24% dan 2.42%, masing-masing). 
+Meskipun ketiga model memiliki RMSE yang sama, Linear Regression lebih 
+unggul dalam hal MAPE, yang menunjukkan tingkat kesalahan yang lebih 
+rendah dalam prediksi harga. Kesimpulannya, Linear Regression adalah 
+pilihan paling efektif untuk data ini, karena kemampuannya memberikan 
+prediksi yang lebih akurat dengan tingkat kesalahan yang rendah,
+sementara model Ridge Regression dan Gradient Boosting mungkin 
+memerlukan parameter tuning lebih lanjut untuk mencapai performa yang lebih baik. </p>
