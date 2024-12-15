@@ -226,6 +226,8 @@ df_normalized.head()
 
 
 ```{code-cell} python
+from sklearn.model_selection import train_test_split
+
 # Mengatur fitur (X) dan target (y)
 X = df_normalized[['Open', 'High', 'Low', 'Close']]
 y = df_normalized['Close Target']
