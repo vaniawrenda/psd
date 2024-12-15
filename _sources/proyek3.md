@@ -229,18 +229,18 @@ df_normalized = pd.concat([df_features_normalized, df_target_normalized], axis=1
 
 ### Modelling 
 
-#### a. Normalisasi Data 
+#### a. Pembagian Data
 <p style="text-indent: 50px; text-align: justify;"> Selanjutnya, data dibagi menjadi data training dan data testing menggunakan train_test_split, dengan 80% data digunakan untuk training dan 20% untuk testing. Proses ini dilakukan dengan opsi shuffle=False agar urutan data tetap terjaga sesuai dengan urutan aslinya. Setelah pembagian, data training (X_train dan y_train) digunakan untuk melatih model, sementara data testing (X_test dan y_test) digunakan untuk menguji performa model yang telah dilatih. </p>
 
 
 ```{code-cell} python
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split  # Tambahkan ini
 
 # Mengatur fitur (X) dan target (y)
-X = df_normalized[['Open', 'High', 'Low', 'Close']]
-y = df_normalized['Close Target']
+X = df_normalized[features]
+y = df_normalized[target_columns]
 
-# Membagi data menjadi training dan testing (60% training, 40% testing)
+# Membagi data menjadi training dan testing
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle=False)
 ```
 #### b. Penyusunann Model
