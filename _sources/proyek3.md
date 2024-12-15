@@ -239,7 +239,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 <p style="text-indent: 50px; text-align: justify;">Pada tahap ini, dilakukan percobaan dengan menggunakan tiga model utama, yaitu Support Vector Regression (SVR), Decision Tree, dan SVR dengan Decision Tree. Selain itu, untuk meningkatkan akurasi dan kinerja model, diterapkan juga teknik ensemble menggunakan metode bagging.</p>
 
 ```{code-cell} python
-
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
@@ -274,9 +273,9 @@ for name, model in models.items():
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        # Ensure correct indexing for multi-output predictions using .iloc for pandas DataFrame
-        mse = mean_squared_error(y_test.iloc[:, i], y_pred[:, i])
-        mape = mean_absolute_percentage_error(y_test.iloc[:, i], y_pred[:, i]) * 100
+        # Ensure correct indexing for multi-output predictions using numpy indexing
+        mse = mean_squared_error(y_test[:, i], y_pred[:, i])
+        mape = mean_absolute_percentage_error(y_test[:, i], y_pred[:, i]) * 100
         mse_list.append(mse)
         mape_list.append(mape)
 
@@ -323,6 +322,5 @@ best_model = models[best_model_name]
 
 # Print the best model
 print(f"\nModel terbaik: {best_model_name}")
-
 
 ```
