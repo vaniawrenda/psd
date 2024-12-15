@@ -254,6 +254,9 @@ models = {
     "SVR": MultiOutputRegressor(SVR(kernel='rbf', C=100, gamma=0.1, epsilon=0.1))
 }
 
+# Define the forecast steps (ensure this is defined)
+FORECAST_STEPS = 5  # Example: Adjust based on your forecast steps
+
 # Dictionary to store evaluation results
 results = {}
 
