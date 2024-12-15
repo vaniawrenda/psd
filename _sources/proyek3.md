@@ -270,9 +270,9 @@ for name, model in models.items():
     mse_list = []
     mape_list = []
     for i in range(FORECAST_STEPS):
-        # Ensure y_test and y_pred are 2D arrays with matching dimensions
+        # Ensure y_test and y_pred are correctly accessed
         if y_test.ndim == 1:
-            # If y_test is 1D, directly access it (assuming it matches the number of forecast steps)
+            # If y_test is 1D, directly access it
             mse = mean_squared_error(y_test, y_pred[:, i])
             mape = mean_absolute_percentage_error(y_test, y_pred[:, i]) * 100
         else:
@@ -330,4 +330,5 @@ joblib.dump(scaler_target, 'scaler_target.pkl')
 joblib.dump(best_model, f'{best_model_name.replace(" ", "_").lower()}_model.pkl')
 
 print(f"Model terbaik ({best_model_name}) dan scaler berhasil disimpan ke file .pkl!")
+
 ```
