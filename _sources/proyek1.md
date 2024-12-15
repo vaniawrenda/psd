@@ -230,17 +230,17 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, shuffle
 
 ```{code-cell} python
 # List model regresi
-
 from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 import numpy as np
 import matplotlib.pyplot as plt
 
+# List model regresi
 models = {
     "Linear Regression": LinearRegression(),
     "Ridge Regression": Ridge(alpha=1.0),
-    "Gradient Boosting" : GradientBoostingRegressor(random_state=32),
+    "Gradient Boosting": GradientBoostingRegressor(random_state=32),
 }
 
 # Dictionary untuk menyimpan hasil evaluasi
@@ -286,5 +286,11 @@ print("HASIL EVALUASI MODEL")
 for model, metrics in results.items():
     print(f"{model}:\n  RMSE: {metrics['RMSE']:.2f}\n  MAPE: {metrics['MAPE']:.2f}%\n")
 
-```
+# Menentukan model dengan RMSE atau MAPE terbaik
+best_model_rmse = min(results, key=lambda x: results[x]['RMSE'])
+best_model_mape = min(results, key=lambda x: results[x]['MAPE'])
 
+print(f"Model dengan RMSE terbaik: {best_model_rmse} dengan RMSE = {results[best_model_rmse]['RMSE']:.2f}")
+print(f"Model dengan MAPE terbaik: {best_model_mape} dengan MAPE = {results[best_model_mape]['MAPE']:.2f}%")
+
+```
