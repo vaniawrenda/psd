@@ -1108,11 +1108,13 @@ dtype: int64
     <span class="n">mse_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">mape_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">FORECAST_STEPS</span><span class="p">):</span>
-        <span class="c1"># Ensure y_test is 2D, if not reshape it</span>
+        <span class="c1"># Ensure y_test and y_pred are 2D arrays with matching dimensions</span>
         <span class="k">if</span> <span class="n">y_test</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># If y_test is 1D, directly access it (assuming it matches the number of forecast steps)</span>
             <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
             <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If y_test is 2D, use .iloc to index the correct column for each forecast step</span>
             <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
             <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
         
@@ -1172,13 +1174,15 @@ dtype: int64
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">34</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">15</span><span class="p">],</span> <span class="n">line</span> <span class="mi">35</span>
 <span class="g g-Whitespace">     </span><span class="mi">31</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">FORECAST_STEPS</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="c1"># Ensure y_test is 2D, if not reshape it</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>     <span class="c1"># Ensure y_test and y_pred are 2D arrays with matching dimensions</span>
 <span class="g g-Whitespace">     </span><span class="mi">33</span>     <span class="k">if</span> <span class="n">y_test</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">34</span>         <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span>         <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">34</span>         <span class="c1"># If y_test is 1D, directly access it (assuming it matches the number of forecast steps)</span>
+<span class="ne">---&gt; </span><span class="mi">35</span>         <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">36</span>         <span class="n">mape</span> <span class="o">=</span> <span class="n">mean_absolute_percentage_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="g g-Whitespace">     </span><span class="mi">37</span>     <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">38</span>         <span class="c1"># If y_test is 2D, use .iloc to index the correct column for each forecast step</span>
 
 <span class="ne">IndexError</span>: too many indices for array: array is 1-dimensional, but 2 were indexed
 </pre></div>
